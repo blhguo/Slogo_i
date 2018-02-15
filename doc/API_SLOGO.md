@@ -27,6 +27,8 @@ Jamie Kim, Brandon Guo, Liam Pulsifer, Ryan Fu
 5.  How is the GUI updated after a command has completed execution?
     * The interpreter will decide the new positions of the visualization elements and then send them to a Visulizer class. 
 
+# CRC Cards
+
 
 # Create APIs
 
