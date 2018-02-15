@@ -32,5 +32,13 @@ Jamie Kim, Brandon Guo, Liam Pulsifer, Ryan Fu
 
 # Create APIs
 
+* External: between the view (front end) and model (back end) modules
+    * How you plan to separate the graphical interface from the interpreter and how you plan to let them communicate when necessary.
+        - The LogoView will obtain a String from the user interface. It will pass the input to the interpreter, which will parse through the text to acquire a valid command. This command is then sent to the Commands interface, which updates a new Turtle object. This turtle object will then be redisplayed on the GUI using the LogoView.
+    *  What objects will be used for communication: making it clear how needed information will get where it is needed, what will be available and what will be encapsulated, what things will be immutable, and what errors may be thrown.
+        
 
-# Use Cases
+* Internal: within each module (i.e., for its future programmers/maintainers)
+    -   How you plan to provide paths for extension through interfaces, inheritance, and design patterns for new features you might reasonably expect to be added to the program.
+    -   What subclasses or implementing classes will be used to extend your part to add new features: making it clear what kind of code someone will be expected to write, what parts of your code you expect to be closed to modification, and what errors may be thrown.
+    -   Note, while some of these methods may be `public`, many may be `protected` or package friendly.
