@@ -16,11 +16,10 @@ Our program's design will consist of four main APIs, each of which contains at t
 4. Back-End External API: The Class Controls will contain methods which update the position of the Turtle and return the line to be drawn between the turtle's old and new positions if necessary. For example, a method forward(Turtle t, 50) might move the given Turtle 50 pixels forward in the direction of its orientation. 
 
 Design Overview Picture:
-![](./doc/https://coursework.cs.duke.edu/CompSci308_2018Spring/
-_team10/blob/master/doc/28169342_10211288155383999_95604558_o%20(1).jpg)
+![](./doc/https://coursework.cs.duke.edu/CompSci308_2018Spring/slogo_team10/blob/master/doc/28169342_10211288155383999_95604558_o%20(1).jpg)
 ## User Interface
 The user interface will have four sections. First, the tool bar will have the control buttons for settings. The workspace will keep track of previous inputs and different variables that are currently being used. The graphic display is where the turtle and the lines it draws are shown. The last component is the console where commands will be entered. 
-![User Interface Design Drawing](doc/SlogoUI.jpg)
+![User Interface Design Drawing](doc/SlogoUI.jpg "UI Design")
 
 ## API Details
 * Front-End Internal API: The front-end internal API will mostly consist of the SlogoView class, which will create the basic Scene elements making up the main window of Slogo. It will instantiate a TextField object which will be used as the console. This will allow the user to enter commands to the turtle interactively. The user will be able to see the results of those commands visually by first passing the string containing the commands to the Interpreter, then getting the results later from the Command class. In order to view the command history and current variables defined and their values, it will also be able to access a Variables and a History object or data structure (we are undecided as yet which we will use), which will hold those data and allow for their access. This API, however, will be minimal because since we're not using any form of Controller, most of the methods involved will be private. 
@@ -47,6 +46,11 @@ public interface Turtle() {
 ```
 
 * Back-End Internal API: The back-end internal API is essentially the Interpreter. The Interpreter will take in a string representing an instruction or a series of instructions from the command line and be in charge of interpreting (passing it into a method called parseInput(String str)) that series of instructions by calling methods from the Controls Class and combining those controls. Those controls will control the turtle or whatever object it is passed. To handle variable definitions and operations, another Variable_Controls class will be defined that handles all the mathematical manipulations and variable definitions. This way, the changes can all happen at a lower level and the Interpreter does not need to do any manipulations on it's own, allowing for better encapsulation. It then passes in an object that the movements are to be performed on and applies the series of changes to the object and returns that object to LogoView to be drawn. 
+    ```java
+    public interface Interpreter(){
+            public double parseInstruction(String instruct, Object turtle);
+    }
+    ```
 * Back-End External API: 
     Command Class API holds all of the specific movements and commands that can be performed on the turtle or any arbitrary object in the scene. It requires a movable object as an parameter and is intended to be called by a view class to allow modifications to the view for this object in the scene. For future, additional requirements, additional methods or classes that inherit for a basic command superclass can be added for more functionality to modify the position of an object. The reason for creating this class to separate the algorithm and back-end design that changes the position of the turtle from the turtle class. We wanted to ensure that the turtle class does not have too many responsibilities. 
     ```java
