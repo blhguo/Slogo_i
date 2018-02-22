@@ -13,48 +13,53 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class SlogoView extends Application{
+	
+	/*
+	 * Make all constants public and static
+	 * no need to prevent state manipulation
+	 */
 
 	/*
 	 * Constants relating to the characteristics of the main window as a whole
 	 */
-	private final int WINDOWHEIGHT = 600;
-	private final int WINDOWWIDTH = 800;
-	private final Color BACKGROUND = Color.ANTIQUEWHITE;
+	public static final int WINDOWHEIGHT = 600;
+	public static final int WINDOWWIDTH = 800;
+	public static final Color BACKGROUND = Color.ANTIQUEWHITE;
 	/*
 	 * Constants relating to the tool bar and its dimensions
 	 */
-	private final double TOOLBARHEIGHT = 1.0/10 * WINDOWHEIGHT;
-	private final double TOOLBARWIDTH = WINDOWWIDTH;
+	public static final double TOOLBARHEIGHT = 1.0/10 * WINDOWHEIGHT;
+	public static final double TOOLBARWIDTH = WINDOWWIDTH;
 	/*
 	 * Constants relating to the Command History section of the main window
 	 */
-	private final double CMDHISTORYX = 0;
-	private final double CMDHISTORYY = 1.0 / 10 * WINDOWHEIGHT;
-	private final double CMDHISTORYWIDTH = 2.0 / 7 * WINDOWWIDTH;
-	private  final double CMDHISTORYHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
+	public static final double CMDHISTORYX = 0;
+	public static final double CMDHISTORYY = 1.0 / 10 * WINDOWHEIGHT;
+	public static final double CMDHISTORYWIDTH = 2.0 / 7 * WINDOWWIDTH;
+	public static final double CMDHISTORYHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	
 	/*
 	 * Constants relating to the Variable View section of the main window
 	 */
-	private final double VARIABLEVIEWX = 0;
-	private final double VARIABLEVIEWY = 1.0 / 10 * WINDOWHEIGHT + CMDHISTORYHEIGHT;
-	private final double VARIABLEVIEWWIDTH = 2.0 / 7 * WINDOWWIDTH;
-	private  final double VARIABLEVIEWHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
+	public static final double VARIABLEVIEWX = 0;
+	public static final double VARIABLEVIEWY = 1.0 / 10 * WINDOWHEIGHT + CMDHISTORYHEIGHT;
+	public static final double VARIABLEVIEWWIDTH = 2.0 / 7 * WINDOWWIDTH;
+	public static final double VARIABLEVIEWHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	/*
 	 * Constants relating to the Console section of the main window
 	 */
-	private final double CONSOLEX = CMDHISTORYWIDTH;
-	private final double CONSOLEY = TOOLBARHEIGHT;
-	private final double CONSOLEWIDTH = WINDOWWIDTH - CMDHISTORYWIDTH;
-	private final double PERCENTHEIGHT = .8;
-	private  final double CONSOLEHEIGHT = PERCENTHEIGHT * (WINDOWHEIGHT - TOOLBARHEIGHT);
+	public static final double CONSOLEX = CMDHISTORYWIDTH;
+	public static final double CONSOLEY = TOOLBARHEIGHT;
+	public static final double CONSOLEWIDTH = WINDOWWIDTH - CMDHISTORYWIDTH;
+	public static final double PERCENTHEIGHT = .8;
+	public static final double CONSOLEHEIGHT = PERCENTHEIGHT * (WINDOWHEIGHT - TOOLBARHEIGHT);
 	/*
 	 * Constants relating to the Command Prompt section of the main window
 	 */
-	private final double CMDPROMPTX = CMDHISTORYWIDTH;
-	private final double CMDPROMPTY = TOOLBARHEIGHT + CONSOLEHEIGHT;
-	private final double CMDPROMPTWIDTH = CONSOLEWIDTH;
-	private  final double CMDPROMPTHEIGHT = (1 - PERCENTHEIGHT) * (WINDOWHEIGHT - TOOLBARHEIGHT);
+	public static final double CMDPROMPTX = CMDHISTORYWIDTH;
+	public static final double CMDPROMPTY = TOOLBARHEIGHT + CONSOLEHEIGHT;
+	public static final double CMDPROMPTWIDTH = CONSOLEWIDTH;
+	public static final double CMDPROMPTHEIGHT = (1 - PERCENTHEIGHT) * (WINDOWHEIGHT - TOOLBARHEIGHT);
 	
 	/*
 	 * Local variables governing JavaFX objects in the main window
@@ -62,6 +67,7 @@ public class SlogoView extends Application{
 	private Group myRoot;
 	private Stage myStage;
 	private Scene myScene;
+	private History myHistory;
 	/**
      * Start the program.
      */
@@ -72,9 +78,14 @@ public class SlogoView extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		myStage = primaryStage;
+		initializeVariables();
 		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		myStage.setScene(myScene);
 		myStage.show();
+	}
+
+	private void initializeVariables() {
+		myHistory = new History();
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {
