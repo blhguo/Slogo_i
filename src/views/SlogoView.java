@@ -10,7 +10,7 @@ import views.SceneElements.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SlogoView extends Application{
+public class SlogoView extends Application implements Observer{
 	
 	/*
 	 * Make all constants public and static
@@ -87,6 +87,7 @@ public class SlogoView extends Application{
         sceneElements = new ArrayList<>();
         sceneElements.add(new Console());
 		sceneElements.add(sceneElements.get(0).getHistory());
+		sceneElements.get(1).addObserver((Observer)this);
 		sceneElements.add(new VariableView());
 		sceneElements.add(new TurtleDisplay());
 		sceneElements.add(new Toolbar());
@@ -104,6 +105,12 @@ public class SlogoView extends Application{
 		    retgroup.getChildren().add(element.getField());
         }
 		return retgroup;
+	}
+	public void update(){
+        myRoot.getChildren().removeAll(myRoot.getChildren());
+        for (SceneElement element : sceneElements){
+            myRoot.getChildren().add(element.getField());
+        }
 	}
 
 }

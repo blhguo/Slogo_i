@@ -1,20 +1,29 @@
 package views.SceneElements;
 
+import com.sun.javafx.robot.FXRobotFactory;
+import com.sun.javafx.robot.FXRobot;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import views.Observer;
 import views.SlogoView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Console extends SceneElement {
+public class Console extends SceneElement implements Observable{
     private VBox vbox;
     private String currentString = "";
     private History myHistory;
+    private TextArea field;
+    private List<Observer> observers;
     public static final double MINITOOLBARHEIGHT = .5 * SlogoView.TOOLBARHEIGHT;
     public Console(){
         vbox = new VBox();
@@ -25,21 +34,32 @@ public class Console extends SceneElement {
         vbox.setLayoutY(SlogoView.CONSOLEY);
         vbox.setPrefWidth(SlogoView.CONSOLEWIDTH);
         vbox.setPrefHeight(SlogoView.CONSOLEHEIGHT);
-
         myHistory = new History();
+        observers = new ArrayList<>();
     }
     @Override
     public Node getField(){
         return vbox;
     }
     public ToolBar getToolBar(){
+        Button button = new Button("Execute");
         ToolBar toolbar = new ToolBar(
                 new Label("Console"),
                 new Separator(),
-                new Button("Execute")
+                button
         );
         toolbar.setMinSize(SlogoView.TOOLBARWIDTH, MINITOOLBARHEIGHT);
         return toolbar;
+    }
+    private void sendText(){
+        currentString = field.getText();
+        currentString = cleanText(currentString);
+        //System.out.println(currentString);
+        myHistory.addCommand(currentString);
+        field.setText("");
+
+        //System.out.println(field.getText());
+
     }
     public History getHistory(){
         return myHistory;
@@ -49,30 +69,37 @@ public class Console extends SceneElement {
         return consolelabel;
     }
     private TextArea getTextArea(){
-        TextArea field = new TextArea();
+        field = new TextArea();
         field.setPromptText("Enter a SLogo command");
         field.setFocusTraversable(false);
         field.setCursor(Cursor.TEXT);
-        field.setOnKeyPressed(event -> {
-            String topass;
-            if(event.getCode() == KeyCode.ENTER){
-                topass = field.getText();
-                topass = cleanText(topass);
-                currentString = topass;
-                field.setText("");
-                field.positionCaret(0);
-            }
-        });
+        //Add to this to make the up and down buttons toggle through history
+        field.setOnKeyPressed(event -> clearText(event.getCode()));
         return field;
     }
+    private void clearText(KeyCode code){
+        //String topass;
+        if(code == KeyCode.ENTER) {
+            sendText();
+        }
+    }
+
     private String cleanText(String text){
         text = text.toLowerCase();
         text = text.trim();
         text = text.replaceAll("\\s+"," ");
-        text = text.replaceFirst("\\n", "");
+        //text = text.replaceFirst("\\n", "");
         return text;
     }
     public String getCurrentString(){
         return currentString;
+    }
+    public void updateObservers(){
+        for (Observer o : observers){
+            o.update();
+        }
+    }
+    public void addObserver(Observer o){
+        observers.add(o);
     }
 }
