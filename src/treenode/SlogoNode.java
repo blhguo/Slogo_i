@@ -6,47 +6,44 @@ import java.util.List;
 /*
  * builds the abstract node class that all commands will follow
  */
-public abstract class SlogoNode<T> implements CommandInterface{
+public abstract class SlogoNode implements CommandInterface{
 	
 	public static Turtle turtle = new Turtle(); //creating a turtle object that can be used in all subclasses
 	
-	private List<SlogoNode<T>> children = new ArrayList<SlogoNode<T>>();
-	private T data = null;
-	private SlogoNode<T> parent = null;
+	private List<SlogoNode> children = new ArrayList<SlogoNode>();
+	private 
 	
-	/*
-	 * Constructor that creates a node with a value assigned to it.
-	 */
-	public SlogoNode(T data) {
-		this.data = data;
+	public SlogoNode() {
+		
 	}
+	
 	/*
 	 * adds a SlogoNode to the children nodelist
 	 */
-	public void addChild(SlogoNode<T> n) {
+	public void addChild(SlogoNode n) {
 		this.children.add(n);
 	}
 	
 	/*
 	 * returns children
 	 */
-	public List<SlogoNode<T>> getChildren(){
+	public List<SlogoNode> getChildren(){
 		return children;
 	}
-	
-	/*
-	 * return value of the node
-	 */
-	public T getData() {
-		return this.data;
-	}
-	
-	/*
-	 * set the value of the node
-	 */
-	public void setData(T data) {
-		this.data = data;
-	}
+
+//	/*
+//	 * return value of the node
+//	 */
+//	public T getData() {
+//		return this.data;
+//	}
+//	
+//	/*
+//	 * set the value of the node
+//	 */
+//	public void setData(T data) {
+//		this.data = data;
+//	}
 	/*
 	 * check if the node is a leaf of the tree
 	 */
@@ -57,7 +54,4 @@ public abstract class SlogoNode<T> implements CommandInterface{
 			return false;
 		}
 	}
-	
-	
-	
 }
