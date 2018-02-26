@@ -65,6 +65,13 @@ public class SlogoView extends Application implements Observer{
 	private Group myRoot;
 	private Stage myStage;
 	private Scene myScene;
+
+	private Console myConsole;
+	private History myHistory;
+	private Toolbar myToolbar;
+	private TurtleDisplay myTurtleDisplay;
+	private VariableView myVariableView;
+
 	private List<SceneElement> sceneElements;
 	/**
      * Start the program.
@@ -92,11 +99,16 @@ public class SlogoView extends Application implements Observer{
 
 	private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
-        sceneElements.add(new Console());
-		sceneElements.add(sceneElements.get(0).getHistory());
-		sceneElements.add(new VariableView());
-		sceneElements.add(new TurtleDisplay());
-		sceneElements.add(new Toolbar());
+        myConsole = new Console();
+        sceneElements.add(myConsole);
+        myHistory = myConsole.getHistory();
+		sceneElements.add(myHistory);
+		myVariableView = new VariableView();
+		sceneElements.add(myVariableView);
+		myTurtleDisplay = new TurtleDisplay();
+		sceneElements.add(myTurtleDisplay);
+		myToolbar = new Toolbar();
+		sceneElements.add(myToolbar);
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {
@@ -117,6 +129,7 @@ public class SlogoView extends Application implements Observer{
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
+
 	}
 
 }

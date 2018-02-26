@@ -43,16 +43,29 @@ public class Console extends SceneElement implements Observable{
     }
     public ToolBar getToolBar(){
         Button button = new Button("Execute");
-        //button.setOnKeyPressed(e -> sendText());
+        Button clearbutton = new Button("Clear");
+        clearbutton.setOnKeyPressed(e -> clearHistory());
+        button.setOnKeyPressed(e -> sendText());
         ToolBar toolbar = new ToolBar(
                 new Label("Console"),
                 new Separator(),
-                button
+                button,
+                new Separator(),
+                clearbutton
         );
         toolbar.setMinSize(SlogoView.TOOLBARWIDTH, MINITOOLBARHEIGHT);
         return toolbar;
     }
+
+    private void clearHistory() {
+        myHistory.clear();
+    }
+
     private void sendText(){
+        //Refactor this to be "if invalid, do something"
+        if (field.getText().equals("")){
+            return;
+        }
         currentString = field.getText();
         currentString = cleanText(currentString);
         //System.out.println(currentString);
