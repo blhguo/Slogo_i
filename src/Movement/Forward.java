@@ -13,24 +13,22 @@ public class Forward extends SlogoNode{
 //		this.val = getValue();
 //	}
 
-	private void forward(Object turtle) {
+	private void forward(Object turtle, Map<String,Double> VarMap) {
 		List<SlogoNode> leaf = this.getChildren(); //get leaf method from abstract class
-		if (leaf.isNumberNode()) {
-			distance = leaf.getValue();
-		}
+		distance = leaf.get(0).getValue(VarMap);
 		turtle.setPosition(turtle.getDistance()+distance);
 	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap, Object turtle) {
 		// TODO Auto-generated method stub
-		forward(turtle);
-		return getValue();  //returns the final value of the node
+		forward(turtle, VarMap);
+		return getValue(VarMap);  //returns the final value of the node
 	}
 
 
 	@Override
-	public double getValue() {
+	public double getValue(Map<String,Double> VarMap) {
 		// TODO Auto-generated method stub
 		return distance;
 	}
