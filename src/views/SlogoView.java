@@ -78,16 +78,22 @@ public class SlogoView extends Application implements Observer{
 		myStage = primaryStage;
 		myStage.setResizable(false);
 		initializeSceneElements();
+		initializeObservers();
 		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		myStage.setScene(myScene);
 		myStage.show();
+	}
+
+	private void initializeObservers() {
+    	for (SceneElement element: sceneElements){
+    	    element.addObserver(this);
+        }
 	}
 
 	private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
         sceneElements.add(new Console());
 		sceneElements.add(sceneElements.get(0).getHistory());
-		sceneElements.get(1).addObserver((Observer)this);
 		sceneElements.add(new VariableView());
 		sceneElements.add(new TurtleDisplay());
 		sceneElements.add(new Toolbar());
