@@ -1,4 +1,4 @@
-### Created by Ryan Fu (partner: Martin Muenster)
+### Created by Ryan Fu  (partner: Martin Muenster)
 
 #### Part 1
 1. We discussed to create a flexible design that utilizes a superclass to builds the basic structure of a command. This superclass is then used by subclasses that inherit the properties of this superclass which specify the command's functionality. We intend to use either an abstract superclass or interface to create the skeleton for the back-end command structure.
