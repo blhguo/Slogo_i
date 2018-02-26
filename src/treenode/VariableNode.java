@@ -1,16 +1,14 @@
 package treenode;
 
 import java.util.Map;
-
-/*
- * basic node for storing a number value, commonly used for storing argument values
- */
-public class NumberNode extends SlogoNode {
+//Needs to be completed
+public class VariableNode extends SlogoNode{
 	
-	private double val;
-
-	public NumberNode(double n) {
-		this.val = n;
+		private String variableName;
+		
+	public VariableNode(String n){
+		
+		this.variableName = n;
 	}
 
 	@Override
@@ -22,10 +20,7 @@ public class NumberNode extends SlogoNode {
 	@Override
 	public double getValue(Map<String, Double> VarMap) {
 		// TODO Auto-generated method stub
-		return this.val;
+		return VarMap.get(this.variableName); //obtains value from map
 	}
-	
-	
-	
-	
+
 }
