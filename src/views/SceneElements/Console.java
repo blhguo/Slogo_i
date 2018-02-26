@@ -1,7 +1,6 @@
 package views.SceneElements;
 
-import com.sun.javafx.robot.FXRobotFactory;
-import com.sun.javafx.robot.FXRobot;
+
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +15,7 @@ import views.Observer;
 import views.SlogoView;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 
 public class Console extends SceneElement implements Observable{
@@ -43,6 +43,7 @@ public class Console extends SceneElement implements Observable{
     }
     public ToolBar getToolBar(){
         Button button = new Button("Execute");
+        //button.setOnKeyPressed(e -> sendText());
         ToolBar toolbar = new ToolBar(
                 new Label("Console"),
                 new Separator(),
@@ -57,9 +58,6 @@ public class Console extends SceneElement implements Observable{
         //System.out.println(currentString);
         myHistory.addCommand(currentString);
         field.setText("");
-
-        //System.out.println(field.getText());
-
     }
     public History getHistory(){
         return myHistory;
@@ -73,14 +71,22 @@ public class Console extends SceneElement implements Observable{
         field.setPromptText("Enter a SLogo command");
         field.setFocusTraversable(false);
         field.setCursor(Cursor.TEXT);
-        //Add to this to make the up and down buttons toggle through history
+        field.clipProperty();
         field.setOnKeyPressed(event -> clearText(event.getCode()));
         return field;
     }
     private void clearText(KeyCode code){
-        //String topass;
         if(code == KeyCode.ENTER) {
             sendText();
+        }
+        else if (code == KeyCode.UP){
+            field.setText(myHistory.getLastCommand());
+            field.positionCaret(field.getText().length());
+        }
+        else if (code == KeyCode.DOWN){
+            field.setText(myHistory.restoreCommand());
+            field.positionCaret(field.getText().length());
+
         }
     }
 
