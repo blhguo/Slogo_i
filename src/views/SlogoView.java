@@ -1,14 +1,17 @@
 package views;
 
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import turtle.Turtle;
 import views.SceneElements.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SlogoView extends Application implements Observer{
 	
@@ -66,12 +69,24 @@ public class SlogoView extends Application implements Observer{
 	private Stage myStage;
 	private Scene myScene;
 
+
+    /*
+     * Local SceneElement variables
+     */
 	private Console myConsole;
 	private History myHistory;
 	private Toolbar myToolbar;
 	private TurtleDisplay myTurtleDisplay;
 	private VariableView myVariableView;
 
+	/*
+	 * Data structures for SceneElements, variables,
+	 * functions
+	 */
+
+	private Map<String, Double> variables;
+	//private Map<String, SlogoNode> functions;
+    private List<Turtle> turtles;
 	private List<SceneElement> sceneElements;
 	/**
      * Start the program.
@@ -84,11 +99,20 @@ public class SlogoView extends Application implements Observer{
 	public void start(Stage primaryStage) throws Exception {
 		myStage = primaryStage;
 		myStage.setResizable(false);
+        initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
 		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		myStage.setScene(myScene);
 		myStage.show();
+		turtles.get(0).setLocation(new Point2D(400,600));
+		myRoot.getChildren().remove(turtles.get(0).getImage());
+		myRoot.getChildren().add(turtles.get(0).getImage());
+	}
+
+	private void initializeDataStructures() {
+        turtles = new ArrayList<>();
+        turtles.add(new Turtle());
 	}
 
 	private void initializeObservers() {
@@ -105,7 +129,7 @@ public class SlogoView extends Application implements Observer{
 		sceneElements.add(myHistory);
 		myVariableView = new VariableView();
 		sceneElements.add(myVariableView);
-		myTurtleDisplay = new TurtleDisplay();
+		myTurtleDisplay = new TurtleDisplay(turtles.get(0));
 		sceneElements.add(myTurtleDisplay);
 		myToolbar = new Toolbar();
 		sceneElements.add(myToolbar);
