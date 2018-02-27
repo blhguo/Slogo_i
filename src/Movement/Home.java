@@ -34,9 +34,9 @@ public class Home extends SlogoNode{
 		double CurX = turtle.getX();
 		double CurY = turtle.getY();
 		List<SlogoNode> leaf = this.getChildren();
-		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);
-		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 21), 0.5);
+		double xpos = 0;
+		double ypos = 0;
+		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2), 0.5);
 		return distance;
 		}
 	

@@ -12,8 +12,6 @@ public class HideTurtle extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
-
-	private double[] location;
 	
 	private void visible(Object turtle) {
 		turtle.hide();

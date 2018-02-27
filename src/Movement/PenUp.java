@@ -12,8 +12,6 @@ public class PenUp extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
-
-	private double[] location;
 	
 	private void pen(Object turtle) {
 		turtle.penup();
