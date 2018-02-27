@@ -7,8 +7,8 @@ import java.util.List;
  * builds the abstract node class that all commands will follow
  */
 public abstract class SlogoNode implements CommandInterface{
-	
-	private List<SlogoNode> children = new ArrayList<SlogoNode>();
+	protected int numchildren;
+	private List<SlogoNode> children = new ArrayList<>();
 	
 	/*
 	 * adds a SlogoNode to the children nodelist
@@ -16,7 +16,9 @@ public abstract class SlogoNode implements CommandInterface{
 	public void addChild(SlogoNode n) {
 		this.children.add(n);
 	}
-	
+	public int getNumchildren(){
+		return numchildren;
+	}
 	/*
 	 * returns children
 	 */

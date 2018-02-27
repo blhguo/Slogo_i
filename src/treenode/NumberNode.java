@@ -9,7 +9,9 @@ public class NumberNode extends SlogoNode {
 	
 	private double val;
 
+
 	public NumberNode(double n) {
+		numchildren = 0;
 		this.val = n;
 	}
 

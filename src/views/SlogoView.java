@@ -105,9 +105,8 @@ public class SlogoView extends Application implements Observer{
 		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		myStage.setScene(myScene);
 		myStage.show();
-		turtles.get(0).setLocation(new Point2D(400,600));
-		myRoot.getChildren().remove(turtles.get(0).getImage());
-		myRoot.getChildren().add(turtles.get(0).getImage());
+		//turtles.get(0).setLocation(new Point2D(400,300));
+
 	}
 
 	private void initializeDataStructures() {

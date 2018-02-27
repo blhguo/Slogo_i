@@ -56,6 +56,8 @@ public class Turtle {
 	public void setLocation(Point2D p)
 	{
 		location = p;
+		turtleview.setLayoutX(this.location.getX());
+		turtleview.setLayoutY(this.location.getY());
 	}
 
 	/**

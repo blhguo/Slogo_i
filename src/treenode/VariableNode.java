@@ -11,6 +11,7 @@ public class VariableNode extends SlogoNode{
 	public VariableNode(String n, Double value){ 
 		this.variableName = n;
 		this.value = value;
+		numchildren = 0;
 	}
 
 	@Override
