@@ -40,11 +40,11 @@ public class Turtle {
 
 	}
 
-	public double getX(double xPosition) {
+	public double getX() {
 		return myX;
 	}
 	
-	public double getY(double yPosition) {
+	public double getY() {
 		return myY;
 	}
 
