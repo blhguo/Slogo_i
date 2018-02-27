@@ -44,8 +44,8 @@ public class Console extends SceneElement implements Observable{
     public ToolBar getToolBar(){
         Button button = new Button("Execute");
         Button clearbutton = new Button("Clear");
-        clearbutton.setOnKeyPressed(e -> clearHistory());
-        button.setOnKeyPressed(e -> sendText());
+        clearbutton.setOnAction(e -> clearHistory());
+        button.setOnAction(e -> sendText());
         ToolBar toolbar = new ToolBar(
                 new Label("Console"),
                 new Separator(),
@@ -58,6 +58,7 @@ public class Console extends SceneElement implements Observable{
     }
 
     private void clearHistory() {
+        field.setText("");
         myHistory.clear();
     }
 
@@ -86,20 +87,20 @@ public class Console extends SceneElement implements Observable{
         field.setCursor(Cursor.TEXT);
         field.clipProperty();
         field.setOnKeyPressed(event -> clearText(event.getCode()));
+        field.setPadding(new Insets(1,1,1,5));
         return field;
     }
     private void clearText(KeyCode code){
-        if(code == KeyCode.ENTER) {
-            sendText();
-        }
-        else if (code == KeyCode.UP){
+//        if(code == KeyCode.ENTER) {
+//            sendText();
+//        }
+        if (code == KeyCode.UP){
             field.setText(myHistory.getLastCommand());
             field.positionCaret(field.getText().length());
         }
         else if (code == KeyCode.DOWN){
             field.setText(myHistory.restoreCommand());
             field.positionCaret(field.getText().length());
-
         }
     }
 

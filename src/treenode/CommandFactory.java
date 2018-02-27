@@ -10,7 +10,7 @@ public class CommandFactory {
 	/*
 	 * Create a method that parses through an array of strings 
 	 */
-	public static 
+	//public static
 
 	/*
 	 * method that converts a array of strings into an array of unique Nodes

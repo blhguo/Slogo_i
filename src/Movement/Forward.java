@@ -16,7 +16,7 @@ public class Forward extends SlogoNode{
 	private void forward(Object turtle, Map<String,Double> VarMap) {
 		List<SlogoNode> leaf = this.getChildren(); //get leaf method from abstract class
 		distance = leaf.get(0).getValue(VarMap);
-		turtle.setPosition(turtle.getDistance()+distance);
+		//turtle.setPosition(turtle.getDistance()+distance);
 	}
 
 	@Override
