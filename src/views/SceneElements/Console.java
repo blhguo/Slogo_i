@@ -21,6 +21,11 @@ import java.util.List;
 public class Console extends SceneElement implements Observable{
     private VBox vbox;
     private String currentString = "";
+
+    public String[] getPassValue() {
+        return passValue;
+    }
+
     private String[] passValue;
     private History myHistory;
     private TextArea field;

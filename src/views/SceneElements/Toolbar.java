@@ -4,17 +4,19 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.scene.control.Hyperlink;
 import views.Observer;
 import views.SceneElements.SceneElement;
 import views.SlogoView;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Toolbar extends SceneElement implements Observable{
     private ToolBar toolbar;
     private List<Observer> observers;
     private ColorPicker picker;
+    private boolean done;
     private String url = "https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php";
     public Toolbar() {
         //The Tool Bar is on the top, so no need to set X and Y values
@@ -22,10 +24,9 @@ public class Toolbar extends SceneElement implements Observable{
         link.setOnAction(e -> getLink());
         toolbar = new ToolBar(
                 new Button("New"),
-                new Button("Open"),
                 link,
                 new Separator(),
-                new Button("Clean"),
+                new Label("Choose Background Color:"),
                 getColorPicker(),
                 new Button("Run"),
                 new Separator(),
@@ -39,9 +40,8 @@ public class Toolbar extends SceneElement implements Observable{
     }
 
     private void getLink() {
-        final WebView browser = new WebView();
-        final WebEngine webengine = browser.getEngine();
-        webengine.load(url);
+        done = true;
+        updateObservers();
     }
 
     private ColorPicker getColorPicker() {
@@ -58,6 +58,12 @@ public class Toolbar extends SceneElement implements Observable{
     public void updateObservers(){
         for (Observer o : observers){
             o.update(picker.getValue());
+        }
+        if (done) {
+            for (Observer o : observers) {
+                o.update("https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php");
+            }
+            done = false;
         }
     }
     public void addObserver(Observer o){

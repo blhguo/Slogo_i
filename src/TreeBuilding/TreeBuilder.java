@@ -9,11 +9,11 @@ import java.util.List;
 
 public class TreeBuilder {
 
-    private static int buildcounter;
+    private int buildcounter;
     public TreeBuilder(){
         buildcounter = 0;
     }
-    public static SlogoNode buildTree(SlogoNode[] array){
+    public SlogoNode buildTree(SlogoNode[] array){
         SlogoNode currentNode = array[0];
         SlogoNode head = build(currentNode, array);
 
@@ -21,8 +21,10 @@ public class TreeBuilder {
         return head;
     }
 
-    public static SlogoNode build(SlogoNode head, SlogoNode[] array) {
+    public SlogoNode build(SlogoNode head, SlogoNode[] array) {
         if (head.getNumchildren() == 0){
+            //System.out.println("Buildcounter: " + buildcounter);
+            //System.out.println("Stuff");
             return head;
         }
         else {
@@ -41,11 +43,14 @@ public class TreeBuilder {
         return head;
     }
     public static void main(String[] args){
-        SlogoNode[] array = new SlogoNode[2];
+        SlogoNode[] array = new SlogoNode[3];
         array[0] = new Forward();
-        array[1] = new NumberNode(50);
-        SlogoNode headNode = buildTree(array);
+        array[1] = new Forward();
+        array[2] = new NumberNode(50);
+        TreeBuilder builder = new TreeBuilder();
+        SlogoNode headNode = builder.buildTree(array);
         System.out.println(headNode.getNumchildren());
         System.out.println(headNode.getChildren().get(0).getNumchildren());
+        System.out.println(headNode.getChildren().get(0).getChildren().get(0).getNumchildren());
     }
 }

@@ -91,6 +91,8 @@ public class SlogoView extends Application implements Observer{
 	//private Map<String, SlogoNode> functions;
     private List<Turtle> turtles;
 	private List<SceneElement> sceneElements;
+
+    private String[] passValue;
 	/**
      * Start the program.
      */
@@ -156,7 +158,10 @@ public class SlogoView extends Application implements Observer{
             myRoot.getChildren().add(element.getField());
         }
         myRoot.getChildren().addAll(turtles.get(0).getLine());
-
+        if (o.getClass().getTypeName().equals("java.lang.String")){
+            getHostServices().showDocument((String)o);
+        }
+        passValue = myConsole.getPassValue();
 	}
 
 }
