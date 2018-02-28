@@ -112,6 +112,13 @@ public class Turtle implements Observable {
 		return heading;
 	}
 
+	public double isPenDown() {
+		if (myPenUp==false) {
+			return 1.0;
+		}else {
+			return 0.0;
+		}
+	}
 	public void setHeading(double heading)
 	{
 		this.heading = Math.floorMod((int) heading, 360);
@@ -139,10 +146,14 @@ public class Turtle implements Observable {
 		turtleview.setOpacity(0);
 	}
 	
-	public boolean isShowing() {
-		return isShowing;
+	public double isShowing() {
+		if (isShowing==true) {
+			return 1.0;
+		}else {
+			return 0.0;
+		}
 	}
-
+	
 	public void update() {
 		
 	}
