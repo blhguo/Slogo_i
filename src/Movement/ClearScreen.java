@@ -16,8 +16,7 @@ public class ClearScreen extends SlogoNode{
 	
 
 	private void clear(Turtle turtle) {
-		//turtle.clear();
-		//TODO: Figure out how to clear all lines
+		turtle.clear();
         turtle.setLocation(turtle.getOriginalLocation());
 	}
 
