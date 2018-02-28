@@ -1,5 +1,7 @@
 package treenode;
 
+import turtle.Turtle;
+
 import java.util.Map;
 
 import turtle.Turtle;

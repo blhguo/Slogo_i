@@ -2,6 +2,8 @@ package views.SceneElements;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import views.Observer;
 import views.SceneElements.SceneElement;
 import views.SlogoView;
@@ -13,10 +15,11 @@ public class Toolbar extends SceneElement implements Observable{
     private ToolBar toolbar;
     private List<Observer> observers;
     private ColorPicker picker;
+    private String url = "https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php";
     public Toolbar() {
         //The Tool Bar is on the top, so no need to set X and Y values
-        Hyperlink link = new Hyperlink("https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php");
-        link.setText("Help");
+        Hyperlink link = new Hyperlink("Help");
+        link.setOnAction(e -> getLink());
         toolbar = new ToolBar(
                 new Button("New"),
                 new Button("Open"),
@@ -33,6 +36,12 @@ public class Toolbar extends SceneElement implements Observable{
         );
         toolbar.setMinSize(SlogoView.TOOLBARWIDTH, SlogoView.TOOLBARHEIGHT);
         observers = new ArrayList<>();
+    }
+
+    private void getLink() {
+        final WebView browser = new WebView();
+        final WebEngine webengine = browser.getEngine();
+        webengine.load(url);
     }
 
     private ColorPicker getColorPicker() {

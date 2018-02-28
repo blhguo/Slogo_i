@@ -17,9 +17,9 @@ public class NodeBuilder {
 	private static final Map<String, String> languageMap = createLanguageMap(myResources);
 	//private static final Map<String, Class<?>> classMap = createClassMap();  //creates the classMap of all objects.
 
-	public static void main(String[] args) {
-		createLanguageMap(myResources);
-	}
+//	public static void main(String[] args) {
+//		createLanguageMap(myResources);
+//	}
 
 	/*
 	 * iterates through each value and returns a map of all the languages.
@@ -72,19 +72,7 @@ public class NodeBuilder {
 		try {
 			command = (SlogoNode) c.newInstance(input);
 		}
-		catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (InvocationTargetException e) {
+		catch (InstantiationException | IllegalAccessException| IllegalArgumentException |InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -107,19 +95,7 @@ public class NodeBuilder {
 		try {
 			command = (SlogoNode) c.newInstance(Integer.parseInt(input));
 		}
-		catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (InvocationTargetException e) {
+		catch (InstantiationException | IllegalAccessException| IllegalArgumentException |InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
