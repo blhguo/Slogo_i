@@ -6,7 +6,7 @@ import java.util.Map;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class Towards extends SlogoNode{
+public class SetTowards extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;

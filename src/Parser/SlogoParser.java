@@ -23,6 +23,7 @@ public class SlogoParser {
 	
 	/*
 	 * Adds the given resource file to this language's recognized types
+	 * To be used to add regex language resource files to the program parser.
 	 */
 	public void addPatterns (String syntax) {
 		ResourceBundle resources = ResourceBundle.getBundle(syntax);

@@ -63,6 +63,7 @@ public class History extends SceneElement implements Observable{
     private Text getText() {
         Text tex = new Text();
         tex.setWrappingWidth(SlogoView.CMDHISTORYWIDTH - WRAPBUFFER);
+        tex.setStyle("-fx-background-color: grey;");
         return tex;
     }
 
@@ -117,7 +118,7 @@ public class History extends SceneElement implements Observable{
     }
     public void updateObservers(){
         for (Observer o : observers){
-            o.update();
+            o.update(new Object());
         }
     }
     public void addObserver(Observer o){

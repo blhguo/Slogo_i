@@ -1,6 +1,7 @@
 package views;
 
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -10,12 +11,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import turtle.Turtle;
 import views.SceneElements.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class SlogoView extends Application implements Observer{
 	
@@ -76,30 +80,24 @@ public class SlogoView extends Application implements Observer{
 	private Stage myStage;
 	private Scene myScene;
 
+
+    /*
+     * Local SceneElement variables
+     */
 	private Console myConsole;
 	private History myHistory;
 	private Toolbar myToolbar;
 	private TurtleDisplay myTurtleDisplay;
 	private VariableView myVariableView;
 
-	
-	private Image myTurtleImage;
-	private String myTurtleString = "images/turtle.png";
-	
-	private List<ImageView> myTurtleImageViews = new ArrayList<ImageView>();
-	private List<Rectangle> myTurtles = new ArrayList<Rectangle>();
-	private List<Line> myLines = new ArrayList<Line>();
+	/*
+	 * Data structures for SceneElements, variables,
+	 * functions
+	 */
 
-	private double initX = 0;
-	private double initY = 0;
-	private double myDefaultOrientation = 0;
-	private Pane myTurtlePane;
-
-	// Line features
-	private double myLineWidth = 2 ;
-	private Color myLineColor = Color.BLACK;
-	
-	
+	private Map<String, Double> variables;
+	//private Map<String, SlogoNode> functions;
+    private List<Turtle> turtles;
 	private List<SceneElement> sceneElements;
 	/**
      * Start the program.
@@ -112,11 +110,21 @@ public class SlogoView extends Application implements Observer{
 	public void start(Stage primaryStage) throws Exception {
 		myStage = primaryStage;
 		myStage.setResizable(false);
+        initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
 		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		myStage.setScene(myScene);
 		myStage.show();
+		//wait(10);
+
+		turtles.get(0).setLocation(new Point2D(400,300));
+
+	}
+
+	private void initializeDataStructures() {
+        turtles = new ArrayList<>();
+        turtles.add(new Turtle());
 	}
 
 	private void initializeObservers() {
@@ -133,9 +141,10 @@ public class SlogoView extends Application implements Observer{
 		sceneElements.add(myHistory);
 		myVariableView = new VariableView();
 		sceneElements.add(myVariableView);
-		myTurtleDisplay = new TurtleDisplay();
+		myTurtleDisplay = new TurtleDisplay(turtles.get(0));
 		sceneElements.add(myTurtleDisplay);
 		myToolbar = new Toolbar();
+		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
 		
 		myTurtlePane = new Pane();
@@ -158,12 +167,13 @@ public class SlogoView extends Application implements Observer{
         }
 		return retgroup;
 	}
-	
-	public void update(){
+	public void update(Object o){
         myRoot.getChildren().removeAll(myRoot.getChildren());
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
+        myRoot.getChildren().add(turtles.get(0).getLine());
+
 	}
 	
 	public void setTurtleImage(String turtleString){
