@@ -118,7 +118,7 @@ public class History extends SceneElement implements Observable{
     }
     public void updateObservers(){
         for (Observer o : observers){
-            o.update();
+            o.update(new Object());
         }
     }
     public void addObserver(Observer o){
