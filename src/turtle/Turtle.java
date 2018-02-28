@@ -25,6 +25,9 @@ public class Turtle implements Observable {
 	private double heading;
 	private ImageView turtleview;
 	private Line line;
+	private boolean isShowing;
+	private boolean myPenUp;
+	private Canvas myCanvas;
 	public static final double TURTLESIZE = 50;
 	private List<Observer> observers;
     private double BASEX = SlogoView.TURTLEVIEWX + 1.0 / 2 * SlogoView.TURTLEVIEWWIDTH
@@ -105,6 +108,41 @@ public class Turtle implements Observable {
 	{
 		this.heading = Math.floorMod((int) heading, 360);
 	}
+	
+	public void rotate(double angle) {
+		setHeading(heading + angle);
+	}
+	
+	public void penUp() {
+		myPenUp = true;
+	}
+	
+	public void penDown() {
+		myPenUp = false;
+	}
+	
+	public Image show() {
+		isShowing = true;
+		return turtleview.getImage();
+	}
+	
+	public void hide() {
+		isShowing = false;
+		turtleview.setOpacity(0);
+	}
+	
+	public boolean isShowing() {
+		return isShowing;
+	}
+
+	public void update() {
+		
+	}
+	
+	public void reset() {
+		myCanvas.getGraphicsContext2D().clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+	}
+	
 
     @Override
     public void updateObservers() {
