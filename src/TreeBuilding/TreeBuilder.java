@@ -1,5 +1,6 @@
 package TreeBuilding;
 
+import MathOps.Sum;
 import Movement.Forward;
 import treenode.NumberNode;
 import treenode.SlogoNode;
@@ -30,7 +31,7 @@ public class TreeBuilder {
         else {
             int temp = 0;
             buildcounter++;
-            while(temp <= head.getNumchildren()){
+            while(temp < head.getNumchildren()){
                 if (buildcounter >= array.length){
                     System.out.println("Out of bounds");
                     break;
@@ -42,15 +43,15 @@ public class TreeBuilder {
         }
         return head;
     }
-    public static void main(String[] args){
-        SlogoNode[] array = new SlogoNode[3];
-        array[0] = new Forward();
-        array[1] = new Forward();
-        array[2] = new NumberNode(50);
-        TreeBuilder builder = new TreeBuilder();
-        SlogoNode headNode = builder.buildTree(array);
-        System.out.println(headNode.getNumchildren());
-        System.out.println(headNode.getChildren().get(0).getNumchildren());
-        System.out.println(headNode.getChildren().get(0).getChildren().get(0).getNumchildren());
-    }
+//    public static void main(String[] args){
+//        SlogoNode[] array = new SlogoNode[3];
+//        array[0] = new Sum();
+//        array[1] = new NumberNode(50);
+//        array[2] = new NumberNode(50);
+//        TreeBuilder builder = new TreeBuilder();
+//        SlogoNode headNode = builder.buildTree(array);
+//        System.out.println(headNode.getNumchildren());
+//        System.out.println(headNode.getChildren().get(0).getNumchildren());
+//        System.out.println(headNode.getChildren().get(1).getNumchildren());
+//    }
 }
