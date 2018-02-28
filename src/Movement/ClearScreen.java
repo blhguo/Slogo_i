@@ -1,21 +1,30 @@
-package MathOps;
+package Movement;
 
 import java.util.List;
 import java.util.Map;
+
 import treenode.SlogoNode;
 
-public class ArcTangeant extends SlogoNode{
+public class ClearScreen extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
 //	public Forward() {
 //		this.val = getValue();
 //	}
+	
+
+	private void clear(Object turtle) {
+		turtle.clear();
+		turtle.setX(0);
+		turtle.setY(0);
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
+		clear(turtle);
 		return step;  //returns the final value of the node
 	}
 	
@@ -23,9 +32,13 @@ public class ArcTangeant extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
+		double CurX = turtle.getX();
+		double CurY = turtle.getY();
 		List<SlogoNode> leaf = this.getChildren();
-		double x = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		return Math.atan(x);
+		double xpos = 0.0;
+		double ypos = 0.0;
+		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2), 0.5);
+		return distance;
 		}
 	
 }

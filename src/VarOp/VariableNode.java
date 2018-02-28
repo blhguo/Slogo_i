@@ -1,11 +1,10 @@
-package Query;
+package VarOp;
 
 import java.util.List;
 import java.util.Map;
-
 import treenode.SlogoNode;
 
-public class Q_Pen extends SlogoNode{
+public class VariableNode extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -13,6 +12,10 @@ public class Q_Pen extends SlogoNode{
 //		this.val = getValue();
 //	}
 
+	private String name;
+	public void addName(String Name) {
+		name = Name;
+	}
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
@@ -24,7 +27,12 @@ public class Q_Pen extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		return turtle.isPenDown();
+		List<SlogoNode> leaf = this.getChildren();
+		double x = leaf.get(0).getValue(VarMap, FunctMap, turtle);
+		return x;
 		}
-	
+	@Override
+	public String getName() {
+		return name;
+	}
 }

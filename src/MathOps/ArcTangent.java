@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import treenode.SlogoNode;
 
-public class Logarithm extends SlogoNode{
+public class ArcTangent extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -25,7 +25,7 @@ public class Logarithm extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 		List<SlogoNode> leaf = this.getChildren();
 		double x = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		return Math.log(x);
+		return Math.atan(x);
 		}
 	
 }

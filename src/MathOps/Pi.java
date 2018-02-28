@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import treenode.SlogoNode;
 
-public class Pie extends SlogoNode{
+public class Pi extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;

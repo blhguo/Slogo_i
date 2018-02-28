@@ -1,10 +1,11 @@
-package Bools;
+package Query;
 
 import java.util.List;
 import java.util.Map;
+
 import treenode.SlogoNode;
 
-public class NotEqualTo extends SlogoNode{
+public class XCoordinate extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -23,14 +24,7 @@ public class NotEqualTo extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		List<SlogoNode> leaf = this.getChildren();
-		double x = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		double y = leaf.get(1).getValue(VarMap, FunctMap, turtle);
-		if (x == y) {
-			return 0;
+		return turtle.getX();
 		}
-		else
-			return 1;
-	}		
 	
 }

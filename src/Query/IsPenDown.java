@@ -1,10 +1,11 @@
-package MathOps;
+package Query;
 
 import java.util.List;
 import java.util.Map;
+
 import treenode.SlogoNode;
 
-public class Tangeant extends SlogoNode{
+public class IsPenDown extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -23,9 +24,7 @@ public class Tangeant extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		List<SlogoNode> leaf = this.getChildren();
-		double x = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		return Math.tan(x);
+		return turtle.isPenDown();
 		}
 	
 }

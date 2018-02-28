@@ -25,6 +25,10 @@ public abstract class SlogoNode implements CommandInterface{
 		return children;
 	}
 	
+	public String getName() {
+		return "does not exist";
+	}
+	
 	/*
 	 * check if the node is a leaf of the tree
 	 */
