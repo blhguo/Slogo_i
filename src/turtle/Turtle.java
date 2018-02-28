@@ -1,6 +1,7 @@
 package turtle;
 
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -30,10 +31,12 @@ public class Turtle implements Observable {
 	private Canvas myCanvas;
 	public static final double TURTLESIZE = 50;
 	private List<Observer> observers;
-    private double BASEX = SlogoView.TURTLEVIEWX + 1.0 / 2 * SlogoView.TURTLEVIEWWIDTH
+    public static final double BASEX = SlogoView.TURTLEVIEWX + 1.0 / 2 * SlogoView.TURTLEVIEWWIDTH
             - .5 * TURTLESIZE;
-    private double BASEY = SlogoView.TURTLEVIEWY + 1.0 / 2 * SlogoView.TURTLEVIEWHEIGHT
+    public static final double BASEY = SlogoView.TURTLEVIEWY + 1.0 / 2 * SlogoView.TURTLEVIEWHEIGHT
             - .5 * TURTLESIZE;
+    public static final Point2D originalLocation = new Point2D(BASEX, BASEY);
+
 	/**
 	 * Variety of getters and setters used to access Information in actors, for
 	 * update and display
@@ -84,6 +87,9 @@ public class Turtle implements Observable {
 	}
     public Line getLine(){
 	    return line;
+    }
+    public Point2D getOriginalLocation(){
+	    return originalLocation;
     }
 	/**
 	 * An int representing the speed of the actor as it updates on the screen

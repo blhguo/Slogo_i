@@ -1,5 +1,7 @@
 package treenode;
 
+import turtle.Turtle;
+
 import java.util.Map;
 //Needs to be completed
 public class VariableNode extends SlogoNode{
@@ -12,7 +14,7 @@ public class VariableNode extends SlogoNode{
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		return getValue(VarMap);
 	}

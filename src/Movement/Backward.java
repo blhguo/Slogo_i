@@ -3,7 +3,9 @@ package Movement;
 import java.util.List;
 import java.util.Map;
 
+import javafx.geometry.Point2D;
 import treenode.SlogoNode;
+import turtle.Turtle;
 
 public class Backward extends SlogoNode{
 	
@@ -13,13 +15,14 @@ public class Backward extends SlogoNode{
 //		this.val = getValue();
 //	}
 
-	private void backward(Object turtle, double distance) {
-		turtle.setX(turtle.getX() - distance * Math.sin(turtle.getheading())); //TODO: Update according to Jamie's stuff
-		turtle.setY(turtle.getY() - distance * Math.cos(turtle.getheading())); //TODO: Update according to Jamie's stuff
+	private void backward(Turtle turtle, double distance) {
+		Point2D point = new Point2D(turtle.getLocation().getX() - distance * Math.sin(turtle.getHeading()),
+				turtle.getLocation().getY() - distance * Math.cos(turtle.getHeading()));
+		turtle.setLocation(point);
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
 		backward(turtle, step);
@@ -28,7 +31,7 @@ public class Backward extends SlogoNode{
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
 		return leaf.get(0).getValue(VarMap, FunctMap, turtle);
