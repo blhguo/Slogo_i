@@ -31,32 +31,21 @@ public class NodeBuilder {
 	 * Method that iterates through entire resource file and adds to the classMap
 	 * All nodes should be created in the class Map
 	 */
-	private static Map<String, Class<?>> createClassMap() throws NoSuchMethodException, SecurityException, NumberFormatException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+	private static Map<String, Class<?>> createClassMap(){
 		Map<String, Class<?>> classMap = new HashMap<>();
 		Enumeration<String> keySet = myResources.getKeys();
 
 		while (keySet.hasMoreElements()) { //if there are more elements
 			String current = keySet.nextElement();  //obtain the next value in the keyset (String)
-			if (isNumberNode(current)) {//check if its a number node
-				Constructor<?> c = getClassForName("NumberNode").getConstructor(Double.TYPE);
-				Class<?> foo = (Class<?>) c.newInstance(Integer.parseInt(current)); 
-				classMap.put(current, foo); //Adds the number node to the map.
-			}
-			
-			else if (isVariable(current)) { //check if its a variable node 
-				/*
-				 * may need to add more methods to extract the variable string...
-				 */
-				Constructor<?> c = getClassForName("VariableNode").getConstructor(String.class, Double.TYPE);
-				Class<?> foo = (Class<?>) c.newInstance(current, 0); 
-				classMap.put(current, foo); //Adds the number node to the map.
-			}
-			
-				else {
-					Class<?> theClass = getClassForName(current); //obtain the object from the class.
-					classMap.put(keySet.nextElement(), theClass);
-				}
+			Class<?> theClass = getClassForName(current); //obtain the object from the class.
+			classMap.put(keySet.nextElement(), theClass);
 		} 
+		//adding the variable node
+		Class<?> theClass = getClassForName("VariableNode"); //obtain the object from the class.
+		classMap.put(keySet.nextElement(), theClass);
+		//adding the number node
+		theClass = getClassForName("NumberNode"); //obtain the object from the class.
+		classMap.put(keySet.nextElement(), theClass);
 		return classMap;
 	}
 
@@ -69,25 +58,4 @@ public class NodeBuilder {
 	}
 
 
-	/*
-	 * method to check if a number is an integer (for creating number nodes)	   
-	 */
-	public static boolean isNumberNode(String s) {
-		try { 
-			Integer.parseInt(s); 
-		} catch(NumberFormatException e) { 
-			return false; 
-		} catch(NullPointerException e) {
-			return false;
-		}
-		// only got here if we didn't return false
-		return true;
-	}
-
-	/*
-	 * regex check for variable node
-	 */
-	public static Boolean isVariable(String input) {
-		return input.matches(":(.*)");
-	}
 }
