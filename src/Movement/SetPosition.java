@@ -1,8 +1,10 @@
 package Movement;
 
+
 import java.util.List;
 import java.util.Map;
 
+import javafx.geometry.Point2D;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
@@ -17,8 +19,9 @@ public class SetPosition extends SlogoNode{
 	private double[] location;
 	
 	private void setpos(Turtle turtle, double[] loc) {
-		turtle.getLocation().setX(loc[0]);
-		turtle.getLocation().setY(loc[1]);
+        Point2D newpos = new Point2D(loc[0], loc[1]);
+        turtle.setLocation(newpos);
+
 	}
 
 	@Override
