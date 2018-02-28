@@ -3,6 +3,8 @@ package treenode;
 import turtle.Turtle;
 
 import java.util.Map;
+
+import turtle.Turtle;
 //Needs to be completed
 public class VariableNode extends SlogoNode{
 	
@@ -14,18 +16,20 @@ public class VariableNode extends SlogoNode{
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap, Turtle turtle) {
+	
+	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+
 		// TODO Auto-generated method stub
-		return getValue(VarMap);
+		return getValue(VarMap, FunctMap, turtle);
 	}
 
 	@Override
-	public double getValue(Map<String, Double> VarMap) {
+	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		if (VarMap.containsKey(this.variableName)) {  //if key already exists
-			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap));
+			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle));
 		}else {
-			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap)); //returns a default value of 0.0
+			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle)); //returns a default value of 0.0
 		}
 		return VarMap.get(this.variableName); //obtains value from map
 	}

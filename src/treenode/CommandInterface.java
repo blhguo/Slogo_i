@@ -4,6 +4,8 @@ import turtle.Turtle;
 
 import java.util.Map;
 
+import turtle.Turtle;
+
 //interface for setting the structure of a Command Node
 public interface CommandInterface {
 	
