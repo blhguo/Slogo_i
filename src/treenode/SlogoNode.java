@@ -2,6 +2,7 @@ package treenode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /*
  * builds the abstract node class that all commands will follow
@@ -16,6 +17,8 @@ public abstract class SlogoNode implements CommandInterface{
 	public void addChild(SlogoNode n) {
 		this.children.add(n);
 	}
+	public abstract double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct, Object turtle);
+	
 	public int getNumchildren(){
 		return numchildren;
 	}
@@ -24,6 +27,10 @@ public abstract class SlogoNode implements CommandInterface{
 	 */
 	public List<SlogoNode> getChildren(){
 		return children;
+	}
+	
+	public String getName() {
+		return "does not exist";
 	}
 	
 	/*

@@ -16,13 +16,13 @@ public class NumberNode extends SlogoNode {
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
-		return getValue(VarMap);
+		return getValue(VarMap, FunctMap, turtle);
 	}
 
 	@Override
-	public double getValue(Map<String, Double> VarMap) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		return this.val;
 	}

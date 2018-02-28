@@ -5,33 +5,39 @@ import java.util.Map;
 
 import treenode.SlogoNode;
 
-public class Forward extends SlogoNode{
-	
+public class Home extends SlogoNode{
+//	
 //	private double value = 0;
 //	private double distance = 0;
 //	public Forward() {
 //		this.val = getValue();
 //	}
+	
 
-	private void forward(Object turtle, double distance) {
-		turtle.setX(turtle.getX() + distance * Math.sin(turtle.getheading())); //TODO: Update according to Jamie's stuff
-		turtle.setY(turtle.getY() + distance * Math.cos(turtle.getheading())); //TODO: Update according to Jamie's stuff
+	private void home(Object turtle) {
+		turtle.setX(0);
+		turtle.setY(0);
 	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
-		forward(turtle, step);
+		home(turtle);
 		return step;  //returns the final value of the node
 	}
-
-
+	
 	@Override
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
+		//TODO: Update according to Jamie's stuff
+		double CurX = turtle.getX();
+		double CurY = turtle.getY();
 		List<SlogoNode> leaf = this.getChildren();
-		return leaf.get(0).getValue(VarMap, FunctMap, turtle);
-	}
+		double xpos = 0;
+		double ypos = 0;
+		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2), 0.5);
+		return distance;
+		}
 	
 }

@@ -5,24 +5,23 @@ import java.util.Map;
 
 import treenode.SlogoNode;
 
-public class Forward extends SlogoNode{
-	
+public class SetHeading extends SlogoNode{
+//	
 //	private double value = 0;
 //	private double distance = 0;
 //	public Forward() {
 //		this.val = getValue();
 //	}
 
-	private void forward(Object turtle, double distance) {
-		turtle.setX(turtle.getX() + distance * Math.sin(turtle.getheading())); //TODO: Update according to Jamie's stuff
-		turtle.setY(turtle.getY() + distance * Math.cos(turtle.getheading())); //TODO: Update according to Jamie's stuff
+	private void setHead(Object turtle, double angle) {
+		turtle.setheading(angle); //TODO: Update according to Jamie's stuff
 	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
-		forward(turtle, step);
+		setHead(turtle, step);
 		return step;  //returns the final value of the node
 	}
 
