@@ -49,5 +49,8 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
         else if (o.getClass().getTypeName().equals("turtle.Turtle")){
             updateObservers();
         }
+        else{
+
+        }
     }
 }

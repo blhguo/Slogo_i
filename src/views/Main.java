@@ -2,19 +2,28 @@ package views;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import treenode.SlogoNode;
+import turtle.Turtle;
 
-public class Main extends Application {
+import java.util.Map;
+
+public class Main extends Application implements Observer{
 	
 	private static final String TITLE = "SLogo";
 	private static Stage mainStage;
-	
+	private SlogoView simulation;
+
+    private Map<String, Double> variables;
+    private Map<String, SlogoNode> functions;
+
 	public static void main(String[] args) {
 		launch(args);
 		}
 		
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		SlogoView simulation = new SlogoView();
+		simulation = new SlogoView();
+		simulation.addObserver(this);
 		//mainStage=simulation.initializeStartScene(primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(TITLE);
@@ -23,4 +32,9 @@ public class Main extends Application {
 	}
 
 
+	@Override
+	public void update(Object o) {
+	    //TODO Implement this backend stuff
+		//backend.pass(simulation.getPassValue(), (Turtle)o);
+	}
 }
