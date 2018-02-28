@@ -27,7 +27,9 @@ public class Turtle implements Observable {
 	private ImageView turtleview;
 	private Line line;
 	private boolean isShowing;
-	private boolean myPenUp;
+
+
+    private boolean myPenUp;
 	private Canvas myCanvas;
 	public static final double TURTLESIZE = 50;
 	private List<Observer> observers;

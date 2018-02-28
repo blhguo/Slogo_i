@@ -16,7 +16,7 @@ public class VariableNode extends SlogoNode{
 	}
 
 	@Override
-	
+
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 
 		// TODO Auto-generated method stub

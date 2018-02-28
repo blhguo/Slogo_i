@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import treenode.SlogoNode;
+import turtle.Turtle;
 
 public class SetHeading extends SlogoNode{
 //	
@@ -13,12 +14,12 @@ public class SetHeading extends SlogoNode{
 //		this.val = getValue();
 //	}
 
-	private void setHead(Object turtle, double angle) {
-		turtle.setheading(angle); //TODO: Update according to Jamie's stuff
+	private void setHead(Turtle turtle, double angle) {
+		turtle.setHeading(angle); //TODO: Update according to Jamie's stuff
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
 		setHead(turtle, step);
@@ -27,7 +28,7 @@ public class SetHeading extends SlogoNode{
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
 		return leaf.get(0).getValue(VarMap, FunctMap, turtle);
