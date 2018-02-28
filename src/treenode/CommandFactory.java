@@ -7,6 +7,10 @@ import java.util.List;
  * takes in an Array of strings and uses NodeBuilder to build those strings
  */
 public class CommandFactory {
+	/*
+	 * Create a method that parses through an array of strings 
+	 */
+	//public static
 
 	/*
 	 * method that converts a array of strings into an array of unique Nodes

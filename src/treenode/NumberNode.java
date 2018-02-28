@@ -2,11 +2,16 @@ package treenode;
 
 import java.util.Map;
 
+/*
+ * basic node for storing a number value, commonly used for storing argument values
+ */
 public class NumberNode extends SlogoNode {
 	
 	private double val;
 
+
 	public NumberNode(double n) {
+		numchildren = 0;
 		this.val = n;
 	}
 
