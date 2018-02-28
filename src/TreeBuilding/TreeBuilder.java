@@ -38,4 +38,7 @@ public class TreeBuilder {
         }
         return head;
     }
+    public static void main(String[] args){
+
+    }
 }
