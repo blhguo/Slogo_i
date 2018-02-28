@@ -9,9 +9,9 @@ public class Power extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
-//	public Forward() {
-//		this.val = getValue();
-//	}
+	public Power() {
+		numchildren = 1;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {

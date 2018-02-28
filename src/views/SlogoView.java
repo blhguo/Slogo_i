@@ -111,7 +111,7 @@ public class SlogoView extends Application implements Observer{
 		//wait(10);
 
 		turtles.get(0).setLocation(new Point2D(400,300));
-		turtles.get(0).penUp();
+//		turtles.get(0).penUp();
 		turtles.get(0).setLocation(new Point2D(400, 200));
 
 	}

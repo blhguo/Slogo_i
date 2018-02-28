@@ -10,9 +10,9 @@ public class Quotient extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
-//	public Forward() {
-//		this.val = getValue();
-//	}
+	public Quotient() {
+		numchildren = 2;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
