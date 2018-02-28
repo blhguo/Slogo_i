@@ -12,11 +12,15 @@ import java.util.List;
 public class TurtleDisplay extends SceneElement implements Observable {
     private Rectangle rectangle;
     private List<Observer> observers;
+    
+	
     public TurtleDisplay(){
         rectangle = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);
         rectangle.setFill(Color.ORANGE);
         observers = new ArrayList<>();
+        
+        
     }
     @Override
     public Rectangle getField(){
@@ -30,4 +34,5 @@ public class TurtleDisplay extends SceneElement implements Observable {
     public void addObserver(Observer o){
         observers.add(o);
     }
+    
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import treenode.SlogoNode;
+import turtle.Turtle;
 
 public class SetXY extends SlogoNode{
 //	
@@ -15,13 +16,13 @@ public class SetXY extends SlogoNode{
 
 	private double[] location;
 	
-	private void setpos(Object turtle, double[] loc) {
+	private void setpos(Turtle turtle, double[] loc) {
 		turtle.setX(loc[0]);
 		turtle.setY(loc[1]);
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
 		setpos(turtle, location);
@@ -29,7 +30,7 @@ public class SetXY extends SlogoNode{
 	}
 	
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
 		double CurX = turtle.getX();

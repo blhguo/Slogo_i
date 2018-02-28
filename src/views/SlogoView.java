@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import views.SceneElements.*;
@@ -84,14 +85,20 @@ public class SlogoView extends Application implements Observer{
 	
 	private Image myTurtleImage;
 	private String myTurtleString = "images/turtle.png";
+	
 	private List<ImageView> myTurtleImageViews = new ArrayList<ImageView>();
 	private List<Rectangle> myTurtles = new ArrayList<Rectangle>();
+	private List<Line> myLines = new ArrayList<Line>();
 
 	private double initX = 0;
 	private double initY = 0;
 	private double myDefaultOrientation = 0;
 	private Pane myTurtlePane;
 
+	// Line features
+	private double myLineWidth = 2 ;
+	private Color myLineColor = Color.BLACK;
+	
 	
 	private List<SceneElement> sceneElements;
 	/**
@@ -157,7 +164,6 @@ public class SlogoView extends Application implements Observer{
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
-        
 	}
 	
 	public void setTurtleImage(String turtleString){
@@ -190,7 +196,6 @@ public class SlogoView extends Application implements Observer{
 		setTurtle(r, x, y, orientation);
 		return r;		
 	}
-
 	
 	private ImageView drawCursorImage(Image image) {
 		ImageView imgView = new ImageView(image);
@@ -200,4 +205,15 @@ public class SlogoView extends Application implements Observer{
 		myTurtleImageViews.add(imgView);
 		return imgView;		
 	}
+	
+	private void drawLine (double x1, double x2, double y1, double y2) {
+		Line newLine = new Line(0, 0 , 10, 10);
+//		Line newLine = new Line(x1, x2 , y1, y2);
+		newLine.setStrokeWidth(myLineWidth);
+		newLine.setStroke(myLineColor);
+		myLines.add(newLine);
+		myTurtlePane.getChildren().add(newLine);
+	}
+	
+	
 }
