@@ -1,8 +1,10 @@
 package Movement;
 
+
 import java.util.List;
 import java.util.Map;
 
+import javafx.geometry.Point2D;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
@@ -19,6 +21,9 @@ public class SetPosition extends SlogoNode{
 	private void setpos(Turtle turtle, double[] loc) {
 		turtle.setX(loc[0]);
 		turtle.setY(loc[1]);
+        Point2D newpos = new Point2D(loc[0], loc[1]);
+        turtle.setLocation(newpos);
+
 	}
 
 	@Override
@@ -33,8 +38,8 @@ public class SetPosition extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		double CurX = turtle.getX();
-		double CurY = turtle.getY();
+		double CurX = turtle.getLocation().getX();
+		double CurY = turtle.getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();
 		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
 		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);
