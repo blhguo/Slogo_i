@@ -3,10 +3,16 @@ package views;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import views.SceneElements.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +65,9 @@ public class SlogoView extends Application implements Observer{
 	public static final double CONSOLEWIDTH = TURTLEVIEWWIDTH;
 	public static final double CONSOLEHEIGHT = (1 - PERCENTHEIGHT) * (WINDOWHEIGHT - TOOLBARHEIGHT);
 	
+	public static final double TURTLESIZE = 60;
+
+	
 	/*
 	 * Local variables governing JavaFX objects in the main window
 	 */
@@ -72,6 +81,18 @@ public class SlogoView extends Application implements Observer{
 	private TurtleDisplay myTurtleDisplay;
 	private VariableView myVariableView;
 
+	
+	private Image myTurtleImage;
+	private String myTurtleString = "images/turtle.png";
+	private List<ImageView> myTurtleImageViews = new ArrayList<ImageView>();
+	private List<Rectangle> myTurtles = new ArrayList<Rectangle>();
+
+	private double initX = 0;
+	private double initY = 0;
+	private double myDefaultOrientation = 0;
+	private Pane myTurtlePane;
+
+	
 	private List<SceneElement> sceneElements;
 	/**
      * Start the program.
@@ -109,12 +130,18 @@ public class SlogoView extends Application implements Observer{
 		sceneElements.add(myTurtleDisplay);
 		myToolbar = new Toolbar();
 		sceneElements.add(myToolbar);
+		
+		myTurtlePane = new Pane();
+		setTurtleImage(myTurtleString);	
+		drawTurtle(initX, initY, myDefaultOrientation);
+
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {
 		Group root = new Group();
 		myRoot = root;
 		root.getChildren().addAll(getElements());
+		root.getChildren().add(myTurtlePane);
 		return new Scene(root, width, height, background);
 	}
 	private Group getElements(){
@@ -124,12 +151,53 @@ public class SlogoView extends Application implements Observer{
         }
 		return retgroup;
 	}
+	
 	public void update(){
         myRoot.getChildren().removeAll(myRoot.getChildren());
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
-
+        
+	}
+	
+	public void setTurtleImage(String turtleString){
+		try {
+			Image image = new Image(new FileInputStream(turtleString));
+			myTurtleImage = image;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void setTurtle(Rectangle t, double x, double y, double orientation){
+		double leftX =  x + TURTLEVIEWX + TURTLEVIEWWIDTH/2 - TURTLESIZE/2;
+		double topY = -y + TURTLEVIEWY + TURTLEVIEWHEIGHT/2 - TURTLESIZE/2;
+		setImageView(myTurtleImageViews.get(myTurtles.indexOf(t)), leftX, topY, orientation);
+	}
+	
+	private void setImageView(ImageView iv, double leftX, double topY, double orientation){
+		iv.setX(leftX);
+		iv.setY(topY);
+		iv.setRotate(orientation);
+	}
+	
+	private Rectangle drawTurtle(double x, double y, double orientation){
+		Rectangle r = new Rectangle(x, y, TURTLEVIEWWIDTH, TURTLEVIEWHEIGHT);
+		r.setFill(Color.TRANSPARENT);
+		myTurtles.add(r);
+		myTurtlePane.getChildren().add(r);
+		drawCursorImage(myTurtleImage);
+		setTurtle(r, x, y, orientation);
+		return r;		
 	}
 
+	
+	private ImageView drawCursorImage(Image image) {
+		ImageView imgView = new ImageView(image);
+		imgView.setFitWidth(TURTLESIZE);
+		imgView.setFitHeight(TURTLESIZE);
+		myTurtlePane.getChildren().add(imgView);
+		myTurtleImageViews.add(imgView);
+		return imgView;		
+	}
 }
