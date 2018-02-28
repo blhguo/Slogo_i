@@ -11,36 +11,32 @@ public class CommandFactory {
 	/*
 	 * method that converts a array of strings into an array of unique Nodes
 	 */
-	public static List<SlogoNode> convertStringtoNode(List<String> commandList) throws IllegalAccessException, InstantiationException {
+	public static List<SlogoNode> convertStringtoNode(List<String> commandList){
 		List<SlogoNode> nodeList = new ArrayList<SlogoNode>();
 		for (int i = 0; i<commandList.size();i++) { 
 			
 			String current = commandList.get(i);
-			if (isNumberNode(current)) { //if the value is as number
-				NumberNode numberNode = new NumberNode(Integer.parseInt(current));
-				nodeList.set(i,numberNode);
-				continue;
+			SlogoNode currentNode = null;
+			//If case for variable node, number node, or normal command node
+			if(isNumber(current)) {
+				currentNode = NodeBuilder.createNumberNode(current);
 			}
-			SlogoNode currentNode = getInstance(NodeBuilder.createNode(current));
+			else if (isVariable(current)) {
+				currentNode = NodeBuilder.createVariableNode(current);
+			}
+			else {
+			currentNode = NodeBuilder.createNode(current);
+			}
+			
 			nodeList.set(i, currentNode);
 		}
 		return nodeList;
 	}
 
-/*
- * command factory builds the variable and Number nodes separately from the classMap
- */
-
-	public static <T> SlogoNode getInstance(Class<T> theClass)
-		    throws IllegalAccessException, InstantiationException {
-
-		    return (SlogoNode) theClass.newInstance();
-		}
-	
 	/*
 	 * method to check if a number is an integer (for creating number nodes)	   
 	 */
-	public static boolean isNumberNode(String s) {
+	public static boolean isNumber(String s) {
 		try { 
 			Integer.parseInt(s); 
 		} catch(NumberFormatException e) { 
