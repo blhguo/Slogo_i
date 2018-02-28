@@ -13,7 +13,9 @@ public class Left extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
-
+	public Left(){
+		numchildren = 1;
+	}
 	private void left(Turtle turtle, double angle) {
 		turtle.setHeading(turtle.getHeading() - angle); //TODO: Update according to Jamie's stuff
 	}

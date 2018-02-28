@@ -13,12 +13,21 @@ public class NodeBuilder {
 
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private static final String LANGUAGE_FILE = "English";
+	private static final String NUMBERNODE_ADDRESS = "treenode.NumberNode";
+	private static final String VARIABLENODE_ADDRESS = "treenode.VariableNode";
 	public static final ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+LANGUAGE_FILE);
 	private static final Map<String, String> languageMap = createLanguageMap(myResources);
 	//private static final Map<String, Class<?>> classMap = createClassMap();  //creates the classMap of all objects.
 
 //	public static void main(String[] args) {
 //		createLanguageMap(myResources);
+//		String[] a = new String[2];
+//		a[0]= "pi";
+//		a[1] = "pi";
+//		SlogoNode[] output = CommandFactory.convertStringtoNode(a);
+//		System.out.println(output[0]);
+//		System.out.println(output[1]);
+//		
 //	}
 
 	/*
@@ -34,9 +43,9 @@ public class NodeBuilder {
 			//System.out.println(curr);
 			//put in the resource string as the key, and the key as the value
 			if (isMultipleKeyword(myResources.getString(curr))) {
-				System.out.println(myResources.getString(curr));
+				//System.out.println(myResources.getString(curr));
 				String[] splitWords = myResources.getString(curr).split("[|]");
-				System.out.println(splitWords.length);
+				//System.out.println(splitWords.length);
 				for (int i = 0; i<splitWords.length;i++) {
 					languageMap.put(splitWords[i],  curr);
 				}	
@@ -62,7 +71,7 @@ public class NodeBuilder {
 	public static SlogoNode createVariableNode(String input) {
 		Class<?> commandObject = null;
 		try { //try to create a new class object based on name.
-			commandObject = Class.forName("VariableNode");
+			commandObject = Class.forName(VARIABLENODE_ADDRESS);
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -85,7 +94,7 @@ public class NodeBuilder {
 	public static SlogoNode createNumberNode(String input) {
 		Class<?> commandObject = null;
 		try { //try to create a new class object based on name.
-			commandObject = Class.forName("NumberNode");
+			commandObject = Class.forName(NUMBERNODE_ADDRESS);
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -115,11 +124,25 @@ public class NodeBuilder {
 			throw new InvalidParameterException("NOT A COMMAND");
 		}
 		Class<?> commandObject = null;
+		
 		try { //try to create a new class object based on name.
-			commandObject = Class.forName(formalCommandName);
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			commandObject = Class.forName("Movement."+formalCommandName);
+			}
+		catch (ClassNotFoundException e1) {
+			try { //try to create a new class object based on name.
+				commandObject = Class.forName("Bools."+formalCommandName);
+			} catch (ClassNotFoundException e2) {
+				try { //try to create a new class object based on name.
+					commandObject = Class.forName("MathOps."+formalCommandName);
+				} catch (ClassNotFoundException e3) {
+					try { //try to create a new class object based on name.
+						commandObject = Class.forName("Query."+formalCommandName);
+					}catch (ClassNotFoundException e4) {
+						e4.printStackTrace();
+					}
+				}
+			}
+
 		}
 
 		Constructor<?> c = commandObject.getConstructors()[0];
@@ -127,19 +150,7 @@ public class NodeBuilder {
 		try {
 			command = (SlogoNode) c.newInstance();
 		}
-		catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (InvocationTargetException e) {
+		catch (InstantiationException | IllegalAccessException| IllegalArgumentException |InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

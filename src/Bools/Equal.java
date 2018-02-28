@@ -6,7 +6,12 @@ import treenode.SlogoNode;
 import turtle.Turtle;
 
 public class Equal extends SlogoNode{
-//	
+//
+
+	public Equal() {
+		numchildren = 2;
+	}
+
 //	private double value = 0;
 //	private double distance = 0;
 //	public Forward() {

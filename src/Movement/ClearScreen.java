@@ -13,7 +13,6 @@ public class ClearScreen extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
-	
 
 	private void clear(Turtle turtle) {
 		turtle.clear();

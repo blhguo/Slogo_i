@@ -12,9 +12,9 @@ public class Forward extends SlogoNode{
 	
 //	private double value = 0;
 //	private double distance = 0;
-//	public Forward() {
-//		this.val = getValue();
-//	}
+	public Forward() {
+		numchildren = 1;
+	}
 
 	private void forward(Turtle turtle, double distance) {
         Point2D newlocation = new Point2D(turtle.getLocation().getX() + distance * Math.sin(turtle.getHeading()),

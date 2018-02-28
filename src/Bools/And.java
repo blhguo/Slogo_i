@@ -13,6 +13,10 @@ public class And extends SlogoNode{
 //		this.val = getValue();
 //	}
 
+	public And() {
+		numchildren = 2;
+	}
+
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub

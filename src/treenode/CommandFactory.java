@@ -11,11 +11,11 @@ public class CommandFactory {
 	/*
 	 * method that converts a array of strings into an array of unique Nodes
 	 */
-	public static List<SlogoNode> convertStringtoNode(List<String> commandList){
-		List<SlogoNode> nodeList = new ArrayList<SlogoNode>();
-		for (int i = 0; i<commandList.size();i++) { 
+	public static SlogoNode[] convertStringtoNode(String[] commandList){
+		SlogoNode[] nodeList = new SlogoNode[commandList.length];
+		for (int i = 0; i<commandList.length;i++) { 
 			
-			String current = commandList.get(i);
+			String current = commandList[i];
 			SlogoNode currentNode = null;
 			//If case for variable node, number node, or normal command node
 			if(isNumber(current)) {
@@ -28,7 +28,7 @@ public class CommandFactory {
 			currentNode = NodeBuilder.createNode(current);
 			}
 			
-			nodeList.set(i, currentNode);
+			nodeList[i]=currentNode;
 		}
 		return nodeList;
 	}
