@@ -17,8 +17,12 @@ public class SetPosition extends SlogoNode{
 //	}
 
 	private double[] location;
-	
-	private void setpos(Turtle turtle, double[] loc) {
+
+    public SetPosition() {
+        numchildren = 2;
+    }
+
+    private void setpos(Turtle turtle, double[] loc) {
         Point2D newpos = new Point2D(loc[0], loc[1]);
         turtle.setLocation(newpos);
 

@@ -13,7 +13,9 @@ public class SetHeading extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
-
+	public SetHeading(){
+		numchildren = 1;
+	}
 	private void setHead(Turtle turtle, double angle) {
 		turtle.setHeading(angle); //TODO: Update according to Jamie's stuff
 	}

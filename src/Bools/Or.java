@@ -6,6 +6,9 @@ import treenode.SlogoNode;
 import turtle.Turtle;
 
 public class Or extends SlogoNode{
+	public Or() {
+		numchildren = 2;
+	}
 //	
 //	private double value = 0;
 //	private double distance = 0;

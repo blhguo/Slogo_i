@@ -11,9 +11,9 @@ public class Backward extends SlogoNode{
 	
 //	private double value = 0;
 //	private double distance = 0;
-//	public Forward() {
-//		this.val = getValue();
-//	}
+	public Backward() {
+		numchildren = 1;
+	}
 
 	private void backward(Turtle turtle, double distance) {
 		Point2D point = new Point2D(turtle.getLocation().getX() - distance * Math.sin(turtle.getHeading()),

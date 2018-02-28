@@ -1,5 +1,7 @@
 package TreeBuilding;
 
+import Movement.Forward;
+import treenode.NumberNode;
 import treenode.SlogoNode;
 
 import java.util.ArrayList;
@@ -7,11 +9,11 @@ import java.util.List;
 
 public class TreeBuilder {
 
-    private int buildcounter;
+    private static int buildcounter;
     public TreeBuilder(){
         buildcounter = 0;
     }
-    public SlogoNode buildTree(SlogoNode[] array){
+    public static SlogoNode buildTree(SlogoNode[] array){
         SlogoNode currentNode = array[0];
         SlogoNode head = build(currentNode, array);
 
@@ -19,7 +21,7 @@ public class TreeBuilder {
         return head;
     }
 
-    private SlogoNode build(SlogoNode head, SlogoNode[] array) {
+    public static SlogoNode build(SlogoNode head, SlogoNode[] array) {
         if (head.getNumchildren() == 0){
             return head;
         }
@@ -39,6 +41,11 @@ public class TreeBuilder {
         return head;
     }
     public static void main(String[] args){
-        
+        SlogoNode[] array = new SlogoNode[2];
+        array[0] = new Forward();
+        array[1] = new NumberNode(50);
+        SlogoNode headNode = buildTree(array);
+        System.out.println(headNode.getNumchildren());
+        System.out.println(headNode.getChildren().get(0).getNumchildren());
     }
 }

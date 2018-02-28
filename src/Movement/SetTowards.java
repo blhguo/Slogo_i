@@ -13,7 +13,9 @@ public class SetTowards extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
-
+	public SetTowards(){
+		numchildren = 2;
+	}
 	private void setHead(Turtle turtle, double angle) {
 		turtle.setHeading(angle);
 	}
