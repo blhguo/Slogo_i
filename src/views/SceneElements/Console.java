@@ -40,6 +40,7 @@ public class Console extends SceneElement implements Observable{
         vbox.setLayoutY(SlogoView.CONSOLEY);
         vbox.setPrefWidth(SlogoView.CONSOLEWIDTH);
         vbox.setPrefHeight(SlogoView.CONSOLEHEIGHT);
+        vbox.setStyle("-fx-border-color: black; -fx-border-width: 2");
         myHistory = new History();
         observers = new ArrayList<>();
     }
@@ -101,7 +102,10 @@ public class Console extends SceneElement implements Observable{
 //        if(code == KeyCode.ENTER) {
 //            sendText();
 //        }
-        if (code == KeyCode.UP){
+        if (code == KeyCode.ESCAPE){
+            sendText();
+        }
+        else if (code == KeyCode.UP){
             field.setText(myHistory.getLastCommand());
             field.positionCaret(field.getText().length());
         }

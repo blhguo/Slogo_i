@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -74,7 +76,8 @@ public class History extends SceneElement implements Observable{
         box.setLayoutY(SlogoView.CMDHISTORYY);
         box.setPrefWidth(SlogoView.CMDHISTORYWIDTH);
         box.setPrefHeight(SlogoView.CMDHISTORYHEIGHT);
-        box.setPadding(new Insets(2,5,2,5));
+        box.setPadding(new Insets(0,0,0,0));
+        box.setStyle("-fx-border-color: black; -fx-border-width: 2;");
         return box;
     }
 
@@ -84,7 +87,7 @@ public class History extends SceneElement implements Observable{
     }
 	public void addCommand(String command){
         text.setText(text.getText() + "\n" + "[" + ZonedDateTime.now().toLocalTime().truncatedTo(ChronoUnit.SECONDS)
-                + "]\n" + command);
+                + "]\n " + command);
         scrollPane.setVvalue(1);
         commands.add(command);
         pos = commands.size();

@@ -85,9 +85,6 @@ public class SlogoView implements Observer, Observable{
 	 * Data structures for SceneElements, variables,
 	 * functions
 	 */
-
-
-
     private List<Turtle> turtles;
 	private List<SceneElement> sceneElements;
 	private List<Observer> observers;
@@ -108,6 +105,7 @@ public class SlogoView implements Observer, Observable{
 		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
+		observers = new ArrayList<>();
 		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		return myScene;
 	}
@@ -176,4 +174,8 @@ public class SlogoView implements Observer, Observable{
     public void addObserver(Observer o) {
         observers.add(o);
     }
+
+    public void updateVarView(Map<String, Double> variables) {
+        myVariableView.updateVarView(variables);
+	}
 }
