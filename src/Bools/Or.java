@@ -35,6 +35,7 @@ public class Or extends SlogoNode{
 		}
 		else
 			return 0;
-	}		
+	}
+		
 	
 }

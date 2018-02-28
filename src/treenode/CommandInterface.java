@@ -18,7 +18,7 @@ public interface CommandInterface {
 	/*
 	 * returns a certain value of the node
 	 */
-	//public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct);
+	// public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct);
 
 	
 }

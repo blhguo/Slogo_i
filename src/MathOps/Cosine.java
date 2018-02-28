@@ -9,9 +9,9 @@ public class Cosine extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
-//	public Forward() {
-//		this.val = getValue();
-//	}
+	public Cosine() {
+		numchildren = 1;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
