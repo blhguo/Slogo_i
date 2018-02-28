@@ -108,7 +108,7 @@ public class Turtle {
 	
 	public void hide() {
 		isShowing = false;
-		myCanvas.getGraphicsContext2D().clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+		image.setOpacity(0);
 	}
 	
 	public boolean isShowing() {
