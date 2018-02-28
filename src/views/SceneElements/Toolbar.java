@@ -4,10 +4,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import views.Observer;
 import views.SceneElements.SceneElement;
 import views.SlogoView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,12 @@ public class Toolbar extends SceneElement implements Observable{
         //The Tool Bar is on the top, so no need to set X and Y values
         Hyperlink link = new Hyperlink("Help");
         link.setOnAction(e -> getLink());
+        Button open = new Button("open");
+        open.setOnAction(e -> OpenButton());
         toolbar = new ToolBar(
                 new Button("New"),
-                new Button("Open"),
-                link,
+                	open,
+                	link,
                 new Separator(),
                 new Button("Clean"),
                 getColorPicker(),
@@ -38,6 +42,11 @@ public class Toolbar extends SceneElement implements Observable{
         observers = new ArrayList<>();
     }
 
+    public void OpenButton() {
+    	FileChooser fc = new FileChooser();
+    	fc.setTitle("Open New File");
+    }
+	
     private void getLink() {
         final WebView browser = new WebView();
         final WebEngine webengine = browser.getEngine();

@@ -40,6 +40,7 @@ public class TreeBuilder {
         }
         return head;
     }
+    
     public static void main(String[] args){
         SlogoNode[] array = new SlogoNode[2];
         array[0] = new Forward();
