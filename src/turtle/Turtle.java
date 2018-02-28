@@ -169,6 +169,7 @@ public class Turtle implements Observable {
 	public void update() {
 		
 	}
+	
 	public void clear(){
 	    lines.clear();
 	    updateObservers();

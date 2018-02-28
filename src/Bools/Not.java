@@ -12,7 +12,9 @@ public class Not extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
-
+	public Not(){
+		numchildren = 1;
+	}
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub

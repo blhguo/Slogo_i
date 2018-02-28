@@ -12,7 +12,7 @@ import turtle.Turtle;
  * builds the abstract node class that all commands will follow
  */
 public abstract class SlogoNode implements CommandInterface{
-	protected int numchildren;
+	protected int numchildren = 0;
 	private List<SlogoNode> children = new ArrayList<>();
 	
 	/*

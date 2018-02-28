@@ -8,10 +8,10 @@ import turtle.Turtle;
 public class NaturalLog extends SlogoNode{
 //	
 //	private double value = 0;
-//	private double distance = 0;
-//	public Forward() {
-//		this.val = getValue();
-//	}
+	private double distance = 0;
+	public NaturalLog() {
+		numchildren = 1;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
