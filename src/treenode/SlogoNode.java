@@ -10,8 +10,8 @@ import turtle.Turtle;
  * builds the abstract node class that all commands will follow
  */
 public abstract class SlogoNode implements CommandInterface{
-	
-	private List<SlogoNode> children = new ArrayList<SlogoNode>();
+	protected int numchildren;
+	private List<SlogoNode> children = new ArrayList<>();
 	
 	/*
 	 * adds a SlogoNode to the children nodelist
@@ -19,12 +19,24 @@ public abstract class SlogoNode implements CommandInterface{
 	public void addChild(SlogoNode n) {
 		this.children.add(n);
 	}
+<<<<<<< HEAD
 	public abstract double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle);
+=======
+	public abstract double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct, Object turtle);
+	
+	public int getNumchildren(){
+		return numchildren;
+	}
+>>>>>>> 3a8a3568a5b740a5c99b5dca60ce2eafe58f7dbe
 	/*
 	 * returns children
 	 */
 	public List<SlogoNode> getChildren(){
 		return children;
+	}
+	
+	public String getName() {
+		return "does not exist";
 	}
 	
 	/*

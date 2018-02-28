@@ -14,7 +14,7 @@ public abstract class SceneElement implements Observable{
     public History getHistory(){return null;}
     public void updateObservers(){
         for (Observer o : observers){
-            o.update();
+            o.update(new Object());
         }
     }
     public void addObserver(Observer o){
