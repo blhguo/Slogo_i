@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import treenode.SlogoNode;
+import turtle.Turtle;
 
 public class SetPosition extends SlogoNode{
 //	
@@ -15,13 +16,13 @@ public class SetPosition extends SlogoNode{
 
 	private double[] location;
 	
-	private void setpos(Object turtle, double[] loc) {
-		turtle.setX(loc[0]);
-		turtle.setY(loc[1]);
+	private void setpos(Turtle turtle, double[] loc) {
+		turtle.getLocation().setX(loc[0]);
+		turtle.getLocation().setY(loc[1]);
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
 		setpos(turtle, location);
@@ -29,11 +30,11 @@ public class SetPosition extends SlogoNode{
 	}
 	
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		double CurX = turtle.getX();
-		double CurY = turtle.getY();
+		double CurX = turtle.getLocation().getX();
+		double CurY = turtle.getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();
 		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
 		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);

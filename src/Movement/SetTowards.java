@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import treenode.SlogoNode;
+import turtle.Turtle;
 
 public class SetTowards extends SlogoNode{
 //	
@@ -13,12 +14,12 @@ public class SetTowards extends SlogoNode{
 //		this.val = getValue();
 //	}
 
-	private void setHead(Object turtle, double angle) {
-		turtle.setheading(angle);
+	private void setHead(Turtle turtle, double angle) {
+		turtle.setHeading(angle);
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
 		setHead(turtle, step);
@@ -27,11 +28,11 @@ public class SetTowards extends SlogoNode{
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		double initial = turtle.getHeading(); //TODO: Update according to Jamie's stuff
-		double CurX = turtle.getX();
-		double CurY = turtle.getY();
+		double CurX = turtle.getLocation().getX();
+		double CurY = turtle.getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();
 		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
 		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);
