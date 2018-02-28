@@ -17,9 +17,9 @@ public class NodeBuilder {
 	private static final Map<String, String> languageMap = createLanguageMap(myResources);
 	//private static final Map<String, Class<?>> classMap = createClassMap();  //creates the classMap of all objects.
 
-	public static void main(String[] args) {
-		createLanguageMap(myResources);
-	}
+//	public static void main(String[] args) {
+//		createLanguageMap(myResources);
+//	}
 
 	/*
 	 * iterates through each value and returns a map of all the languages.
