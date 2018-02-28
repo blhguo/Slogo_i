@@ -5,13 +5,10 @@ import java.util.Map;
 public class VariableNode extends SlogoNode{
 	
 		private String variableName;
-		private double value;
 		
 	//node constructed is created with parameters for a string and a double value.	
-	public VariableNode(String n, Double value){ 
+	public VariableNode(String n){ 
 		this.variableName = n;
-		this.value = value;
-		numchildren = 0;
 	}
 
 	@Override
@@ -24,9 +21,9 @@ public class VariableNode extends SlogoNode{
 	public double getValue(Map<String, Double> VarMap) {
 		// TODO Auto-generated method stub
 		if (VarMap.containsKey(this.variableName)) {  //if key already exists
-			VarMap.put(this.variableName, this.value);
+			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap));
 		}else {
-			VarMap.put(this.variableName, 0.0); //returns a default value of 0.0
+			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap)); //returns a default value of 0.0
 		}
 		return VarMap.get(this.variableName); //obtains value from map
 	}
