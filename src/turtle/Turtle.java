@@ -22,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 */
 public class Turtle implements Observable {
 	private Point2D location;
-	private double myX;
-	private double myY;
 	private double speed;
 	private double heading;
 	private ImageView turtleview;
@@ -65,21 +63,6 @@ public class Turtle implements Observable {
 		//System.out.println(this.getClass().getTypeName());
 	}
 
-	public double getX() {
-		return myX;
-	}
-	
-	public double getY() {
-		return myY;
-	}
-	
-	public void setX(double x) {
-		myX = x;
-	}
-	
-	public void setY(double y) {
-		myY = y;
-	}
 	/**
 	 * Point representing the current location of the actor
 	 * 
