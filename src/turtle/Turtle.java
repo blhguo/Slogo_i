@@ -3,7 +3,15 @@ package turtle;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import views.Observer;
+import views.SceneElements.Observable;
 import views.SlogoView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
 *
@@ -11,12 +19,14 @@ import views.SlogoView;
 * used for display.
 * 
 */
-public class Turtle {
+public class Turtle implements Observable {
 	private Point2D location;
 	private double speed;
 	private double heading;
 	private ImageView turtleview;
-	private final double TURTLESIZE = 50;
+	private Line line;
+	public static final double TURTLESIZE = 50;
+	private List<Observer> observers;
     private double BASEX = SlogoView.TURTLEVIEWX + 1.0 / 2 * SlogoView.TURTLEVIEWWIDTH
             - .5 * TURTLESIZE;
     private double BASEY = SlogoView.TURTLEVIEWY + 1.0 / 2 * SlogoView.TURTLEVIEWHEIGHT
@@ -34,12 +44,15 @@ public class Turtle {
 
 	public Turtle(Point2D location, double speed)
 	{
+	    observers = new ArrayList<>();
 		this.location = location;
 		this.speed = speed;
-		Image turtle = new Image("turtle.png", 50,50,true,true);
+		Image turtle = new Image("turtle.png", TURTLESIZE,TURTLESIZE,true,true);
 		turtleview = new ImageView(turtle);
 		turtleview.setLayoutX(this.location.getX());
 		turtleview.setLayoutY(this.location.getY());
+		line = new Line();
+		//System.out.println(this.getClass().getTypeName());
 	}
 
 	/**
@@ -55,11 +68,20 @@ public class Turtle {
 
 	public void setLocation(Point2D p)
 	{
+	    line.setFill(Color.BLACK);
+	    line.setStrokeWidth(2);
+	    line.setStartX(location.getX());
+	    line.setStartY(location.getY());
+	    line.setEndX(p.getX());
+	    line.setEndY(p.getY());
 		location = p;
 		turtleview.setLayoutX(this.location.getX());
 		turtleview.setLayoutY(this.location.getY());
+		updateObservers();
 	}
-
+    public Line getLine(){
+	    return line;
+    }
 	/**
 	 * An int representing the speed of the actor as it updates on the screen
 	 * 
@@ -83,4 +105,16 @@ public class Turtle {
 	{
 		this.heading = Math.floorMod((int) heading, 360);
 	}
+
+    @Override
+    public void updateObservers() {
+        for (Observer o : observers){
+            o.update(new Object());
+        }
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
 }

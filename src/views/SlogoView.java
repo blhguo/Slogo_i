@@ -12,6 +12,7 @@ import views.SceneElements.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class SlogoView extends Application implements Observer{
 	
@@ -105,7 +106,9 @@ public class SlogoView extends Application implements Observer{
 		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		myStage.setScene(myScene);
 		myStage.show();
-		//turtles.get(0).setLocation(new Point2D(400,300));
+		//wait(10);
+
+		turtles.get(0).setLocation(new Point2D(400,300));
 
 	}
 
@@ -131,6 +134,7 @@ public class SlogoView extends Application implements Observer{
 		myTurtleDisplay = new TurtleDisplay(turtles.get(0));
 		sceneElements.add(myTurtleDisplay);
 		myToolbar = new Toolbar();
+		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
 	}
 
@@ -147,11 +151,12 @@ public class SlogoView extends Application implements Observer{
         }
 		return retgroup;
 	}
-	public void update(){
+	public void update(Object o){
         myRoot.getChildren().removeAll(myRoot.getChildren());
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
+        myRoot.getChildren().add(turtles.get(0).getLine());
 
 	}
 

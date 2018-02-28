@@ -24,15 +24,16 @@ public class TreeBuilder {
             return head;
         }
         else {
-            int temp = buildcounter;
+            int temp = 0;
             buildcounter++;
-            while(buildcounter <= temp + head.getNumchildren()){
+            while(temp <= head.getNumchildren()){
                 if (buildcounter >= array.length){
                     System.out.println("Out of bounds");
                     break;
                 }
                 head.addChild(build(array[buildcounter], array));
                 buildcounter++;
+                temp++;
             }
         }
         return head;

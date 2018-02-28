@@ -21,6 +21,7 @@ import java.util.List;
 public class Console extends SceneElement implements Observable{
     private VBox vbox;
     private String currentString = "";
+    private String[] passValue;
     private History myHistory;
     private TextArea field;
     private List<Observer> observers;
@@ -72,6 +73,7 @@ public class Console extends SceneElement implements Observable{
         //System.out.println(currentString);
         myHistory.addCommand(currentString);
         field.setText("");
+        passValue = currentString.split(" ");
     }
     public History getHistory(){
         return myHistory;
@@ -116,7 +118,7 @@ public class Console extends SceneElement implements Observable{
     }
     public void updateObservers(){
         for (Observer o : observers){
-            o.update();
+            o.update(new Object());
         }
     }
     public void addObserver(Observer o){
