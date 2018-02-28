@@ -26,6 +26,7 @@ public class Turtle implements Observable {
 	private double heading;
 	private ImageView turtleview;
 	private Line line;
+	private ArrayList<Line> lines;
 	private boolean isShowing;
 
 
@@ -60,6 +61,8 @@ public class Turtle implements Observable {
 		turtleview.setLayoutX(this.location.getX());
 		turtleview.setLayoutY(this.location.getY());
 		line = new Line();
+		lines = new ArrayList<>();
+		myPenUp = false;
 		//System.out.println(this.getClass().getTypeName());
 	}
 
@@ -76,19 +79,28 @@ public class Turtle implements Observable {
 
 	public void setLocation(Point2D p)
 	{
-	    line.setFill(Color.BLACK);
-	    line.setStrokeWidth(2);
-	    line.setStartX(location.getX());
-	    line.setStartY(location.getY());
-	    line.setEndX(p.getX());
-	    line.setEndY(p.getY());
-		location = p;
+        addLine(p);
+        location = p;
 		turtleview.setLayoutX(this.location.getX());
 		turtleview.setLayoutY(this.location.getY());
 		updateObservers();
 	}
-    public Line getLine(){
-	    return line;
+
+    private void addLine(Point2D p) {
+        if (!myPenUp) {
+            Line l = new Line();
+            l.setFill(Color.BLACK);
+            l.setStrokeWidth(2);
+            l.setStartX(location.getX() + .5 * TURTLESIZE);
+            l.setStartY(location.getY() + .5 * TURTLESIZE);
+            l.setEndX(p.getX() + .5 * TURTLESIZE);
+            l.setEndY(p.getY() + .5 * TURTLESIZE);
+            lines.add(l);
+        }
+    }
+
+    public List<Line> getLine(){
+	    return lines;
     }
     public Point2D getOriginalLocation(){
 	    return originalLocation;
@@ -157,7 +169,10 @@ public class Turtle implements Observable {
 	public void update() {
 		
 	}
-	
+	public void clear(){
+	    lines.clear();
+	    updateObservers();
+    }
 	public void reset() {
 		myCanvas.getGraphicsContext2D().clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
 	}
@@ -166,7 +181,7 @@ public class Turtle implements Observable {
     @Override
     public void updateObservers() {
         for (Observer o : observers){
-            o.update(new Object());
+            o.update(this);
         }
     }
 

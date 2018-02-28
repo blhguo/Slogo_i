@@ -3,8 +3,10 @@ package views;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import turtle.Turtle;
 import views.SceneElements.*;
@@ -109,6 +111,8 @@ public class SlogoView extends Application implements Observer{
 		//wait(10);
 
 		turtles.get(0).setLocation(new Point2D(400,300));
+		turtles.get(0).penUp();
+		turtles.get(0).setLocation(new Point2D(400, 200));
 
 	}
 
@@ -156,7 +160,7 @@ public class SlogoView extends Application implements Observer{
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
-        myRoot.getChildren().add(turtles.get(0).getLine());
+        myRoot.getChildren().addAll(turtles.get(0).getLine());
 
 	}
 
