@@ -16,7 +16,7 @@ public class SetPosition extends SlogoNode{
 //		this.val = getValue();
 //	}
 
-	private double[] location;
+	private double[] location = new double[2];
 
     public SetPosition() {
         numchildren = 2;
@@ -24,7 +24,7 @@ public class SetPosition extends SlogoNode{
 
     private void setpos(Turtle turtle, double[] loc) {
         Point2D newpos = new Point2D(loc[0], loc[1]);
-        turtle.setLocation(newpos);
+        turtle.setAbsoluteLocation(newpos);
 
 	}
 

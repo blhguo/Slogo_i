@@ -17,7 +17,7 @@ public class SetHeading extends SlogoNode{
 		numchildren = 1;
 	}
 	private void setHead(Turtle turtle, double angle) {
-		turtle.setHeading(angle); //TODO: Update according to Jamie's stuff
+		turtle.setHeading(-1 * angle); //TODO: Update according to Jamie's stuff
 	}
 
 	@Override
