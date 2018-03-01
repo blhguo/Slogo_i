@@ -23,6 +23,7 @@ public class TreeBuilder {
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
         while(buildcounter < array.length){
+            currentNode = array[buildcounter];
             master.addChild(build(currentNode, array));
             buildcounter++;
         }
