@@ -15,9 +15,9 @@ public class TreeBuilder {
         buildcounter = 0;
     }
     public SlogoNode buildTree(SlogoNode[] array){
+        System.out.println(array.length);
         SlogoNode currentNode = array[0];
         SlogoNode head = build(currentNode, array);
-
         buildcounter = 0;
         return head;
     }
@@ -30,15 +30,15 @@ public class TreeBuilder {
         }
         else {
             int temp = 0;
-            buildcounter++;
             while(temp < head.getNumchildren()){
+                buildcounter++;
+                temp++;
                 if (buildcounter >= array.length){
                     System.out.println("Out of bounds");
                     break;
                 }
                 head.addChild(build(array[buildcounter], array));
-                buildcounter++;
-                temp++;
+
             }
         }
         return head;
