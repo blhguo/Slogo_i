@@ -86,6 +86,10 @@ public class History extends SceneElement implements Observable{
 	    return vbox;
     }
 	public void addCommand(String command){
+//	    for (Observer o : observers){
+//	        System.out.println(o.getClass().toString());
+//        }
+	    //System.out.println(command);
         text.setText(text.getText() + "\n" + "[" + ZonedDateTime.now().toLocalTime().truncatedTo(ChronoUnit.SECONDS)
                 + "]\n " + command);
         scrollPane.setVvalue(1);
@@ -93,6 +97,7 @@ public class History extends SceneElement implements Observable{
         pos = commands.size();
 //        vbox.getChildren().remove(text);
 //        vbox.getChildren().add(text);
+        //System.out.println("Hit it " + command);
         updateObservers();
     }
     public String getLastCommand() throws EmptyStackException{

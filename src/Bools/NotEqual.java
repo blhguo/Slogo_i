@@ -28,8 +28,8 @@ public class NotEqual extends SlogoNode{
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
 		List<SlogoNode> leaf = this.getChildren();
-		double x = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		double y = leaf.get(1).getValue(VarMap, FunctMap, turtle);
+		double x = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		double y = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
 		if (x == y) {
 			return 0;
 		}

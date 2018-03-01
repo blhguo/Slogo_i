@@ -1,11 +1,9 @@
 package views;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import turtle.Turtle;
 import views.SceneElements.*;
@@ -13,7 +11,6 @@ import views.SceneElements.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class SlogoView implements Observer, Observable{
 	
@@ -89,12 +86,6 @@ public class SlogoView implements Observer, Observable{
 	private List<SceneElement> sceneElements;
 	private List<Observer> observers;
 
-    public String[] getPassValue() {
-        return passValue;
-    }
-
-    private String[] passValue;
-
 	public SlogoView(){
 		//constructor
 	}
@@ -105,12 +96,21 @@ public class SlogoView implements Observer, Observable{
 		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
-		passValue = myConsole.getPassValue();
 		observers = new ArrayList<>();
 		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
+		myScene.setOnKeyPressed(e -> quit(e.getCode()));
 		return myScene;
 	}
 
+	private void quit(KeyCode code) {
+		if (code == KeyCode.Q){
+			System.exit(0);
+		}
+	}
+
+	public String[] getPassValue() {
+		return myConsole.getPassValue();
+	}
 	private void initializeDataStructures() {
         turtles = new ArrayList<>();
         turtles.add(new Turtle());
@@ -155,12 +155,19 @@ public class SlogoView implements Observer, Observable{
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
-        myRoot.getChildren().addAll(turtles.get(0).getLine());
+        myRoot.getChildren().addAll(turtles.get(0).getLines());
 //        if (o.getClass().getTypeName().equals("java.lang.String")){
 //            getHostServices().showDocument((String)o);
 //        }
-        passValue = myConsole.getPassValue();
+
         updateObservers();
+	}
+	public void updateScreen(){
+		myRoot.getChildren().removeAll(myRoot.getChildren());
+		for (SceneElement element : sceneElements){
+			myRoot.getChildren().add(element.getField());
+		}
+		myRoot.getChildren().addAll(turtles.get(0).getLines());
 	}
 
 

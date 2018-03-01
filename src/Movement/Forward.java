@@ -17,8 +17,8 @@ public class Forward extends SlogoNode{
 	}
 
 	private void forward(Turtle turtle, double distance) {
-        Point2D newlocation = new Point2D(turtle.getLocation().getX() + distance * Math.sin(turtle.getHeading()),
-                turtle.getLocation().getY() + distance * Math.cos(turtle.getHeading()));
+        Point2D newlocation = new Point2D(turtle.getLocation().getX() - distance * Math.sin(Math.toRadians(turtle.getHeading())),
+                turtle.getLocation().getY() - distance * Math.cos(Math.toRadians(turtle.getHeading())));
         turtle.setLocation(newlocation);
 	}
 
@@ -35,7 +35,7 @@ public class Forward extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
-		return leaf.get(0).getValue(VarMap, FunctMap, turtle);
+		return leaf.get(0).getExecute(VarMap, FunctMap, turtle);
 	}
 	
 }

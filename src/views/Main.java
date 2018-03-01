@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import TreeBuilding.TreeBuilder;
-import TreeReader.ReadTree;
+import TreeReader.TreeReader;
 
 public class Main extends Application implements Observer{
 	
@@ -62,15 +62,18 @@ public class Main extends Application implements Observer{
 	public void update(Object o) {
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
+		System.out.println(simulation.getPassValue());
 		TreeBuilder Builder = new TreeBuilder();
 		CommandFactory factory = new CommandFactory() {};
-		ReadTree reader = new ReadTree();
-		System.out.println(simulation.getPassValue());
+		TreeReader reader = new TreeReader();
+		//System.out.println(simulation.getPassValue());
 		SlogoNode[] BufferArray = factory.convertStringtoNode(simulation.getPassValue());
+		//System.out.println(BufferArray[0]);
 		SlogoNode Head = Builder.buildTree(BufferArray);
-		double buff = reader.evaluate(Head, variables, functions, (Turtle) o);
-		updateVarView();
-		
+        System.out.println(reader.evaluate(Head, variables, functions, (Turtle) o));
+        simulation.updateScreen();
+		//updateVarView();
+
 	}
 	public void updateVarView(){
 	    simulation.updateVarView(variables);

@@ -16,7 +16,7 @@ public class SetPosition extends SlogoNode{
 //		this.val = getValue();
 //	}
 
-	private double[] location;
+	private double[] location = new double[2];
 
     public SetPosition() {
         numchildren = 2;
@@ -24,7 +24,7 @@ public class SetPosition extends SlogoNode{
 
     private void setpos(Turtle turtle, double[] loc) {
         Point2D newpos = new Point2D(loc[0], loc[1]);
-        turtle.setLocation(newpos);
+        turtle.setAbsoluteLocation(newpos);
 
 	}
 
@@ -43,8 +43,8 @@ public class SetPosition extends SlogoNode{
 		double CurX = turtle.getLocation().getX();
 		double CurY = turtle.getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();
-		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);
+		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
 		location[0] = xpos;
 		location[1] = ypos;
 		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 21), 0.5);
