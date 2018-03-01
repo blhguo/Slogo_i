@@ -78,9 +78,10 @@ public class Console extends SceneElement implements Observable{
         currentString = field.getText();
         currentString = cleanText(currentString);
         //System.out.println(currentString);
-        myHistory.addCommand(currentString);
+        //myHistory.addCommand(currentString);
         field.setText("");
         passValue = currentString.split(" ");
+        //System.out.println(passValue[0]);
     }
     public History getHistory(){
         return myHistory;
