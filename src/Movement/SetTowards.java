@@ -5,6 +5,7 @@ import java.util.Map;
 
 import treenode.SlogoNode;
 import turtle.Turtle;
+import views.SlogoView;
 
 public class SetTowards extends SlogoNode{
 //	
@@ -38,9 +39,13 @@ public class SetTowards extends SlogoNode{
 		List<SlogoNode> leaf = this.getChildren();
 		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
 		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
+		xpos -= (SlogoView.TURTLEVIEWX + .5 * SlogoView.TURTLEVIEWWIDTH - .5 * Turtle.TURTLESIZE);
+		ypos = -1*(ypos - (SlogoView.TURTLEVIEWY + .5 * SlogoView.TURTLEVIEWHEIGHT - .5 * Turtle.TURTLESIZE));
+		System.out.println(xpos);
+		System.out.println(ypos);
 		
-		double newhead = Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
-		return newhead - initial;
+		double newhead = -1 * Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
+		return newhead;
 	}
 	
 }
