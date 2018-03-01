@@ -6,6 +6,7 @@ import treenode.CommandFactory;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import TreeBuilding.TreeBuilder;
@@ -27,12 +28,31 @@ public class Main extends Application implements Observer{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		simulation = new SlogoView();
-		simulation.addObserver(this);
 		//mainStage=simulation.initializeStartScene(primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(TITLE);
 		primaryStage.setScene(simulation.initializeStartScene());
 		primaryStage.show();
+		simulation.addObserver(this);
+        variables = new HashMap<>();
+        functions = new HashMap<>();
+		variables.put("x", 5.0);
+		variables.put("y", 10.0);
+        variables.put("a", 5.0);
+        variables.put("s", 10.0);
+        variables.put("d", 5.0);
+        variables.put("f", 10.0);
+        variables.put("g", 5.0);
+        variables.put("h", 10.0);
+        variables.put("j", 5.0);
+        variables.put("k", 10.0);
+        variables.put("l", 5.0);
+        variables.put("y", 10.0);
+        variables.put("r", 5.0);
+        variables.put("e", 10.0);
+        variables.put("w", 5.0);
+        variables.put("q", 10.0);
+		updateVarView();
 	}
 
 
@@ -49,4 +69,7 @@ public class Main extends Application implements Observer{
 		
 		
 	}
+	public void updateVarView(){
+	    simulation.updateVarView(variables);
+    }
 }
