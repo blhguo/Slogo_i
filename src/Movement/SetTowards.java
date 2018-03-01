@@ -17,7 +17,7 @@ public class SetTowards extends SlogoNode{
 		numchildren = 2;
 	}
 	private void setHead(Turtle turtle, double angle) {
-		turtle.setHeading(angle);
+		turtle.setHeading(-1 * angle);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class SetTowards extends SlogoNode{
 		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
 		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);
 		
-		double newhead = Math.tan((xpos - CurX)/(ypos - CurY));
+		double newhead = Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
 		return newhead - initial;
 	}
 	

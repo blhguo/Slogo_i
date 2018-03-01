@@ -2,10 +2,15 @@ package views;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import treenode.CommandFactory;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import TreeBuilding.TreeBuilder;
+import TreeReader.TreeReader;
 
 public class Main extends Application implements Observer{
 	
@@ -23,18 +28,54 @@ public class Main extends Application implements Observer{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		simulation = new SlogoView();
-		simulation.addObserver(this);
 		//mainStage=simulation.initializeStartScene(primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(TITLE);
 		primaryStage.setScene(simulation.initializeStartScene());
 		primaryStage.show();
+		simulation.addObserver(this);
+        variables = new HashMap<>();
+        functions = new HashMap<>();
+		variables.put("x", 5.0);
+		variables.put("y", 10.0);
+        variables.put("a", 5.0);
+        variables.put("s", 10.0);
+        variables.put("d", 5.0);
+        variables.put("f", 10.0);
+        variables.put("g", 5.0);
+        variables.put("h", 10.0);
+        variables.put("j", 5.0);
+        variables.put("k", 10.0);
+        variables.put("l", 5.0);
+        variables.put("y", 10.0);
+        variables.put("r", 5.0);
+        variables.put("e", 10.0);
+        variables.put("w", 5.0);
+        variables.put("q", 10.0);
+		updateVarView();
 	}
+	
+	
 
 
 	@Override
 	public void update(Object o) {
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
+		System.out.println(simulation.getPassValue());
+		TreeBuilder Builder = new TreeBuilder();
+		CommandFactory factory = new CommandFactory() {};
+		TreeReader reader = new TreeReader();
+		//System.out.println(simulation.getPassValue());
+		SlogoNode[] BufferArray = factory.convertStringtoNode(simulation.getPassValue());
+		//System.out.println(BufferArray[0]);
+		SlogoNode Head = Builder.buildTree(BufferArray);
+        System.out.println(reader.evaluate(Head, variables, functions, (Turtle) o));
+        simulation.updateScreen();
+		//updateVarView();
+
 	}
+	public void updateVarView(){
+	    simulation.updateVarView(variables);
+    }
 }

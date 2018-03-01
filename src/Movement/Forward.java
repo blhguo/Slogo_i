@@ -17,8 +17,8 @@ public class Forward extends SlogoNode{
 	}
 
 	private void forward(Turtle turtle, double distance) {
-        Point2D newlocation = new Point2D(turtle.getLocation().getX() + distance * Math.sin(turtle.getHeading()),
-                turtle.getLocation().getY() + distance * Math.cos(turtle.getHeading()));
+        Point2D newlocation = new Point2D(turtle.getLocation().getX() - distance * Math.sin(Math.toRadians(turtle.getHeading())),
+                turtle.getLocation().getY() - distance * Math.cos(Math.toRadians(turtle.getHeading())));
         turtle.setLocation(newlocation);
 	}
 

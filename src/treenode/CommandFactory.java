@@ -11,7 +11,9 @@ public class CommandFactory {
 	/*
 	 * method that converts a array of strings into an array of unique Nodes
 	 */
-	public static SlogoNode[] convertStringtoNode(String[] commandList){
+	
+	public CommandFactory() {};
+	public SlogoNode[] convertStringtoNode(String[] commandList){
 		SlogoNode[] nodeList = new SlogoNode[commandList.length];
 		for (int i = 0; i<commandList.length;i++) { 
 			
