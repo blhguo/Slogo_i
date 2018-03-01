@@ -2,21 +2,13 @@ package views.SceneElements;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-<<<<<<< HEAD
 import javafx.stage.FileChooser;
 import views.Observer;
 import views.SceneElements.SceneElement;
 import views.SlogoView;
 
 import java.io.File;
-=======
 import javafx.scene.control.Hyperlink;
-import views.Observer;
-import views.SceneElements.SceneElement;
-import views.SlogoView;
->>>>>>> d008fb8ec795702b39fb3fecd78021b0bfc0951c
 import java.util.ArrayList;
 import java.util.List;
 
