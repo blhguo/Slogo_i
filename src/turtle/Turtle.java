@@ -20,7 +20,7 @@ import java.util.List;
 * 
 */
 public class Turtle implements Observable {
-	private Point2D location;
+	private Point2D currentpos;
 	private double speed;
 	private double heading;
 	private ImageView turtleview;
@@ -50,50 +50,51 @@ public class Turtle implements Observable {
 	}
 
 
-	public Turtle(Point2D location, double speed)
+	public Turtle(Point2D currentpos, double speed)
 	{
 	    observers = new ArrayList<>();
-		this.location = location;
+		this.currentpos = currentpos;
 		this.speed = speed;
 		Image turtle = new Image("turtle.png", TURTLESIZE,TURTLESIZE,true,true);
 		turtleview = new ImageView(turtle);
-		turtleview.setLayoutX(this.location.getX());
-		turtleview.setLayoutY(this.location.getY());
+		turtleview.setLayoutX(this.currentpos.getX());
+		turtleview.setLayoutY(this.currentpos.getY());
 		line = new Line();
 		lines = new ArrayList<>();
 		myPenUp = false;
+		isShowing = true;
 		//System.out.println(this.getClass().getTypeName());
 	}
 
 	/**
-	 * Point representing the current location of the actor
+	 * Point representing the current currentpos of the actor
 	 * 
-	 * @return Point location
+	 * @return Point currentpos
 	 */
 	public Point2D getLocation()
 	{
-		return location;
+		return currentpos;
 	}
 	public ImageView getImage(){return turtleview;}
 
-	public void setLocation(Point2D p)
+	public void setLocation(Point2D newpos)
 	{
-        addLine(p);
-        location = p;
-		turtleview.setLayoutX(this.location.getX());
-		turtleview.setLayoutY(this.location.getY());
-		updateObservers();
+        addLine(newpos);
+        currentpos = newpos;
+		turtleview.setLayoutX(this.currentpos.getX());
+		turtleview.setLayoutY(this.currentpos.getY());
+		//updateObservers();
 	}
 
-    private void addLine(Point2D p) {
+    private void addLine(Point2D newpos) {
         if (!myPenUp) {
             Line l = new Line();
             l.setFill(Color.BLACK);
             l.setStrokeWidth(2);
-            l.setStartX(location.getX() + .5 * TURTLESIZE);
-            l.setStartY(location.getY() + .5 * TURTLESIZE);
-            l.setEndX(p.getX() + .5 * TURTLESIZE);
-            l.setEndY(p.getY() + .5 * TURTLESIZE);
+            l.setStartX(currentpos.getX() + .5 * TURTLESIZE);
+            l.setStartY(currentpos.getY() + .5 * TURTLESIZE);
+            l.setEndX(newpos.getX() + .5 * TURTLESIZE);
+            l.setEndY(newpos.getY() + .5 * TURTLESIZE);
             lines.add(l);
         }
     }
@@ -124,7 +125,7 @@ public class Turtle implements Observable {
 	}
 
 	public double isPenDown() {
-		if (myPenUp==false) {
+		if (!myPenUp) {
 			return 1.0;
 		}else {
 			return 0.0;
@@ -149,6 +150,7 @@ public class Turtle implements Observable {
 	
 	public Image show() {
 		isShowing = true;
+		turtleview.setOpacity(1);
 		return turtleview.getImage();
 	}
 	
@@ -158,7 +160,7 @@ public class Turtle implements Observable {
 	}
 	
 	public double isShowing() {
-		if (isShowing==true) {
+		if (isShowing) {
 			return 1.0;
 		}else {
 			return 0.0;
@@ -171,7 +173,7 @@ public class Turtle implements Observable {
 	
 	public void clear(){
 	    lines.clear();
-	    updateObservers();
+	    //updateObservers();
     }
 	public void reset() {
 		myCanvas.getGraphicsContext2D().clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());

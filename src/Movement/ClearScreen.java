@@ -17,6 +17,7 @@ public class ClearScreen extends SlogoNode{
 	private void clear(Turtle turtle) {
 		turtle.clear();
         turtle.setLocation(turtle.getOriginalLocation());
+		turtle.clear();
 	}
 
 	@Override

@@ -162,6 +162,13 @@ public class SlogoView implements Observer, Observable{
 
         updateObservers();
 	}
+	public void updateScreen(){
+		myRoot.getChildren().removeAll(myRoot.getChildren());
+		for (SceneElement element : sceneElements){
+			myRoot.getChildren().add(element.getField());
+		}
+		myRoot.getChildren().addAll(turtles.get(0).getLines());
+	}
 
 
     @Override
