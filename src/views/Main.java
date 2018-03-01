@@ -2,10 +2,14 @@ package views;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import treenode.CommandFactory;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
 import java.util.Map;
+
+import TreeBuilding.TreeBuilder;
+import TreeReader.ReadTree;
 
 public class Main extends Application implements Observer{
 	
@@ -36,5 +40,13 @@ public class Main extends Application implements Observer{
 	public void update(Object o) {
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
+		TreeBuilder Builder = new TreeBuilder();
+		CommandFactory factory = new CommandFactory() {};
+		ReadTree reader = new ReadTree();
+		SlogoNode[] BufferArray = factory.convertStringtoNode(simulation.getPassValue());
+		SlogoNode Head = Builder.buildTree(BufferArray);
+		double buff = reader.evaluate(Head, variables, functions, (Turtle) o);
+		
+		
 	}
 }
