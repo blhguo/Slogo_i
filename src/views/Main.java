@@ -66,7 +66,7 @@ public class Main extends Application implements Observer{
 		SlogoNode[] BufferArray = factory.convertStringtoNode(simulation.getPassValue());
 		SlogoNode Head = Builder.buildTree(BufferArray);
 		double buff = reader.evaluate(Head, variables, functions, (Turtle) o);
-		
+		updateVarView();
 		
 	}
 	public void updateVarView(){
