@@ -7,6 +7,7 @@ import java.util.Map;
 import javafx.geometry.Point2D;
 import treenode.SlogoNode;
 import turtle.Turtle;
+import views.SlogoView;
 
 public class SetPosition extends SlogoNode{
 //	
@@ -40,14 +41,16 @@ public class SetPosition extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		double CurX = turtle.getLocation().getX();
-		double CurY = turtle.getLocation().getY();
+		double CurX = turtle.getLocation().getX() - SlogoView.TURTLEVIEWX - .5 * SlogoView.TURTLEVIEWWIDTH
+				+ .5 * Turtle.TURTLESIZE;
+		double CurY = turtle.getLocation().getY() - SlogoView.TURTLEVIEWY - .5 * SlogoView.TURTLEVIEWHEIGHT
+				+ .5 * Turtle.TURTLESIZE;
 		List<SlogoNode> leaf = this.getChildren();
 		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
 		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
 		location[0] = xpos;
 		location[1] = ypos;
-		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 21), 0.5);
+		double distance = Math.sqrt(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2));
 		return distance;
 	}
 	

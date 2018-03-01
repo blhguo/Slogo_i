@@ -4,6 +4,9 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import Deprecated.VariableNode;
+import VarOp.MakeVariable;
+
 /*
  * takes in an Array of strings and uses NodeBuilder to build those strings
  */
@@ -32,7 +35,15 @@ public class CommandFactory {
 			
 			nodeList[i]=currentNode;
 		}
+		convertLoneVariables(nodeList);//check for lone variables
 		return nodeList;
+	}
+	private void convertLoneVariables(SlogoNode[] nodeList) {
+		for (int i = 1; i<nodeList.length; i++) {
+			if ((nodeList[i-1] instanceof MakeVariable)&&(nodeList[i] instanceof VariableNode)) {
+				nodeList[i].setNumChildren(0);
+			}
+		}
 	}
 
 	/*
