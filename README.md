@@ -3,7 +3,9 @@ A development environment that helps users write SLogo programs.
 Compsci 308 Slogo Project
 
 Authors: Brandon Guo, Jamie Kim, Liam Pulsifer, Ryan Fu
+
 Start Data: 2/18/18
+
 End of Basic Implementation Date:3/1/18
 
 ## Roles
