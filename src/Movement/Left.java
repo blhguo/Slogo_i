@@ -33,7 +33,7 @@ public class Left extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
-		return leaf.get(0).getValue(VarMap, FunctMap, turtle);
+		return leaf.get(0).getExecute(VarMap, FunctMap, turtle);
 	}
 	
 }
