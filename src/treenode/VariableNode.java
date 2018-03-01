@@ -15,8 +15,11 @@ public class VariableNode extends SlogoNode{
 		this.variableName = n;
 	}
 
-	@Override
-
+	//return the name of the variable assigned to the node
+	public String getName() {
+		return this.variableName;
+	}
+	
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 
 		// TODO Auto-generated method stub

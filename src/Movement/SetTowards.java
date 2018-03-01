@@ -36,8 +36,8 @@ public class SetTowards extends SlogoNode{
 		double CurX = turtle.getLocation().getX();
 		double CurY = turtle.getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();
-		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);
+		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
 		
 		double newhead = Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
 		return newhead - initial;

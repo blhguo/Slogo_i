@@ -43,8 +43,8 @@ public class SetPosition extends SlogoNode{
 		double CurX = turtle.getLocation().getX();
 		double CurY = turtle.getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();
-		double xpos = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		double ypos = leaf.get(1).getValue(VarMap, FunctMap, turtle);
+		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
 		location[0] = xpos;
 		location[1] = ypos;
 		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 21), 0.5);
