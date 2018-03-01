@@ -1,4 +1,4 @@
-package VarOp;
+package Deprecated;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +28,9 @@ public class VariableNode extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
+		if (VarMap.containsKey(this.name) && this.numchildren==0) {
+			return VarMap.get(this.name); 
+		}
 		List<SlogoNode> leaf = this.getChildren();
 		double x = leaf.get(0).getValue(VarMap, FunctMap, turtle);
 		return x;

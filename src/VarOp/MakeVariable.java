@@ -5,7 +5,7 @@ import java.util.Map;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class Make extends SlogoNode{
+public class MakeVariable extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -13,7 +13,7 @@ public class Make extends SlogoNode{
 //		this.val = getValue();
 //	}
 
-	public Make() {
+	public MakeVariable() {
 		numchildren = 2;
 	}
 	@Override

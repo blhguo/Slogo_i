@@ -34,6 +34,9 @@ public abstract class SlogoNode implements CommandInterface{
 	/*
 	 * returns children
 	 */
+	public void setNumChildren(int n) {
+		numchildren = n;
+	}
 	public List<SlogoNode> getChildren(){
 		return children;
 	}
