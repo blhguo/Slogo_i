@@ -3,7 +3,7 @@ package VarOp;
 import java.util.List;
 import java.util.Map;
 
-import Deprecated.VariableNode;
+//import Deprecated.VariableNode;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
