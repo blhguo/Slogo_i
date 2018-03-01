@@ -19,7 +19,7 @@ public class Main extends Application implements Observer{
 	private SlogoView simulation;
 
     private Map<String, Double> variables;
-    public static Map<String, SlogoNode> functions;
+    private Map<String, SlogoNode> functions;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -36,22 +36,6 @@ public class Main extends Application implements Observer{
 		simulation.addObserver(this);
         variables = new HashMap<>();
         functions = new HashMap<>();
-		variables.put("x", 5.0);
-		variables.put("y", 10.0);
-        variables.put("a", 5.0);
-        variables.put("s", 10.0);
-        variables.put("d", 5.0);
-        variables.put("f", 10.0);
-        variables.put("g", 5.0);
-        variables.put("h", 10.0);
-        variables.put("j", 5.0);
-        variables.put("k", 10.0);
-        variables.put("l", 5.0);
-        variables.put("y", 10.0);
-        variables.put("r", 5.0);
-        variables.put("e", 10.0);
-        variables.put("w", 5.0);
-        variables.put("q", 10.0);
 		updateVarView();
 	}
 	
@@ -72,7 +56,7 @@ public class Main extends Application implements Observer{
 		SlogoNode Head = Builder.buildTree(BufferArray);
         System.out.println(reader.evaluate(Head, variables, functions, (Turtle) o));
         simulation.updateScreen();
-		//updateVarView();
+		updateVarView();
 
 	}
 	public void updateVarView(){

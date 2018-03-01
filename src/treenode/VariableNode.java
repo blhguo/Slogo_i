@@ -28,11 +28,14 @@ public class VariableNode extends SlogoNode{
 
 	@Override
 	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
-		// TODO Auto-generated method stub
-		if (VarMap.containsKey(this.variableName)) {  //if key already exists
+//		// TODO Auto-generated method stub
+//		if (VarMap.containsKey(this.variableName) && this.numchildren!=0) {  //if key already exists
+//			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle));
+//		}else {
+//			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle)); //returns a default value of 0.0
+//		}
+		if (this.numchildren!=0) {  //if key already exists
 			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle));
-		}else {
-			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle)); //returns a default value of 0.0
 		}
 		return VarMap.get(this.variableName); //obtains value from map
 	}

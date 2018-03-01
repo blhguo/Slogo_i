@@ -139,13 +139,16 @@ public class NodeBuilder {
 					try { //try to create a new class object based on name.
 						commandObject = Class.forName("Query."+formalCommandName);
 					}catch (ClassNotFoundException e4) {
+						try {
+							commandObject = Class.forName("VarOp." + formalCommandName);
+						}catch (ClassNotFoundException e5) {
 						e4.printStackTrace();
 					}
 				}
 			}
 
+			}
 		}
-
 		Constructor<?> c = commandObject.getConstructors()[0];
 		SlogoNode command = null;
 		try {
