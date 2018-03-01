@@ -26,10 +26,12 @@ public class VariableView extends SceneElement implements Observable{
     private Text text;
     private ScrollPane pane;
     public static final double WRAPBUFFER = 30;
+    private List<Label> labellist;
     public VariableView() {
         observers = new ArrayList<>();
         vbox = new VBox();
         vbox.getChildren().add(getLabel());
+        labellist = new ArrayList<>();
         //vbox.getChildren().add(getText());
         vbox.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-background-color: goldenrod;");
         pane = getPane();
@@ -77,12 +79,14 @@ public class VariableView extends SceneElement implements Observable{
     }
 
     private void updateText(Map<String, Double> variables) {
-
+        vbox.getChildren().removeAll(labellist);
+        labellist.clear();
         for (String key : variables.keySet()){
             //text.setText(text.getText() + "\n " + key + " : " + variables.get(key));
             Label l = new Label(key + " : " + variables.get(key));
             l.setPadding(new Insets(1,1,1,5));
-            vbox.getChildren().add(l);
+            labellist.add(l);
         }
+        vbox.getChildren().addAll(labellist);
     }
 }

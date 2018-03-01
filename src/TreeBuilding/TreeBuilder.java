@@ -34,7 +34,7 @@ public class TreeBuilder {
                 buildcounter++;
                 temp++;
                 if (buildcounter >= array.length){
-                    System.out.println("Out of bounds");
+                    //System.out.println("Out of bounds");
                     break;
                 }
                 head.addChild(build(array[buildcounter], array));

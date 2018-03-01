@@ -46,7 +46,7 @@ public class Main extends Application implements Observer{
 	public void update(Object o) {
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
-		System.out.println(simulation.getPassValue());
+		//System.out.println(simulation.getPassValue());
 		TreeBuilder Builder = new TreeBuilder();
 		CommandFactory factory = new CommandFactory() {};
 		TreeReader reader = new TreeReader();
