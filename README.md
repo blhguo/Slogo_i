@@ -25,11 +25,26 @@ Worked on backend design including creating the Command Interface and developing
 factory and nodebuilder to convert an user input string into command nodes that each had
 unique functionalities.
 
-
-
 ## Resources Used During Development
 * Joshua Bloch: A conversation about design by Bill Venners
 * Why Java Interfaces Are So Very Cool by Eben Hewitt
+
+
+### Hotkeys
+* 'q' = quit
+* 'esc' = runs command
+* 'up arrow' = acquires previous command
+
+### Buttons and Additional Functionalities
+* Select Background Color
+* Run Command Button
+* Debug Button
+* Profile Button
+* Select Pen Color
+* Select Language
+* Help Link 
+* History Feed (displays recently entered commands)
+* Variable Bank (displays stored variables)
 
 
 
