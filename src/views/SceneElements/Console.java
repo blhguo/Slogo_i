@@ -43,7 +43,7 @@ public class Console extends SceneElement implements Observable{
         vbox.setStyle("-fx-border-color: black; -fx-border-width: 2");
         myHistory = new History();
         observers = new ArrayList<>();
-        littlefield = new TextField();
+       // littlefield = new TextField();
     }
     @Override
     public Node getField(){
@@ -55,9 +55,9 @@ public class Console extends SceneElement implements Observable{
     public ToolBar getToolBar(){
         Button button = new Button("Execute");
         Button clearbutton = new Button("Clear");
-
         clearbutton.setOnAction(e -> clearHistory());
         button.setOnAction(e -> sendText());
+        littlefield = new TextField();
         ToolBar toolbar = new ToolBar(
                 new Label("Console"),
                 new Separator(),
@@ -75,7 +75,7 @@ public class Console extends SceneElement implements Observable{
         myHistory.clear();
     }
     public void setLittleField(String s){
-        littlefield.setText(s);
+        littlefield.setText("Return: " + s);
     }
     private void sendText(){
         try {

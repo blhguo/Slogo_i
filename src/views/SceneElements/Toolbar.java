@@ -42,17 +42,16 @@ public class Toolbar extends SceneElement implements Observable{
         link = new Hyperlink("Help");
         link.setOnAction(e -> getLink());
         toolbar = new ToolBar(
-                new Button("New"),
                 link,
                 new Separator(),
                 new Label("Choose Background Color:"),
                 getColorPicker(),
-                new Button("Run"),
                 new Separator(),
                 getFileBox(),
+                new Label("Choose Line Color"),
                 getNewColorPicker(),
-                new Separator(),
-                new Label("Hi Everyone!")
+                new Separator()
+
         );
         toolbar.setMinSize(SlogoView.TOOLBARWIDTH, SlogoView.TOOLBARHEIGHT);
         observers = new ArrayList<>();
