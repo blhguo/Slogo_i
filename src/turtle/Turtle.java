@@ -12,7 +12,6 @@ import views.SlogoView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
 *
@@ -99,7 +98,7 @@ public class Turtle implements Observable {
         }
     }
 
-    public List<Line> getLine(){
+    public List<Line> getLines(){
 	    return lines;
     }
     public Point2D getOriginalLocation(){
