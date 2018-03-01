@@ -71,19 +71,24 @@ public class Console extends SceneElement implements Observable{
     }
 
     private void sendText(){
-        //Refactor this to be "if invalid, do something"
-        if (field.getText().equals("")){
-            return;
+
+        try {
+            //Refactor this to be "if invalid, do something"
+            if (field.getText().equals("")){
+                return;
+            }
+            currentString = field.getText();
+            currentString = cleanText(currentString);
+            passValue = currentString.split(" ");
+            //StringBuilder temp = new StringBuilder(currentString);
+            //System.out.println(temp.toString());
+            myHistory.addCommand(currentString);
+            //System.out.println(currentString);
+            field.setText("");
+            //passValue = currentString.split(" ");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        currentString = field.getText();
-        currentString = cleanText(currentString);
-        passValue = currentString.split(" ");
-        //StringBuilder temp = new StringBuilder(currentString);
-        //System.out.println(temp.toString());
-        myHistory.addCommand(currentString);
-        //System.out.println(currentString);
-        field.setText("");
-        //passValue = currentString.split(" ");
     }
     public History getHistory(){
         return myHistory;

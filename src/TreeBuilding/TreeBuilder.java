@@ -2,6 +2,7 @@ package TreeBuilding;
 
 import MathOps.Sum;
 import Movement.Forward;
+import treenode.MasterNode;
 import treenode.NumberNode;
 import treenode.SlogoNode;
 
@@ -11,15 +12,22 @@ import java.util.List;
 public class TreeBuilder {
 
     private int buildcounter;
+    private List<SlogoNode> heads;
+    private SlogoNode master;
     public TreeBuilder(){
         buildcounter = 0;
     }
     public SlogoNode buildTree(SlogoNode[] array){
-        System.out.println(array.length);
+        //System.out.println(array.length);
+        master = new MasterNode();
+        //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
-        SlogoNode head = build(currentNode, array);
+        while(buildcounter < array.length){
+            master.addChild(build(currentNode, array));
+            buildcounter++;
+        }
         buildcounter = 0;
-        return head;
+        return master;
     }
 
     public SlogoNode build(SlogoNode head, SlogoNode[] array) {

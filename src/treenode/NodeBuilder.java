@@ -1,16 +1,16 @@
 package treenode;
 
+import views.Observer;
+import views.SceneElements.Observable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
-public class NodeBuilder {
+public class NodeBuilder{
 
+	private List<Observer> observers = new ArrayList<>();
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private static final String LANGUAGE_FILE = "English";
 	private static final String NUMBERNODE_ADDRESS = "treenode.NumberNode";
@@ -160,6 +160,7 @@ public class NodeBuilder {
 		}
 		return command;
 	}
+
 
 
 	//	/*

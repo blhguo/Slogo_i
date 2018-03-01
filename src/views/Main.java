@@ -3,6 +3,7 @@ package views;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import treenode.CommandFactory;
+import treenode.NodeBuilder;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
