@@ -64,7 +64,12 @@ public class Turtle implements Observable {
 		lines = new ArrayList<>();
 		myPenUp = false;
 		isShowing = true;
+		System.out.println("X: " + SlogoView.TURTLEVIEWX);
+        System.out.println("Y: " + SlogoView.TURTLEVIEWY);
+        System.out.println("HEIGHT: " + SlogoView.TURTLEVIEWHEIGHT);
+        System.out.println("WIDTH: " + SlogoView.TURTLEVIEWWIDTH);
 		//System.out.println(this.getClass().getTypeName());
+        System.out.println(currentpos.getX() + " : " + currentpos.getY());
 	}
 
 	/**
@@ -78,6 +83,9 @@ public class Turtle implements Observable {
 	}
 	public ImageView getImage(){return turtleview;}
 
+	public void setAbsoluteLocation(Point2D newpos){
+	    setLocation(new Point2D(getOriginalLocation().getX() + newpos.getX(), getOriginalLocation().getY()));
+    }
 	public void setLocation(Point2D newpos)
 	{
         addLine(newpos);
