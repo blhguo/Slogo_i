@@ -63,6 +63,7 @@ public class Main extends Application implements Observer{
 		TreeBuilder Builder = new TreeBuilder();
 		CommandFactory factory = new CommandFactory() {};
 		ReadTree reader = new ReadTree();
+		System.out.println(simulation.getPassValue());
 		SlogoNode[] BufferArray = factory.convertStringtoNode(simulation.getPassValue());
 		SlogoNode Head = Builder.buildTree(BufferArray);
 		double buff = reader.evaluate(Head, variables, functions, (Turtle) o);
