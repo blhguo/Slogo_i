@@ -27,6 +27,7 @@ public class Turtle implements Observable {
 	private Line line;
 	private ArrayList<Line> lines;
 	private boolean isShowing;
+	public static double initHeading = 0;
 
 
     private boolean myPenUp;
@@ -85,7 +86,9 @@ public class Turtle implements Observable {
 		turtleview.setLayoutY(this.currentpos.getY());
 		//updateObservers();
 	}
-
+    private void setRotate(double degrees){
+	    turtleview.setRotate(-1 * degrees);
+    }
     private void addLine(Point2D newpos) {
         if (!myPenUp) {
             Line l = new Line();
@@ -133,7 +136,8 @@ public class Turtle implements Observable {
 	}
 	public void setHeading(double heading)
 	{
-		this.heading = Math.floorMod((int) heading, 360);
+	    this.heading = Math.floorMod((int) heading, 360);
+	    setRotate(heading);
 	}
 	
 	public void rotate(double angle) {
@@ -173,6 +177,7 @@ public class Turtle implements Observable {
 	
 	public void clear(){
 	    lines.clear();
+	    setHeading(initHeading);
 	    //updateObservers();
     }
 	public void reset() {

@@ -57,14 +57,16 @@ public class Toolbar extends SceneElement implements Observable{
     }
     public void updateObservers(){
         for (Observer o : observers){
-            o.update(picker.getValue());
-        }
-        if (done) {
-            for (Observer o : observers) {
-                o.update("https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php");
+            if (o.getClass().getTypeName().equals("views.SceneElements.TurtleDisplay")) {
+                o.update(picker.getValue());
             }
-            done = false;
         }
+//        if (done) {
+//            for (Observer o : observers) {
+//                o.update("https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php");
+//            }
+//            done = false;
+//        }
     }
     public void addObserver(Observer o){
         observers.add(o);
