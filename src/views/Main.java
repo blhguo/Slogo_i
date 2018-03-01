@@ -54,6 +54,8 @@ public class Main extends Application implements Observer{
         variables.put("q", 10.0);
 		updateVarView();
 	}
+	
+	
 
 
 	@Override
