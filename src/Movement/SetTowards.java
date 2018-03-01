@@ -18,7 +18,7 @@ public class SetTowards extends SlogoNode{
 		numchildren = 2;
 	}
 	private void setHead(Turtle turtle, double angle) {
-		turtle.setHeading(-1 * angle);
+		turtle.setHeading(angle);
 	}
 
 	@Override
@@ -39,10 +39,9 @@ public class SetTowards extends SlogoNode{
 		List<SlogoNode> leaf = this.getChildren();
 		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
 		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
-		xpos -= (SlogoView.TURTLEVIEWX + .5 * SlogoView.TURTLEVIEWWIDTH - .5 * Turtle.TURTLESIZE);
-		ypos = -1*(ypos - (SlogoView.TURTLEVIEWY + .5 * SlogoView.TURTLEVIEWHEIGHT - .5 * Turtle.TURTLESIZE));
-		System.out.println(xpos);
-		System.out.println(ypos);
+		//hi here are some magic numbers please dont judge will be fixed later
+		xpos = xpos + 489.282857;
+		ypos = ypos + 251;
 		
 		double newhead = -1 * Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
 		return newhead;

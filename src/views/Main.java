@@ -3,9 +3,15 @@ package views;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import treenode.CommandFactory;
+import treenode.NodeBuilder;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,26 +45,44 @@ public class Main extends Application implements Observer{
 		updateVarView();
 	}
 	
-	
+	public String[] sanitize(String[] array) {
+		ArrayList<String> list = new ArrayList<String>();
+			for (String s : array) {
+			    if (!s.matches("#(.*)"))
+			        list.add(s);
+		}
+			return list.toArray(new String[list.size()]);
+	}
 
 
 	@Override
 	public void update(Object o) {
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
-		System.out.println(simulation.getPassValue());
+		//System.out.println(simulation.getPassValue());
 		TreeBuilder Builder = new TreeBuilder();
 		CommandFactory factory = new CommandFactory() {};
 		TreeReader reader = new TreeReader();
 		//System.out.println(simulation.getPassValue());
-		SlogoNode[] BufferArray = factory.convertStringtoNode(simulation.getPassValue());
+		SlogoNode[] BufferArray = factory.convertStringtoNode(sanitize(simulation.getPassValue()));
 		//System.out.println(BufferArray[0]);
 		SlogoNode Head = Builder.buildTree(BufferArray);
-        System.out.println(reader.evaluate(Head, variables, functions, (Turtle) o));
+        simulation.setConsole(reader.evaluate(Head, variables, functions, (Turtle) o));
         simulation.updateScreen();
 		updateVarView();
 
 	}
+    public static void openWebPage(String url) {
+	    try {
+            Desktop.getDesktop().browse(new java.net.URI(url));
+        }
+        catch (URISyntaxException e){
+	        System.out.println("DONE");
+        }
+        catch (IOException e){
+	        System.out.println("DONE");
+        }
+    }
 	public void updateVarView(){
 	    simulation.updateVarView(variables);
     }

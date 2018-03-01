@@ -100,6 +100,11 @@ public class History extends SceneElement implements Observable{
         //System.out.println("Hit it " + command);
         updateObservers();
     }
+    public void removeLastCommand(){
+	    pos--;
+	    commands.remove(pos);
+	    pos--;
+    }
     public String getLastCommand() throws EmptyStackException{
         pos--;
 	    if (pos < 0){
@@ -122,7 +127,7 @@ public class History extends SceneElement implements Observable{
 	    commands.clear();
 	    pos = 0;
 	    text.setText("");
-	    updateObservers();
+	    //updateObservers();
     }
     public void updateObservers(){
         for (Observer o : observers){

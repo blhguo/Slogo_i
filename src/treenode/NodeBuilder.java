@@ -1,22 +1,23 @@
 package treenode;
 
+import views.Observer;
+import views.SceneElements.Observable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
-public class NodeBuilder {
+public class NodeBuilder{
 
+	private List<Observer> observers = new ArrayList<>();
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private static final String LANGUAGE_FILE = "English";
 	private static final String NUMBERNODE_ADDRESS = "treenode.NumberNode";
 	private static final String VARIABLENODE_ADDRESS = "treenode.VariableNode";
-	public static final ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+LANGUAGE_FILE);
-	private static final Map<String, String> languageMap = createLanguageMap(myResources);
+	private static String language = LANGUAGE_FILE;
+	private static ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
+	public static Map<String, String> languageMap = createLanguageMap(myResources);
 	//private static final Map<String, Class<?>> classMap = createClassMap();  //creates the classMap of all objects.
 
 //	public static void main(String[] args) {
@@ -64,7 +65,11 @@ public class NodeBuilder {
 	private static Boolean isMultipleKeyword(String input) {
 		return input.contains("|");
 	}
-	
+	public static void changeLanguage(String newlanguage){
+	    language = newlanguage;
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
+        languageMap = createLanguageMap(myResources);
+    }
 	/*
 	 * creates Variable Node
 	 */
@@ -102,7 +107,7 @@ public class NodeBuilder {
 		Constructor<?> c = commandObject.getConstructors()[0];
 		SlogoNode command = null;
 		try {
-			command = (SlogoNode) c.newInstance(Integer.parseInt(input));
+			command = (SlogoNode) c.newInstance(Double.parseDouble(input));
 		}
 		catch (InstantiationException | IllegalAccessException| IllegalArgumentException |InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -117,6 +122,7 @@ public class NodeBuilder {
 	 */
 	public static SlogoNode createNode(String input) {
 		String formalCommandName = null;
+
 		if (languageMap.containsKey(input)) { //if the map exists
 			formalCommandName = languageMap.get(input);
 		}
@@ -159,6 +165,7 @@ public class NodeBuilder {
 		}
 		return command;
 	}
+
 
 
 	//	/*

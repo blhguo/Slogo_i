@@ -19,16 +19,17 @@ import java.util.List;
 * used for display.
 * 
 */
-public class Turtle implements Observable {
+public class Turtle implements Observable, Observer{
 	private Point2D currentpos;
 	private double speed;
 	private double heading;
 	private ImageView turtleview;
 	private Line line;
 	private ArrayList<Line> lines;
+	private Color lineColor = Color.BLACK;
 	private boolean isShowing;
 	public static double initHeading = 0;
-
+	public static double CMDBUFF = 60;
     private double oldHeading;
 
 
@@ -88,6 +89,8 @@ public class Turtle implements Observable {
     }
 	public void setLocation(Point2D newpos)
 	{
+		if ((newpos.getX() < SlogoView.TURTLEVIEWX) || (newpos.getX() > (SlogoView.TURTLEVIEWX + SlogoView.TURTLEVIEWWIDTH - TURTLESIZE * 0.5) || (newpos.getY() < SlogoView.TURTLEVIEWY) || (newpos.getY() > (SlogoView.TURTLEVIEWY - CMDBUFF + SlogoView.TURTLEVIEWHEIGHT + TURTLESIZE * 0.5))))
+			return;
         addLine(newpos);
         currentpos = newpos;
 		turtleview.setLayoutX(this.currentpos.getX());
@@ -100,13 +103,14 @@ public class Turtle implements Observable {
     private void addLine(Point2D newpos) {
         if (!myPenUp) {
             Line l = new Line();
-            l.setFill(Color.BLACK);
+            l.setStroke(lineColor);
             l.setStrokeWidth(2);
             l.setStartX(currentpos.getX() + .5 * TURTLESIZE);
             l.setStartY(currentpos.getY() + .5 * TURTLESIZE);
             l.setEndX(newpos.getX() + .5 * TURTLESIZE);
             l.setEndY(newpos.getY() + .5 * TURTLESIZE);
             lines.add(l);
+            System.out.println(lineColor);
         }
     }
 
@@ -145,7 +149,7 @@ public class Turtle implements Observable {
 	public void setHeading(double heading)
 	{
 	    oldHeading = this.heading;
-	    this.heading = Math.floorMod((int) heading, 360);
+	    this.heading = heading % 360;
 	    setRotate(heading);
 	}
 	
@@ -205,4 +209,12 @@ public class Turtle implements Observable {
     public void addObserver(Observer o) {
         observers.add(o);
     }
+
+	@Override
+	public void update(Object o) {
+//		for (Line line : lines){
+//			line.setStroke((Color)o);
+//		}
+		lineColor = (Color)o;
+	}
 }

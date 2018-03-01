@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import views.Observer;
 import views.SlogoView;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Console extends SceneElement implements Observable{
     private History myHistory;
     private TextArea field;
     private List<Observer> observers;
+    private TextField littlefield;
     public static final double MINITOOLBARHEIGHT = .5 * SlogoView.TOOLBARHEIGHT;
     public Console(){
         vbox = new VBox();
@@ -41,6 +43,7 @@ public class Console extends SceneElement implements Observable{
         vbox.setStyle("-fx-border-color: black; -fx-border-width: 2");
         myHistory = new History();
         observers = new ArrayList<>();
+       // littlefield = new TextField();
     }
     @Override
     public Node getField(){
@@ -54,12 +57,14 @@ public class Console extends SceneElement implements Observable{
         Button clearbutton = new Button("Clear");
         clearbutton.setOnAction(e -> clearHistory());
         button.setOnAction(e -> sendText());
+        littlefield = new TextField();
         ToolBar toolbar = new ToolBar(
                 new Label("Console"),
                 new Separator(),
                 button,
                 new Separator(),
-                clearbutton
+                clearbutton,
+                littlefield
         );
         toolbar.setMinSize(SlogoView.TOOLBARWIDTH, MINITOOLBARHEIGHT);
         return toolbar;
@@ -69,21 +74,32 @@ public class Console extends SceneElement implements Observable{
         field.setText("");
         myHistory.clear();
     }
-
+    public void setLittleField(String s){
+        littlefield.setText("Return: " + s);
+    }
     private void sendText(){
-        //Refactor this to be "if invalid, do something"
-        if (field.getText().equals("")){
-            return;
+        try {
+            //Refactor this to be "if invalid, do something"
+            if (field.getText().equals("")) {
+                return;
+            }
+            field.setStyle("-fx-text-fill: black;");
+            currentString = field.getText();
+            currentString = cleanText(currentString);
+            passValue = currentString.split(" ");
+            //StringBuilder temp = new StringBuilder(currentString);
+            //System.out.println(temp.toString());
+            myHistory.addCommand(currentString);
+            //System.out.println(currentString);
+            field.setText("");
+            //passValue = currentString.split(" ");
+        } catch (InvalidParameterException e) {
+            myHistory.removeLastCommand();
+            field.setText("Sorry, that's not a valid command");
+            field.selectAll();
+            field.setStyle("-fx-background-color: red;");
+
         }
-        currentString = field.getText();
-        currentString = cleanText(currentString);
-        passValue = currentString.split(" ");
-        //StringBuilder temp = new StringBuilder(currentString);
-        //System.out.println(temp.toString());
-        myHistory.addCommand(currentString);
-        //System.out.println(currentString);
-        field.setText("");
-        //passValue = currentString.split(" ");
     }
     public History getHistory(){
         return myHistory;
@@ -116,6 +132,9 @@ public class Console extends SceneElement implements Observable{
         else if (code == KeyCode.DOWN){
             field.setText(myHistory.restoreCommand());
             field.positionCaret(field.getText().length());
+        }
+        else{
+            field.setStyle("-fx-text-fill: black;");
         }
     }
 
