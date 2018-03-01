@@ -19,7 +19,7 @@ public class Main extends Application implements Observer{
 	private SlogoView simulation;
 
     private Map<String, Double> variables;
-    private Map<String, SlogoNode> functions;
+    public static Map<String, SlogoNode> functions;
 
 	public static void main(String[] args) {
 		launch(args);

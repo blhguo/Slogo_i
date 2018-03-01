@@ -5,6 +5,7 @@ import java.util.Map;
 
 import treenode.SlogoNode;
 import turtle.Turtle;
+import views.SlogoView;
 
 public class XCoordinate extends SlogoNode{
 //	
@@ -25,7 +26,7 @@ public class XCoordinate extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		return turtle.getLocation().getX();
+		return turtle.getLocation().getX() - (SlogoView.TURTLEVIEWX + .5 * SlogoView.TURTLEVIEWWIDTH - .5 * Turtle.TURTLESIZE);
 		}
 	
 }

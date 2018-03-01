@@ -11,7 +11,7 @@ public class Sum extends SlogoNode{
 //	private double value = 0;
 //	private double distance = 0;
 	public Sum() {
-		numchildren = 2;
+		numchildren = 3;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Sum extends SlogoNode{
 	@Override
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
-		//TODO: Update according to Jamie's stuff
+		//TODO: Update according to Jamie's stuff	
 		List<SlogoNode> leaf = this.getChildren();
 		double x = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
 		double y = leaf.get(1).getExecute(VarMap, FunctMap, turtle);

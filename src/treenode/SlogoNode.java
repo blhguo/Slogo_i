@@ -23,6 +23,11 @@ public abstract class SlogoNode implements CommandInterface{
 	}
 	public abstract double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle);
 	
+	//return the name of the variable assigned to the node
+	public String getVariableName() {
+			return this.getName();
+		}
+	
 	public int getNumchildren(){
 		return numchildren;
 	}
