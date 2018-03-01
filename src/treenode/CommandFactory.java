@@ -15,15 +15,23 @@ public class CommandFactory {
 	 * method that converts a array of strings into an array of unique Nodes
 	 */
 	
+	private boolean isDouble(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+	
 	public CommandFactory() {};
 	public SlogoNode[] convertStringtoNode(String[] commandList){
 		SlogoNode[] nodeList = new SlogoNode[commandList.length];
 		for (int i = 0; i<commandList.length;i++) { 
-			
 			String current = commandList[i];
 			SlogoNode currentNode = null;
 			//If case for variable node, number node, or normal command node
-			if(isNumber(current)) {
+			if(isDouble(current) ) {
 				currentNode = NodeBuilder.createNumberNode(current);
 			}
 			else if (isVariable(current)) {

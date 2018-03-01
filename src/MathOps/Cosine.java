@@ -26,7 +26,7 @@ public class Cosine extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 		List<SlogoNode> leaf = this.getChildren();
 		double x = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
-		return Math.cos(x);
+		return Math.cos(Math.toRadians(x));
 		}
 	
 }

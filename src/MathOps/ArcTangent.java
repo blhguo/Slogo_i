@@ -26,7 +26,7 @@ public class ArcTangent extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 		List<SlogoNode> leaf = this.getChildren();
 		double x = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
-		return Math.atan(x);
+		return Math.toDegrees(Math.atan(x));
 		}
 	
 }

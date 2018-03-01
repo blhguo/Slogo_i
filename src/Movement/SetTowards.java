@@ -41,8 +41,6 @@ public class SetTowards extends SlogoNode{
 		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
 		xpos -= (SlogoView.TURTLEVIEWX + .5 * SlogoView.TURTLEVIEWWIDTH - .5 * Turtle.TURTLESIZE);
 		ypos = -1*(ypos - (SlogoView.TURTLEVIEWY + .5 * SlogoView.TURTLEVIEWHEIGHT - .5 * Turtle.TURTLESIZE));
-		System.out.println(xpos);
-		System.out.println(ypos);
 		
 		double newhead = -1 * Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
 		return newhead;
