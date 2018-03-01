@@ -14,7 +14,7 @@ public class Make extends SlogoNode{
 //	}
 
 	public Make() {
-		numchildren = 1;
+		numchildren = 2;
 	}
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {

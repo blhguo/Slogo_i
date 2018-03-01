@@ -129,6 +129,7 @@ public class Console extends SceneElement implements Observable{
     public String getCurrentString(){
         return currentString;
     }
+    
     public void updateObservers(){
         for (Observer o : observers){
             o.update(new Object());
