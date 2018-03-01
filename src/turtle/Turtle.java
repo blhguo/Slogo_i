@@ -145,10 +145,7 @@ public class Turtle implements Observable {
 	public void setHeading(double heading)
 	{
 	    oldHeading = this.heading;
-	    System.out.println("some backend math" + heading);
-
 	    this.heading = heading % 360;
-	    System.out.println("backend heading editied" + this.heading);
 	    setRotate(heading);
 	}
 	
