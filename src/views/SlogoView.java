@@ -2,6 +2,7 @@ package views;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -120,8 +121,11 @@ public class SlogoView implements Observer, Observable{
     	for (SceneElement element: sceneElements){
     	    element.addObserver(this);
         }
+        myToolbar.addObserver(turtles.get(0));
 	}
-
+    public void setConsole(Double d){
+	    myConsole.setLittleField(d.toString());
+    }
 	private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
         myConsole = new Console();

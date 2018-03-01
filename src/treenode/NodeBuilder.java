@@ -15,8 +15,9 @@ public class NodeBuilder{
 	private static final String LANGUAGE_FILE = "English";
 	private static final String NUMBERNODE_ADDRESS = "treenode.NumberNode";
 	private static final String VARIABLENODE_ADDRESS = "treenode.VariableNode";
-	public static final ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+LANGUAGE_FILE);
-	private static final Map<String, String> languageMap = createLanguageMap(myResources);
+	private static String language = LANGUAGE_FILE;
+	private static ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
+	public static Map<String, String> languageMap = createLanguageMap(myResources);
 	//private static final Map<String, Class<?>> classMap = createClassMap();  //creates the classMap of all objects.
 
 //	public static void main(String[] args) {
@@ -64,7 +65,11 @@ public class NodeBuilder{
 	private static Boolean isMultipleKeyword(String input) {
 		return input.contains("|");
 	}
-	
+	public static void changeLanguage(String newlanguage){
+	    language = newlanguage;
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
+        languageMap = createLanguageMap(myResources);
+    }
 	/*
 	 * creates Variable Node
 	 */

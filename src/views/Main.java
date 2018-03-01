@@ -7,6 +7,9 @@ import treenode.NodeBuilder;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,6 +63,17 @@ public class Main extends Application implements Observer{
 		updateVarView();
 
 	}
+    public static void openWebPage(String url) {
+	    try {
+            Desktop.getDesktop().browse(new java.net.URI(url));
+        }
+        catch (URISyntaxException e){
+	        System.out.println("DONE");
+        }
+        catch (IOException e){
+	        System.out.println("DONE");
+        }
+    }
 	public void updateVarView(){
 	    simulation.updateVarView(variables);
     }

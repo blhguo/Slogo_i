@@ -19,13 +19,14 @@ import java.util.List;
 * used for display.
 * 
 */
-public class Turtle implements Observable {
+public class Turtle implements Observable, Observer{
 	private Point2D currentpos;
 	private double speed;
 	private double heading;
 	private ImageView turtleview;
 	private Line line;
 	private ArrayList<Line> lines;
+	private Color lineColor = Color.BLACK;
 	private boolean isShowing;
 	public static double initHeading = 0;
 
@@ -100,7 +101,7 @@ public class Turtle implements Observable {
     private void addLine(Point2D newpos) {
         if (!myPenUp) {
             Line l = new Line();
-            l.setFill(Color.BLACK);
+            l.setFill(lineColor);
             l.setStrokeWidth(2);
             l.setStartX(currentpos.getX() + .5 * TURTLESIZE);
             l.setStartY(currentpos.getY() + .5 * TURTLESIZE);
@@ -205,4 +206,12 @@ public class Turtle implements Observable {
     public void addObserver(Observer o) {
         observers.add(o);
     }
+
+	@Override
+	public void update(Object o) {
+		for (Line line : lines){
+			line.setStroke((Color)o);
+		}
+		lineColor = (Color)o;
+	}
 }
