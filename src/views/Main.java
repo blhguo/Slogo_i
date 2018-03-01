@@ -7,6 +7,7 @@ import treenode.NodeBuilder;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,14 @@ public class Main extends Application implements Observer{
 		updateVarView();
 	}
 	
-	
+	public String[] sanitize(String[] array) {
+		ArrayList<String> list = new ArrayList<String>();
+			for (String s : array) {
+			    if (!s.matches("#(.*)"))
+			        list.add(s);
+		}
+			return list.toArray(new String[list.size()]);
+	}
 
 
 	@Override
@@ -52,7 +60,7 @@ public class Main extends Application implements Observer{
 		CommandFactory factory = new CommandFactory() {};
 		TreeReader reader = new TreeReader();
 		//System.out.println(simulation.getPassValue());
-		SlogoNode[] BufferArray = factory.convertStringtoNode(simulation.getPassValue());
+		SlogoNode[] BufferArray = factory.convertStringtoNode(sanitize(simulation.getPassValue()));
 		//System.out.println(BufferArray[0]);
 		SlogoNode Head = Builder.buildTree(BufferArray);
         System.out.println(reader.evaluate(Head, variables, functions, (Turtle) o));

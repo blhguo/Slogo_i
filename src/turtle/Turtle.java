@@ -28,7 +28,7 @@ public class Turtle implements Observable {
 	private ArrayList<Line> lines;
 	private boolean isShowing;
 	public static double initHeading = 0;
-
+	public static double CMDBUFF = 60;
     private double oldHeading;
 
 
@@ -88,6 +88,8 @@ public class Turtle implements Observable {
     }
 	public void setLocation(Point2D newpos)
 	{
+		if ((newpos.getX() < SlogoView.TURTLEVIEWX) || (newpos.getX() > (SlogoView.TURTLEVIEWX + SlogoView.TURTLEVIEWWIDTH - TURTLESIZE * 0.5) || (newpos.getY() < SlogoView.TURTLEVIEWY) || (newpos.getY() > (SlogoView.TURTLEVIEWY - CMDBUFF + SlogoView.TURTLEVIEWHEIGHT + TURTLESIZE * 0.5))))
+			return;
         addLine(newpos);
         currentpos = newpos;
 		turtleview.setLayoutX(this.currentpos.getX());
