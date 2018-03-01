@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class SlogoView implements Observer{
+public class SlogoView implements Observer, Observable{
 	
 	/*
 	 * Make all constants public and static
@@ -85,12 +85,16 @@ public class SlogoView implements Observer{
 	 * Data structures for SceneElements, variables,
 	 * functions
 	 */
-
-	private Map<String, Double> variables;
-	//private Map<String, SlogoNode> functions;
     private List<Turtle> turtles;
 	private List<SceneElement> sceneElements;
-	
+	private List<Observer> observers;
+
+    public String[] getPassValue() {
+        return passValue;
+    }
+
+    private String[] passValue;
+
 	public SlogoView(){
 		//constructor
 	}
@@ -101,6 +105,8 @@ public class SlogoView implements Observer{
 		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
+		passValue = myConsole.getPassValue();
+		observers = new ArrayList<>();
 		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		return myScene;
 	}
@@ -150,8 +156,27 @@ public class SlogoView implements Observer{
             myRoot.getChildren().add(element.getField());
         }
         myRoot.getChildren().addAll(turtles.get(0).getLine());
-
+//        if (o.getClass().getTypeName().equals("java.lang.String")){
+//            getHostServices().showDocument((String)o);
+//        }
+        passValue = myConsole.getPassValue();
+        updateObservers();
 	}
 
 
+    @Override
+    public void updateObservers() {
+        for (Observer o : observers){
+            o.update(turtles.get(0));
+        }
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    public void updateVarView(Map<String, Double> variables) {
+        myVariableView.updateVarView(variables);
+	}
 }

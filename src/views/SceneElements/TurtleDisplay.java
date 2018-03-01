@@ -19,7 +19,9 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
     public TurtleDisplay(Turtle turtle){
         rectangle = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);
-        rectangle.setFill(Color.ORANGE);
+        rectangle.setFill(Color.WHITE);
+        rectangle.setStroke(Color.BLACK);
+        rectangle.setStrokeWidth(2);
         observers = new ArrayList<>();
         turtles = new ArrayList<>();
         turtles.add(turtle);
@@ -48,6 +50,9 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
         }
         else if (o.getClass().getTypeName().equals("turtle.Turtle")){
             updateObservers();
+        }
+        else{
+
         }
     }
 }
