@@ -17,7 +17,7 @@ public class Left extends SlogoNode{
 		numchildren = 1;
 	}
 	private void left(Turtle turtle, double angle) {
-		turtle.setHeading(turtle.getHeading() - angle); //TODO: Update according to Jamie's stuff
+		turtle.setHeading(turtle.getHeading() + angle); //TODO: Update according to Jamie's stuff
 	}
 
 	@Override
