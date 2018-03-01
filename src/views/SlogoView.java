@@ -105,6 +105,7 @@ public class SlogoView implements Observer, Observable{
 		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
+		passValue = myConsole.getPassValue();
 		observers = new ArrayList<>();
 		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		return myScene;

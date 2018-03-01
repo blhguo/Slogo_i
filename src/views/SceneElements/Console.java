@@ -22,9 +22,7 @@ public class Console extends SceneElement implements Observable{
     private VBox vbox;
     private String currentString = "";
 
-    public String[] getPassValue() {
-        return passValue;
-    }
+
 
     private String[] passValue;
     private History myHistory;
@@ -47,6 +45,9 @@ public class Console extends SceneElement implements Observable{
     @Override
     public Node getField(){
         return vbox;
+    }
+    public String[] getPassValue() {
+        return passValue;
     }
     public ToolBar getToolBar(){
         Button button = new Button("Execute");
