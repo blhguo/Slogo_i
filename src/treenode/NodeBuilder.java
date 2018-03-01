@@ -102,7 +102,7 @@ public class NodeBuilder {
 		Constructor<?> c = commandObject.getConstructors()[0];
 		SlogoNode command = null;
 		try {
-			command = (SlogoNode) c.newInstance(Integer.parseInt(input));
+			command = (SlogoNode) c.newInstance(Double.parseDouble(input));
 		}
 		catch (InstantiationException | IllegalAccessException| IllegalArgumentException |InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -117,7 +117,10 @@ public class NodeBuilder {
 	 */
 	public static SlogoNode createNode(String input) {
 		String formalCommandName = null;
+		System.out.println(input);
+
 		if (languageMap.containsKey(input)) { //if the map exists
+			System.out.println("test" + input);
 			formalCommandName = languageMap.get(input);
 		}
 		else{

@@ -18,16 +18,14 @@ public class SetHeading extends SlogoNode{
 		numchildren = 1;
 	}
 	private void setHead(Turtle turtle, double angle) {
-		turtle.setHeading(-1 * angle); //TODO: Update according to Jamie's stuff
+		turtle.setHeading(angle); //TODO: Update according to Jamie's stuff
 	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
-        double origHeading = turtle.getHeading();
 		double step = getValue(VarMap, FunctMap, turtle);
-		setHead(turtle, step);
-		return Math.abs(Math.min(origHeading - step, step - origHeading));
+		return step;
 	}
 
 
@@ -36,8 +34,10 @@ public class SetHeading extends SlogoNode{
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
 		double buffer = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
-
-		return buffer;
+		if ((buffer % 360)== 0) {buffer = 360.0;}
+		double buffer1 = turtle.getHeading();
+		setHead(turtle, buffer);
+		return Math.abs(Math.min(buffer1 - buffer, buffer - buffer1));
 
 	}
 	
