@@ -22,7 +22,6 @@ public class NotEqual extends SlogoNode{
 		double step = getValue(VarMap, FunctMap, turtle);
 		return step;  //returns the final value of the node
 	}
-	
 	@Override
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
