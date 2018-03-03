@@ -88,8 +88,13 @@ public class TreeBuilder {
             if (current.getClass().equals(new BracketNode().getClass())){
                 break;
             }
-            retNode.addChild(build(current, array));
-            buildcounter++;
+            if (current.getClass().equals(new Repeat().getClass())){
+                retNode.addChild(handleRepeat(current, array));
+            }
+            else {
+                retNode.addChild(build(current, array));
+            }
+                buildcounter++;
         }
         return retNode;
     }
