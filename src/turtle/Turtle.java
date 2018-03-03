@@ -89,8 +89,14 @@ public class Turtle implements Observable, Observer{
     }
 	public void setLocation(Point2D newpos)
 	{
-		if ((newpos.getX() < SlogoView.TURTLEVIEWX) || (newpos.getX() > (SlogoView.TURTLEVIEWX + SlogoView.TURTLEVIEWWIDTH - TURTLESIZE * 0.5) || (newpos.getY() < SlogoView.TURTLEVIEWY) || (newpos.getY() > (SlogoView.TURTLEVIEWY - CMDBUFF + SlogoView.TURTLEVIEWHEIGHT + TURTLESIZE * 0.5))))
+		if ((newpos.getX() < SlogoView.TURTLEVIEWX) ||
+				(newpos.getX() > (SlogoView.TURTLEVIEWX +
+						SlogoView.TURTLEVIEWWIDTH - TURTLESIZE * 0.5) || (newpos.getY() < SlogoView.TURTLEVIEWY)
+						|| (newpos.getY() > (SlogoView.TURTLEVIEWY - CMDBUFF + SlogoView.TURTLEVIEWHEIGHT +
+						TURTLESIZE * 0.5)))) {
+			System.out.println("Out of range");
 			return;
+		}
         addLine(newpos);
         currentpos = newpos;
 		turtleview.setLayoutX(this.currentpos.getX());

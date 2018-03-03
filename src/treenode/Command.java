@@ -7,7 +7,7 @@ import java.util.Map;
 import turtle.Turtle;
 
 //interface for setting the structure of a Command Node
-public interface CommandInterface {
+public interface Command {
 	
 	/*
 	 * getExecute() performs the function of the Node, encapsulates function within each Node
@@ -20,5 +20,5 @@ public interface CommandInterface {
 	 */
 	// public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct);
 
-	
+	public double getDummyExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle);
 }

@@ -1,12 +1,11 @@
 package treenode;
 
-import javafx.geometry.Point2D;
 import turtle.Turtle;
 
 import java.util.List;
 import java.util.Map;
 
-public class MasterNode extends SlogoNode{
+public class MasterNode extends SlogoNode implements Command {
 
     //	private double value = 0;
 //	private double distance = 0;
