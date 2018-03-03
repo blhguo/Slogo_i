@@ -1,10 +1,11 @@
-package treenode;
+package Query;
 
+import treenode.SlogoNode;
 import turtle.Turtle;
 
 import java.util.Map;
 
-public class BracketNode extends SlogoNode{
+public class BracketNode extends SlogoNode {
 
 
     @Override
