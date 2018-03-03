@@ -1,15 +1,11 @@
-package VarOp;
+package treenode;
 
-import treenode.SlogoNode;
 import turtle.Turtle;
 
 import java.util.Map;
 
-public class Repeat extends SlogoNode{
+public class BracketNode extends SlogoNode{
 
-    public Repeat(){
-        this.setNumChildren(1);
-    }
 
     @Override
     public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle) {
@@ -18,6 +14,6 @@ public class Repeat extends SlogoNode{
 
     @Override
     public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
-        return this.getChildren().get(0).getExecute(VarMap, FunctMap, turtle);
+        return 0;
     }
 }
