@@ -60,7 +60,7 @@ public class Main extends Application implements Observer{
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
 		//System.out.println(simulation.getPassValue());
-		TreeBuilder Builder = new TreeBuilder();
+		TreeBuilder Builder = new TreeBuilder(variables, functions, (Turtle) o);
 		CommandFactory factory = new CommandFactory() {};
 		TreeReader reader = new TreeReader();
 		//System.out.println(simulation.getPassValue());
