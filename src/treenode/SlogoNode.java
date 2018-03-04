@@ -1,5 +1,7 @@
 package treenode;
 
+import turtle.Turtle;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,8 +9,8 @@ import java.util.Map;
 /*
  * builds the abstract node class that all commands will follow
  */
-public abstract class SlogoNode implements CommandInterface{
-	protected int numchildren;
+public abstract class SlogoNode implements Command {
+	protected int numchildren = 0;
 	private List<SlogoNode> children = new ArrayList<>();
 	
 	/*
@@ -17,7 +19,12 @@ public abstract class SlogoNode implements CommandInterface{
 	public void addChild(SlogoNode n) {
 		this.children.add(n);
 	}
-	public abstract double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct, Object turtle);
+	public abstract double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle);
+	
+	//return the name of the variable assigned to the node
+	public String getVariableName() {
+			return this.getName();
+		}
 	
 	public int getNumchildren(){
 		return numchildren;
@@ -25,8 +32,14 @@ public abstract class SlogoNode implements CommandInterface{
 	/*
 	 * returns children
 	 */
+	public void setNumChildren(int n) {
+		numchildren = n;
+	}
 	public List<SlogoNode> getChildren(){
 		return children;
+	}
+	public double getDummyExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+		return getExecute(VarMap, FunctMap, turtle);
 	}
 	
 	public String getName() {

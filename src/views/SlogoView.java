@@ -1,9 +1,9 @@
 package views;
 
-import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import turtle.Turtle;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SlogoView extends Application implements Observer{
+public class SlogoView implements Observer, Observable{
 	
 	/*
 	 * Make all constants public and static
@@ -23,8 +23,8 @@ public class SlogoView extends Application implements Observer{
 	/*
 	 * Constants relating to the characteristics of the main window as a whole
 	 */
-	public static final int WINDOWHEIGHT = 600;
-	public static final int WINDOWWIDTH = 800;
+	public static final int WINDOWHEIGHT = 650;
+	public static final int WINDOWWIDTH = 1000;
 	public static final Color BACKGROUND = Color.ANTIQUEWHITE;
 	/*
 	 * Constants relating to the tool bar and its dimensions
@@ -83,32 +83,35 @@ public class SlogoView extends Application implements Observer{
 	 * Data structures for SceneElements, variables,
 	 * functions
 	 */
-
-	private Map<String, Double> variables;
-	//private Map<String, SlogoNode> functions;
     private List<Turtle> turtles;
 	private List<SceneElement> sceneElements;
+	private List<Observer> observers;
+
+	public SlogoView(){
+		//constructor
+	}
 	/**
      * Start the program.
      */
-    public static void main (String[] args) {
-        launch(args); 
-    }
-    
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		myStage = primaryStage;
-		myStage.setResizable(false);
-        initializeDataStructures();
+	public Scene initializeStartScene() {
+		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
-		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
-		myStage.setScene(myScene);
-		myStage.show();
-		//turtles.get(0).setLocation(new Point2D(400,300));
-
+		observers = new ArrayList<>();
+		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
+		myScene.setOnKeyPressed(e -> quit(e.getCode()));
+		return myScene;
 	}
 
+	private void quit(KeyCode code) {
+		if (code == KeyCode.Q){
+			System.exit(0);
+		}
+	}
+
+	public String[] getPassValue() {
+		return myConsole.getPassValue();
+	}
 	private void initializeDataStructures() {
         turtles = new ArrayList<>();
         turtles.add(new Turtle());
@@ -118,8 +121,11 @@ public class SlogoView extends Application implements Observer{
     	for (SceneElement element: sceneElements){
     	    element.addObserver(this);
         }
+        myToolbar.addObserver(turtles.get(0));
 	}
-
+    public void setConsole(Double d){
+	    myConsole.setLittleField(d.toString());
+    }
 	private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
         myConsole = new Console();
@@ -131,6 +137,7 @@ public class SlogoView extends Application implements Observer{
 		myTurtleDisplay = new TurtleDisplay(turtles.get(0));
 		sceneElements.add(myTurtleDisplay);
 		myToolbar = new Toolbar();
+		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
 	}
 
@@ -147,12 +154,40 @@ public class SlogoView extends Application implements Observer{
         }
 		return retgroup;
 	}
-	public void update(){
+	public void update(Object o){
         myRoot.getChildren().removeAll(myRoot.getChildren());
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
+        myRoot.getChildren().addAll(turtles.get(0).getLines());
+//        if (o.getClass().getTypeName().equals("java.lang.String")){
+//            getHostServices().showDocument((String)o);
+//        }
 
+        updateObservers();
+	}
+	public void updateScreen(){
+		myRoot.getChildren().removeAll(myRoot.getChildren());
+		for (SceneElement element : sceneElements){
+			myRoot.getChildren().add(element.getField());
+		}
+		myRoot.getChildren().addAll(turtles.get(0).getLines());
 	}
 
+
+    @Override
+    public void updateObservers() {
+        for (Observer o : observers){
+            o.update(turtles.get(0));
+        }
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    public void updateVarView(Map<String, Double> variables) {
+        myVariableView.updateVarView(variables);
+	}
 }

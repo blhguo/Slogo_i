@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import treenode.SlogoNode;
+import turtle.Turtle;
 
 public class PenUp extends SlogoNode{
 //	
@@ -13,12 +14,12 @@ public class PenUp extends SlogoNode{
 //		this.val = getValue();
 //	}
 	
-	private void pen(Object turtle) {
-		turtle.penup();
+	private void pen(Turtle turtle) {
+		turtle.penUp();
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		double step = getValue(VarMap, FunctMap, turtle);
 		pen(turtle);
@@ -26,7 +27,7 @@ public class PenUp extends SlogoNode{
 	}
 	
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Object turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
 		return 0;

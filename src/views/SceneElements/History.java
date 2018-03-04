@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -74,7 +76,8 @@ public class History extends SceneElement implements Observable{
         box.setLayoutY(SlogoView.CMDHISTORYY);
         box.setPrefWidth(SlogoView.CMDHISTORYWIDTH);
         box.setPrefHeight(SlogoView.CMDHISTORYHEIGHT);
-        box.setPadding(new Insets(2,5,2,5));
+        box.setPadding(new Insets(0,0,0,0));
+        box.setStyle("-fx-border-color: black; -fx-border-width: 2;");
         return box;
     }
 
@@ -83,21 +86,37 @@ public class History extends SceneElement implements Observable{
 	    return vbox;
     }
 	public void addCommand(String command){
+//	    for (Observer o : observers){
+//	        System.out.println(o.getClass().toString());
+//        }
+	    //System.out.println(command);
         text.setText(text.getText() + "\n" + "[" + ZonedDateTime.now().toLocalTime().truncatedTo(ChronoUnit.SECONDS)
-                + "]\n" + command);
+                + "]\n " + command);
         scrollPane.setVvalue(1);
         commands.add(command);
         pos = commands.size();
 //        vbox.getChildren().remove(text);
 //        vbox.getChildren().add(text);
+        //System.out.println("Hit it " + command);
         updateObservers();
+    }
+    public void removeLastCommand(){
+	    pos--;
+	    commands.remove(pos);
+	    pos--;
     }
     public String getLastCommand() throws EmptyStackException{
         pos--;
 	    if (pos < 0){
             pos = 0;
         }
-        String s = commands.get(pos);
+        String s;
+        if (commands.size() > 0) {
+            s = commands.get(pos);
+        }
+        else {
+	        s = "";
+        }
         return s;
     }
     public String restoreCommand() throws EmptyStackException{
@@ -114,11 +133,11 @@ public class History extends SceneElement implements Observable{
 	    commands.clear();
 	    pos = 0;
 	    text.setText("");
-	    updateObservers();
+	    //updateObservers();
     }
     public void updateObservers(){
         for (Observer o : observers){
-            o.update();
+            o.update(new Object());
         }
     }
     public void addObserver(Observer o){
