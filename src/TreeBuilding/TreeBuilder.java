@@ -79,8 +79,8 @@ public class TreeBuilder {
         list = buildList(array);
 
         for (double i = 0; i < value; i++){
-            retNode.addChild(list);
             VarMap.put(name, i + 1);
+            retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
         }
         //TODO Figure out how to modify variable values at execution
         //VarMap.put(name, value);
@@ -93,6 +93,7 @@ public class TreeBuilder {
         SlogoNode list;
         if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
             System.out.println("Sorry, you don't have the right number of brackets");
+            System.out.println("You probably didn't pass repeat an argument (no brackets)");
             return new NumberNode(0);
         }
         buildcounter++;
