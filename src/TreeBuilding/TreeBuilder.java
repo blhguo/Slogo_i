@@ -92,7 +92,7 @@ public class TreeBuilder {
 
     private SlogoNode handleFor(SlogoNode[] array) {
         SlogoNode retNode = new MasterNode();
-        SlogoNode expression;
+        SlogoNode var, start, end, increment;
         SlogoNode list;
         buildcounter++;
         if (!array[buildcounter].getClass().equals(new BracketNode().getClass())){
@@ -103,22 +103,30 @@ public class TreeBuilder {
             array[buildcounter] = new MakeVariable();
         }
         //buildcounter--; //For build, which automatically adds one to buildcounter;
-        expression = build(array[buildcounter], array);
-        double value = expression.getExecute(VarMap, FunctMap, turtle);
-        //System.out.println(value);
-        String name = expression.getChildren().get(0).getName();
-        //double val = expression.getChildren().get(1).getValue(VarMap, FunctMap, turtle);
+        var = build(array[buildcounter], array);
+        buildcounter++;
+        start = build(array[buildcounter], array);
+        buildcounter++;
+        end = build(array[buildcounter], array);
+        buildcounter++;
+        increment = build(array[buildcounter], array);
+        //TODO
+
+        double startval = start.getExecute(VarMap, FunctMap, turtle);
+        double endval = start.getExecute(VarMap, FunctMap, turtle);
+        double incval = start.getExecute(VarMap, FunctMap, turtle);
+
         buildcounter += 2;
         if (buildcounter >= array.length){
             System.out.println("Out of bounds2");
-            expression = new NumberNode(0);
-            return expression;
+            retNode = new NumberNode(0);
+            return retNode;
         }
         //System.out.println(buildcounter);
         list = buildList(array);
 
-        for (double i = 0; i < value; i++){
-            VarMap.put(name, i + 1);
+        for (double i = startval; i < endval; i+= incval){
+            //VarMap.put(name, i + 1);
             retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
         }
         //TODO Figure out how to modify variable values at execution
@@ -127,7 +135,7 @@ public class TreeBuilder {
     }
 
     private SlogoNode handleRepeat(SlogoNode[] array){
-        SlogoNode retNode = new MasterNode();
+        SlogoNode retNode = new Repeat();
         SlogoNode expression;
         SlogoNode list;
         if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
@@ -141,9 +149,7 @@ public class TreeBuilder {
             retNode.addChild(new NumberNode(0));
         }
         SlogoNode node = array[buildcounter];
-        expression = build(node, array);
-        double value = expression.getExecute(VarMap, FunctMap, turtle);
-        System.out.println(value);
+        retNode.addChild(build(node, array));
         buildcounter++;
         if (buildcounter >= array.length){
             System.out.println("Out of bounds2");
@@ -151,14 +157,7 @@ public class TreeBuilder {
             return expression;
         }
         //System.out.println(buildcounter);
-        list = buildList(array);
-        for (SlogoNode s : list.getChildren()){
-            System.out.println(s.getClass().getTypeName());
-        }
-
-        for (int i = 0; i < value; i++){
-            retNode.addChild(list);
-        }
+        retNode.addChild(buildList(array));
         return retNode;
     }
 
