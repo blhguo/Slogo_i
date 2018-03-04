@@ -56,7 +56,7 @@ public class TreeBuilder {
         SlogoNode expression;
         SlogoNode list;
         buildcounter++;
-        if (!array[buildcounter].getClass().equals(new BracketNode().getClass())){
+        if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
             System.out.println("Sorry, you don't have the right number of brackets");
             return new NumberNode(0);
         }
