@@ -72,6 +72,7 @@ public class Main extends Application implements Observer{
 		updateVarView();
 
 	}
+	
     public static void openWebPage(String url) {
 	    try {
             Desktop.getDesktop().browse(new java.net.URI(url));
