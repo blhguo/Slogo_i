@@ -1,13 +1,13 @@
 package VarOp;
 
-import java.util.Map;
-
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class Repeat extends SlogoNode{
+import java.util.Map;
 
-    public Repeat(){
+public class For extends SlogoNode{
+
+    public For(){
         this.setNumChildren(1);
     }
 

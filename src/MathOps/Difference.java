@@ -20,7 +20,6 @@ public class Difference extends SlogoNode{
 		double step = getValue(VarMap, FunctMap, turtle);
 		return step;  //returns the final value of the node
 	}
-	
 	@Override
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
@@ -29,6 +28,6 @@ public class Difference extends SlogoNode{
 		double x = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
 		double y = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
 		return x - y;
-		}
+	}
 	
 }
