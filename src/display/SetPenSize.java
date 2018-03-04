@@ -1,0 +1,26 @@
+package display;
+
+import java.util.Map;
+
+import treenode.SlogoNode;
+import turtle.Turtle;
+
+public class SetPenSize extends SlogoNode{
+
+	public SetPenSize() {
+		numchildren = 1;
+	}
+
+	@Override
+	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

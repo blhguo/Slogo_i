@@ -1,8 +1,9 @@
 package VarOp;
-import treenode.SlogoNode;
-import turtle.Turtle;
 
 import java.util.Map;
+
+import treenode.SlogoNode;
+import turtle.Turtle;
 
 public class Repeat extends SlogoNode{
 

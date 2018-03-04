@@ -2,6 +2,7 @@ package TreeBuilding;
 
 import Query.BracketNode;
 import VarOp.DoTimes;
+import VarOp.For;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
 import treenode.MasterNode;
@@ -34,7 +35,6 @@ public class TreeBuilder {
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
         if (currentNode.getClass().equals(new BracketNode().getClass())){
-            buildcounter++;
             master = buildList(array);
         }
         else if (currentNode.getClass().equals(new DoTimes().getClass())){
@@ -42,6 +42,9 @@ public class TreeBuilder {
         }
         else if (currentNode.getClass().equals(new Repeat().getClass())){
             master = handleRepeat(array);
+        }
+        else if (currentNode.getClass().equals(new For().getClass())){
+            master = handleFor(array);
         }
         else {
             master.addChild(build(currentNode, array));
@@ -79,8 +82,44 @@ public class TreeBuilder {
         list = buildList(array);
 
         for (double i = 0; i < value; i++){
-            retNode.addChild(list);
             VarMap.put(name, i + 1);
+            retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
+        }
+        //TODO Figure out how to modify variable values at execution
+        //VarMap.put(name, value);
+        return retNode;
+    }
+
+    private SlogoNode handleFor(SlogoNode[] array) {
+        SlogoNode retNode = new MasterNode();
+        SlogoNode expression;
+        SlogoNode list;
+        buildcounter++;
+        if (!array[buildcounter].getClass().equals(new BracketNode().getClass())){
+            System.out.println("Sorry, you don't have the right number of brackets");
+            return new NumberNode(0);
+        }
+        else {
+            array[buildcounter] = new MakeVariable();
+        }
+        //buildcounter--; //For build, which automatically adds one to buildcounter;
+        expression = build(array[buildcounter], array);
+        double value = expression.getExecute(VarMap, FunctMap, turtle);
+        //System.out.println(value);
+        String name = expression.getChildren().get(0).getName();
+        //double val = expression.getChildren().get(1).getValue(VarMap, FunctMap, turtle);
+        buildcounter += 2;
+        if (buildcounter >= array.length){
+            System.out.println("Out of bounds2");
+            expression = new NumberNode(0);
+            return expression;
+        }
+        //System.out.println(buildcounter);
+        list = buildList(array);
+
+        for (double i = 0; i < value; i++){
+            VarMap.put(name, i + 1);
+            retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
         }
         //TODO Figure out how to modify variable values at execution
         //VarMap.put(name, value);
@@ -93,6 +132,7 @@ public class TreeBuilder {
         SlogoNode list;
         if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
             System.out.println("Sorry, you don't have the right number of brackets");
+            System.out.println("You probably didn't pass repeat an argument (no brackets)");
             return new NumberNode(0);
         }
         buildcounter++;

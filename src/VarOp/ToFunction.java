@@ -1,10 +1,10 @@
 package VarOp;
 
-import java.util.List;
 import java.util.Map;
 
 //import Deprecated.VariableNode;
 import treenode.SlogoNode;
+import treenode.VariableNode;
 import turtle.Turtle;
 
 /*
