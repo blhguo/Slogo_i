@@ -14,25 +14,26 @@ public class MakeUserInstruction extends SlogoNode {
 
 		//commandName , variable list, command list
 	public MakeUserInstruction() {
-		numchildren = 3; //first child is the variables, second child is the commands.	
+		this.setNumChildren(3); //first child is the variables, second child is the commands.	
 		//three children: (1) name of function command, (2) node of variable parameters, (3) masternode of commands
 	}
 	
 	@Override
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+		List<SlogoNode> leaf = this.getChildren();
 		// TODO Auto-generated method stub
-		int numOfVariables = this.getChildren().get(1).getNumchildren(); //returns the number of variables
+		int numOfVariables = leaf.get(1).getNumchildren(); //returns the number of variables
 		//increment through each node of the command and determine if each one is a variable node
 		int numOfVariableNodes = 0;
-		for (int i = 0; i<this.getChildren().get(2).getNumchildren(); i++) {
-			SlogoNode current = this.getChildren().get(2).getChildren().get(i);
+		for (int i = 0; i<leaf.get(2).getNumchildren(); i++) {
+			SlogoNode current = leaf.get(2).getChildren().get(i);
 			if (current instanceof VariableNode) {
 				numOfVariableNodes++;				
 			}
 		}
 		if (numOfVariables == numOfVariableNodes) {
 			//number of variables matches the number of variables in the command line, therefore it gets added to function map
-			FunctMap.put(this.getChildren().get(0).getVariableName(), this.getChildren().get(2)); //adds name of function and head node to the function map
+			FunctMap.put(leaf.get(0).getVariableName(), leaf.get(2)); //adds name of function and head node to the function map
 			return 1;
 			//this.getChildren().get(0).getVariableName() == name of the function
 			//this.getChildren().get(2) == head node of the commands. 
