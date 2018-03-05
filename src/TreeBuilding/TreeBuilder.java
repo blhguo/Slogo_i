@@ -145,15 +145,22 @@ public class TreeBuilder {
             retNode.addChild(new NumberNode(0));
         }
         SlogoNode node = array[buildcounter];
-        retNode.addChild(build(node, array));
-        buildcounter++;
+        //retNode.addChild(build(node, array));
+        double value = build(node, array).getExecute(VarMap, FunctMap, turtle);
+
+        //buildcounter++;
         if (buildcounter >= array.length){
             System.out.println("Out of bounds2");
             expression = new NumberNode(0);
             return expression;
         }
+
+        list = buildList(array);
         //System.out.println(buildcounter);
-        retNode.addChild(buildList(array));
+        System.out.println(value);
+        for (int i = 0; i < value; i++){
+            retNode.addChild(list);
+        }
         return retNode;
     }
 
