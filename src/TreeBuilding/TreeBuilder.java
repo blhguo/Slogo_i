@@ -90,6 +90,7 @@ public class TreeBuilder {
         return retNode;
     }
 
+ 
     private SlogoNode handleFor(SlogoNode[] array) {
         SlogoNode retNode = new MasterNode();
         SlogoNode expression;
