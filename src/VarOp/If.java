@@ -6,20 +6,18 @@ import java.util.Map;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class Repeat extends SlogoNode{
+public class If extends SlogoNode{
 
-    public Repeat(){
+    public If(){
         this.setNumChildren(2);
     }
-
-    private int counter;
     
     @Override
     public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
         List<SlogoNode> leaf = this.getChildren();
         double ret = 0;
-        counter = (int) leaf.get(0).getExecute(VarMap, FunctMap, turtle);
-        for (int i = 0; i < counter; i ++) {
+        double boolin = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+        if (boolin != 0){
         	ret = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
         }
         return ret;
