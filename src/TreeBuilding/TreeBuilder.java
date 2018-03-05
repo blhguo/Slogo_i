@@ -29,11 +29,12 @@ public class TreeBuilder {
     }
     public SlogoNode buildTree(SlogoNode[] array){
         //System.out.println(array.length);
-        SlogoNode master = new MasterNode();
+
+        master = new MasterNode();
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
         if (currentNode.getClass().equals(new BracketNode().getClass())){
-            //buildcounter++;
+            buildcounter++;
             master = buildList(array);
         }
         else if (currentNode.getClass().equals(new DoTimes().getClass())){
@@ -131,7 +132,7 @@ public class TreeBuilder {
     }
     
     private SlogoNode handleRepeat(SlogoNode[] array){
-        SlogoNode retNode = new MasterNode();
+        SlogoNode retNode = new Repeat();
         SlogoNode expression;
         SlogoNode list;
         if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
@@ -147,7 +148,7 @@ public class TreeBuilder {
         //retNode.addChild(build(node, array));
         double value = build(node, array).getExecute(VarMap, FunctMap, turtle);
 
-        buildcounter++;
+        //buildcounter++;
         if (buildcounter >= array.length){
             System.out.println("Out of bounds2");
             expression = new NumberNode(0);
@@ -186,13 +187,12 @@ public class TreeBuilder {
             else {
                 retNode.addChild(build(current, array));
             }
-            buildcounter++;
+                buildcounter++;
         }
         return retNode;
     }
 
     private SlogoNode build(SlogoNode head, SlogoNode[] array) {
-        //buildcounter++;
         if (head.getNumchildren() == 0){
             //System.out.println("Buildcounter: " + buildcounter);
             //System.out.println("Stuff");
@@ -201,15 +201,13 @@ public class TreeBuilder {
         else {
             int temp = 0;
             while(temp < head.getNumchildren()){
-                temp++;
                 buildcounter++;
+                temp++;
                 if (buildcounter >= array.length){
                     //System.out.println("Out of bounds");
                     break;
                 }
-
                 head.addChild(build(array[buildcounter], array));
-                //buildcounter++;
 
             }
         }

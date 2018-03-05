@@ -11,7 +11,7 @@ public class Sum extends SlogoNode{
 //	private double value = 0;
 //	private double distance = 0;
 	public Sum() {
-		numchildren = 2;
+		numchildren = 3;
 	}
 
 	@Override
