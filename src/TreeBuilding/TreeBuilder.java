@@ -137,10 +137,11 @@ public class TreeBuilder {
             System.out.println(buildcounter);
             buildcounter++;
             list = buildList(array);
-            for (double i = startval; i < endval; i+= incval){
+            for (double i = startval; i <= endval; i+= incval){
                 VarMap.put(name, i + 1);
                 retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
             }
+            VarMap.remove(name);
 
             //TODO Figure out how to modify variable values at execution
             //VarMap.put(name, value);

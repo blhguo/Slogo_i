@@ -24,7 +24,7 @@ public class SlogoView implements Observer, Observable{
 	 * Constants relating to the characteristics of the main window as a whole
 	 */
 	public static final int WINDOWHEIGHT = 650;
-	public static final int WINDOWWIDTH = 1000;
+	public static final int WINDOWWIDTH = 1200;
 	public static final Color BACKGROUND = Color.ANTIQUEWHITE;
 	/*
 	 * Constants relating to the tool bar and its dimensions
@@ -36,7 +36,7 @@ public class SlogoView implements Observer, Observable{
 	 */
 	public static final double CMDHISTORYX = 0;
 	public static final double CMDHISTORYY = 1.0 / 10 * WINDOWHEIGHT;
-	public static final double CMDHISTORYWIDTH = 2.0 / 7 * WINDOWWIDTH;
+	public static final double CMDHISTORYWIDTH = 2.0 / 9 * WINDOWWIDTH;
 	public static final double CMDHISTORYHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	
 	/*
@@ -44,14 +44,14 @@ public class SlogoView implements Observer, Observable{
 	 */
 	public static final double VARIABLEVIEWX = 0;
 	public static final double VARIABLEVIEWY = 1.0 / 10 * WINDOWHEIGHT + CMDHISTORYHEIGHT;
-	public static final double VARIABLEVIEWWIDTH = 2.0 / 7 * WINDOWWIDTH;
+	public static final double VARIABLEVIEWWIDTH = 2.0 / 9 * WINDOWWIDTH;
 	public static final double VARIABLEVIEWHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	/*
 	 * Constants relating to the Console section of the main window
 	 */
 	public static final double TURTLEVIEWX = CMDHISTORYWIDTH;
 	public static final double TURTLEVIEWY = TOOLBARHEIGHT;
-	public static final double TURTLEVIEWWIDTH = WINDOWWIDTH - CMDHISTORYWIDTH;
+	public static final double TURTLEVIEWWIDTH = WINDOWWIDTH - 2 * CMDHISTORYWIDTH;
 	public static final double PERCENTHEIGHT = .8;
 	public static final double TURTLEVIEWHEIGHT = PERCENTHEIGHT * (WINDOWHEIGHT - TOOLBARHEIGHT);
 	/*

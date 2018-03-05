@@ -16,10 +16,7 @@ import views.SlogoView;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class History extends SceneElement implements Observable{
 	private VBox vbox;
@@ -30,18 +27,24 @@ public class History extends SceneElement implements Observable{
 	private String current;
 	public static final double WRAPBUFFER = 30;
 	private List<String> commands;
+	private List<Label> commandlabels;
 	private int pos;
+	private Console myConsole;
 	public History(){
         vbox = getVbox();
         histLabel = getLabel();
-        vbox.getChildren().add(histLabel);
-        text = getText();
-        scrollPane = getScrollPane(text);
-        vbox.getChildren().add(scrollPane);
+        commandlabels = new ArrayList<>();
+        commandlabels.add(histLabel);
+        vbox.getChildren().addAll(commandlabels);
+        scrollPane = getScrollPane(vbox);
+        //scrollPane.setFitToHeight(true);
 		commands = new ArrayList<>();
 		observers = new ArrayList<>();
-	}
 
+	}
+    public void setMyConsole(Console c){
+	    myConsole = c;
+    }
     private Label getLabel() {
 	    Label l = new Label("Command History");
         l.setStyle("-fx-border-color: white; -fx-border-width: 3;" +
@@ -52,8 +55,8 @@ public class History extends SceneElement implements Observable{
 	    return l;
     }
 
-    private ScrollPane getScrollPane(Text text) {
-        ScrollPane returnPane = new ScrollPane(text);
+    private ScrollPane getScrollPane(VBox box) {
+        ScrollPane returnPane = new ScrollPane(box);
         returnPane.setLayoutX(SlogoView.CMDHISTORYX);
         returnPane.setLayoutY(SlogoView.CMDHISTORYY + histLabel.getHeight());
         returnPane.setPrefWidth(SlogoView.CMDHISTORYWIDTH);
@@ -72,34 +75,47 @@ public class History extends SceneElement implements Observable{
 
     private VBox getVbox() {
         VBox box = new VBox();
-        box.setLayoutX(SlogoView.CMDHISTORYX);
-        box.setLayoutY(SlogoView.CMDHISTORYY);
+        //box.setLayoutX(SlogoView.CMDHISTORYX);
+        //box.setLayoutY(SlogoView.CMDHISTORYY);
         box.setPrefWidth(SlogoView.CMDHISTORYWIDTH);
-        box.setPrefHeight(SlogoView.CMDHISTORYHEIGHT);
+        //box.setPrefHeight(SlogoView.CMDHISTORYHEIGHT);
         box.setPadding(new Insets(0,0,0,0));
-        box.setStyle("-fx-border-color: black; -fx-border-width: 2;");
+        box.setSpacing(2);
         return box;
     }
 
     @Override
-    public VBox getField(){
-	    return vbox;
+    public ScrollPane getField(){
+	    return scrollPane;
     }
 	public void addCommand(String command){
 //	    for (Observer o : observers){
 //	        System.out.println(o.getClass().toString());
 //        }
 	    //System.out.println(command);
-        text.setText(text.getText() + "\n" + "[" + ZonedDateTime.now().toLocalTime().truncatedTo(ChronoUnit.SECONDS)
-                + "]\n " + command);
         scrollPane.setVvalue(1);
         commands.add(command);
+        updateText(command);
         pos = commands.size();
 //        vbox.getChildren().remove(text);
 //        vbox.getChildren().add(text);
         //System.out.println("Hit it " + command);
         updateObservers();
     }
+    private void updateText(String command) {
+	    Label toAdd = new Label("[" + ZonedDateTime.now().toLocalTime().truncatedTo(ChronoUnit.SECONDS)
+                + "]\n " + command);
+        toAdd.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: lightblue;");
+        toAdd.setOnMouseClicked(e -> sendCommandToConsole(command));
+        toAdd.setPrefWidth(SlogoView.CMDHISTORYWIDTH - WRAPBUFFER);
+        vbox.getChildren().add(toAdd);
+
+    }
+
+    private void sendCommandToConsole(String text) {
+	    myConsole.getCommand(text);
+    }
+
     public void removeLastCommand(){
 	    pos--;
 	    commands.remove(pos);
