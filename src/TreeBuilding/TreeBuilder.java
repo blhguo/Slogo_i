@@ -5,6 +5,7 @@ import VarOp.DoTimes;
 import VarOp.For;
 import VarOp.If;
 import VarOp.IfElse;
+import VarOp.MakeUserInstruction;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
 import treenode.*;
@@ -52,6 +53,9 @@ public class TreeBuilder {
         }
         else if (currentNode.getClass().equals(new IfElse().getClass())) {
         	master = handleElseIf(array);
+        }
+        else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
+        	master = handleElseIf(array);  //testing purposes, may need to create a new handle exception
         }
         else {
             master.addChild(build(currentNode, array));

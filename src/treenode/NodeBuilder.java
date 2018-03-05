@@ -129,6 +129,11 @@ public class NodeBuilder{
 		else{
 			throw new InvalidParameterException("NOT A COMMAND");
 		}
+		
+		//check if the function alreaady exists
+		/*
+		 * create a method that checks if the function exists and returns the correct command object with parameters.
+		 */
 		Class<?> commandObject = null;
 		
 		try { //try to create a new class object based on name.
