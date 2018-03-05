@@ -87,8 +87,9 @@ public class TreeBuilder {
         list = buildList(array);
 
         for (double i = 0; i < value; i++){
-            retNode.addChild(list);
+            
             VarMap.put(name, i + 1);
+            retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
         }
         //TODO Figure out how to modify variable values at execution
         //VarMap.put(name, value);
