@@ -2,7 +2,6 @@ package TreeBuilding;
 
 import Query.BracketNode;
 import VarOp.DoTimes;
-import VarOp.For;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
 import treenode.MasterNode;
@@ -35,6 +34,7 @@ public class TreeBuilder {
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
         if (currentNode.getClass().equals(new BracketNode().getClass())){
+            buildcounter++;
             master = buildList(array);
         }
         else if (currentNode.getClass().equals(new DoTimes().getClass())){
@@ -42,9 +42,6 @@ public class TreeBuilder {
         }
         else if (currentNode.getClass().equals(new Repeat().getClass())){
             master = handleRepeat(array);
-        }
-        else if (currentNode.getClass().equals(new For().getClass())){
-            master = handleFor(array);
         }
         else {
             master.addChild(build(currentNode, array));
@@ -133,7 +130,7 @@ public class TreeBuilder {
         //VarMap.put(name, value);
         return retNode;
     }
-
+    
     private SlogoNode handleRepeat(SlogoNode[] array){
         SlogoNode retNode = new Repeat();
         SlogoNode expression;
