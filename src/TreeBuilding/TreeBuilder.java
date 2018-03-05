@@ -2,6 +2,8 @@ package TreeBuilding;
 
 import Query.BracketNode;
 import VarOp.DoTimes;
+import VarOp.If;
+import VarOp.IfElse;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
 import treenode.MasterNode;
@@ -42,6 +44,12 @@ public class TreeBuilder {
         }
         else if (currentNode.getClass().equals(new Repeat().getClass())){
             master = handleRepeat(array);
+        }
+        else if (currentNode.getClass().equals(new If().getClass())) {
+        	master = handleIf(array);
+        }
+        else if (currentNode.getClass().equals(new IfElse().getClass())) {
+        	master = handleElseIf(array);
         }
         else {
             master.addChild(build(currentNode, array));
@@ -88,7 +96,7 @@ public class TreeBuilder {
     }
     
     private SlogoNode handleRepeat(SlogoNode[] array){
-        SlogoNode retNode = new MasterNode();
+        SlogoNode retNode = new Repeat();
         SlogoNode expression;
         SlogoNode list;
         if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
@@ -101,9 +109,7 @@ public class TreeBuilder {
             retNode.addChild(new NumberNode(0));
         }
         SlogoNode node = array[buildcounter];
-        expression = build(node, array);
-        double value = expression.getExecute(VarMap, FunctMap, turtle);
-        System.out.println(value);
+        retNode.addChild(build(node, array));
         buildcounter++;
         if (buildcounter >= array.length){
             System.out.println("Out of bounds2");
@@ -111,17 +117,74 @@ public class TreeBuilder {
             return expression;
         }
         //System.out.println(buildcounter);
-        list = buildList(array);
-        for (SlogoNode s : list.getChildren()){
-            System.out.println(s.getClass().getTypeName());
-        }
-
-        for (int i = 0; i < value; i++){
-            retNode.addChild(list);
-        }
+        retNode.addChild(buildList(array));
+        
         return retNode;
     }
 
+    private SlogoNode handleIf(SlogoNode[] array){
+        SlogoNode retNode = new If();
+        SlogoNode expression;
+        SlogoNode list;
+        if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
+            System.out.println("Sorry, you don't have the right number of brackets");
+            return new NumberNode(0);
+        }
+        buildcounter++;
+        if (buildcounter >= array.length){
+            System.out.println("Out of bounds1");
+            retNode.addChild(new NumberNode(0));
+        }
+        SlogoNode node = array[buildcounter];
+        retNode.addChild(build(node, array));
+        buildcounter++;
+        if (buildcounter >= array.length){
+            System.out.println("Out of bounds2");
+            expression = new NumberNode(0);
+            return expression;
+        }
+        //System.out.println(buildcounter);
+        retNode.addChild(buildList(array));
+        
+        return retNode;
+    }
+    
+    private SlogoNode handleElseIf(SlogoNode[] array){
+        SlogoNode retNode = new IfElse();
+        SlogoNode expression;
+        SlogoNode list;
+        if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
+            System.out.println("Sorry, you don't have the right number of brackets");
+            return new NumberNode(0);
+        }
+        buildcounter++;
+        if (buildcounter >= array.length){
+            System.out.println("Out of bounds1");
+            retNode.addChild(new NumberNode(0));
+        }
+        SlogoNode node = array[buildcounter];
+        retNode.addChild(build(node, array));
+        buildcounter++;
+        if (buildcounter >= array.length){
+            System.out.println("Out of bounds2");
+            expression = new NumberNode(0);
+            return expression;
+        }
+        //System.out.println(buildcounter);
+        retNode.addChild(buildList(array));
+        
+        buildcounter++;
+        if (buildcounter >= array.length){
+            System.out.println("Out of bounds2");
+            expression = new NumberNode(0);
+            return expression;
+        }
+        //System.out.println(buildcounter);
+        retNode.addChild(buildList(array));
+        
+        return retNode;
+    }
+    
     private SlogoNode buildList(SlogoNode[] array) {
         SlogoNode retNode = new MasterNode();
         SlogoNode current;
