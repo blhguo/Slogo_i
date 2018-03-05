@@ -106,7 +106,7 @@ public class TreeBuilder {
         end = build(array[buildcounter], array);
         buildcounter++;
         increment = build(array[buildcounter], array);
-        //TODO
+        
 
         double startval = start.getExecute(VarMap, FunctMap, turtle);
         double endval = start.getExecute(VarMap, FunctMap, turtle);
