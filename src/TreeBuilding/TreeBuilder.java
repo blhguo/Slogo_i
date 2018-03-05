@@ -132,7 +132,7 @@ public class TreeBuilder {
     }
     
     private SlogoNode handleRepeat(SlogoNode[] array){
-        SlogoNode retNode = new MasterNode();
+        SlogoNode retNode = new Repeat();
         SlogoNode expression;
         SlogoNode list;
         if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
@@ -145,8 +145,7 @@ public class TreeBuilder {
             retNode.addChild(new NumberNode(0));
         }
         SlogoNode node = array[buildcounter];
-        //retNode.addChild(build(node, array));
-        double value = build(node, array).getExecute(VarMap, FunctMap, turtle);
+        retNode.addChild(build(node,array));
 
         buildcounter++;
         if (buildcounter >= array.length){
@@ -155,12 +154,7 @@ public class TreeBuilder {
             return expression;
         }
 
-        list = buildList(array);
-        //System.out.println(buildcounter);
-        System.out.println(value);
-        for (int i = 0; i < value; i++){
-            retNode.addChild(list);
-        }
+        retNode.addChild(buildList(array));
         return retNode;
     }
 
