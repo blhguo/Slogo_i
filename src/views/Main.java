@@ -54,7 +54,6 @@ public class Main extends Application implements Observer{
 			return list.toArray(new String[list.size()]);
 	}
 
-
 	@Override
 	public void update(Object o) {
 	    //TODO Implement this backend stuff
