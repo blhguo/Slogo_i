@@ -2,12 +2,11 @@ package TreeBuilding;
 
 import Query.BracketNode;
 import VarOp.DoTimes;
+import VarOp.For;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
-import treenode.MasterNode;
-import treenode.NumberNode;
-import treenode.SlogoNode;
-import treenode.VariableNode;
+import treenode.*;
+import VarOp.For;
 import turtle.Turtle;
 
 import java.util.List;
@@ -42,6 +41,9 @@ public class TreeBuilder {
         }
         else if (currentNode.getClass().equals(new Repeat().getClass())){
             master = handleRepeat(array);
+        }
+        else if (currentNode.getClass().equals(new For().getClass())){
+            master = handleFor(array);
         }
         else {
             master.addChild(build(currentNode, array));
@@ -79,8 +81,8 @@ public class TreeBuilder {
         list = buildList(array);
 
         for (double i = 0; i < value; i++){
-            retNode.addChild(list);
             VarMap.put(name, i + 1);
+            retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
         }
         //TODO Figure out how to modify variable values at execution
         //VarMap.put(name, value);
@@ -97,7 +99,8 @@ public class TreeBuilder {
             return new NumberNode(0);
         }
         else {
-            array[buildcounter] = new MakeVariable();
+            buildcounter++;
+            //array[buildcounter] = new MakeVariable();
         }
         //buildcounter--; //For build, which automatically adds one to buildcounter;
         var = build(array[buildcounter], array);
@@ -110,22 +113,27 @@ public class TreeBuilder {
         
 
         double startval = start.getExecute(VarMap, FunctMap, turtle);
-        double endval = start.getExecute(VarMap, FunctMap, turtle);
-        double incval = start.getExecute(VarMap, FunctMap, turtle);
-
-        buildcounter += 2;
+        System.out.println(startval);
+        double endval = end.getExecute(VarMap, FunctMap, turtle);
+        System.out.println(endval);
+        double incval = increment.getExecute(VarMap, FunctMap, turtle);
+        System.out.println(incval);
+        String name = var.getName();
+        buildcounter++;
         if (buildcounter >= array.length){
             System.out.println("Out of bounds2");
             retNode = new NumberNode(0);
             return retNode;
         }
         //System.out.println(buildcounter);
+        System.out.println(buildcounter);
+        buildcounter++;
         list = buildList(array);
-
         for (double i = startval; i < endval; i+= incval){
-            //VarMap.put(name, i + 1);
+            VarMap.put(name, i + 1);
             retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
         }
+
         //TODO Figure out how to modify variable values at execution
         //VarMap.put(name, value);
         return retNode;
@@ -177,6 +185,9 @@ public class TreeBuilder {
             }
             else if (current.getClass().equals(new DoTimes().getClass())){
                 retNode.addChild(handleDotimes(current, array));
+            }
+            else if (current.getClass().equals(new For().getClass())){
+                retNode.addChild(handleFor(array));
             }
             else {
                 retNode.addChild(build(current, array));
