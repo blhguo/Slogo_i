@@ -110,7 +110,14 @@ public class History extends SceneElement implements Observable{
 	    if (pos < 0){
             pos = 0;
         }
-        String s = commands.get(pos);
+        String s;
+        if (commands.size() == 0){
+            s = "";
+        }
+        else {
+            s = commands.get(pos);
+        }
+
         return s;
     }
     public String restoreCommand() throws EmptyStackException{
