@@ -20,5 +20,5 @@ public interface Command {
 	 */
 	// public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> funct);
 
-	//public double getDummyExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle);
+	public double getDummyExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle);
 }

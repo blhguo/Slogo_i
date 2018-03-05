@@ -86,7 +86,7 @@ public class TreeBuilder {
         //VarMap.put(name, value);
         return retNode;
     }
-
+    
     private SlogoNode handleRepeat(SlogoNode[] array){
         SlogoNode retNode = new MasterNode();
         SlogoNode expression;
