@@ -19,6 +19,10 @@ public class VariableNode extends SlogoNode{
 	public String getName() {
 		return this.variableName;
 	}
+	//changes the value of the variable
+	public void changeValue(Map<String, Double> VarMap, double val) {
+			VarMap.put(this.variableName, val);
+	}
 	
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 
