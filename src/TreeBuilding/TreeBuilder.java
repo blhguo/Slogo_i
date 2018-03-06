@@ -54,9 +54,9 @@ public class TreeBuilder {
         else if (currentNode.getClass().equals(new IfElse().getClass())) {
         	master = handleElseIf(array);
         }
-        else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
-        	master = handleElseIf(array);  //testing purposes, may need to create a new handle exception
-        }
+//        else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
+//        	master = handleElseIf(array);  //testing purposes, may need to create a new handle exception
+//        }
         else {
             master.addChild(build(currentNode, array));
         }
