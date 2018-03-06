@@ -36,7 +36,7 @@ public class SlogoView implements Observer, Observable{
 	 */
 	public static final double CMDHISTORYX = 0;
 	public static final double CMDHISTORYY = 1.0 / 10 * WINDOWHEIGHT;
-	public static final double CMDHISTORYWIDTH = 2.0 / 7 * WINDOWWIDTH;
+	public static final double CMDHISTORYWIDTH = 1.7 / 7 * WINDOWWIDTH;
 	public static final double CMDHISTORYHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	
 	/*
@@ -44,14 +44,14 @@ public class SlogoView implements Observer, Observable{
 	 */
 	public static final double VARIABLEVIEWX = 0;
 	public static final double VARIABLEVIEWY = 1.0 / 10 * WINDOWHEIGHT + CMDHISTORYHEIGHT;
-	public static final double VARIABLEVIEWWIDTH = 2.0 / 7 * WINDOWWIDTH;
+	public static final double VARIABLEVIEWWIDTH = 1.7 / 7 * WINDOWWIDTH;
 	public static final double VARIABLEVIEWHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	/*
 	 * Constants relating to the Console section of the main window
 	 */
 	public static final double TURTLEVIEWX = CMDHISTORYWIDTH;
 	public static final double TURTLEVIEWY = TOOLBARHEIGHT;
-	public static final double TURTLEVIEWWIDTH = WINDOWWIDTH - CMDHISTORYWIDTH;
+	public static final double TURTLEVIEWWIDTH = WINDOWWIDTH - 2* CMDHISTORYWIDTH;
 	public static final double PERCENTHEIGHT = .8;
 	public static final double TURTLEVIEWHEIGHT = PERCENTHEIGHT * (WINDOWHEIGHT - TOOLBARHEIGHT);
 	/*
@@ -61,6 +61,23 @@ public class SlogoView implements Observer, Observable{
 	public static final double CONSOLEY = TOOLBARHEIGHT + TURTLEVIEWHEIGHT;
 	public static final double CONSOLEWIDTH = TURTLEVIEWWIDTH;
 	public static final double CONSOLEHEIGHT = (1 - PERCENTHEIGHT) * (WINDOWHEIGHT - TOOLBARHEIGHT);
+	/*
+	 * Constants relating to the State Prompt section of the main window
+	 */
+	public static final double STATEX = CMDHISTORYWIDTH + TURTLEVIEWWIDTH;
+	public static final double STATEY = 1.0 / 10 * WINDOWHEIGHT;
+	public static final double STATEWIDTH = 1.7 / 7 * WINDOWWIDTH;
+	public static final double STATEHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
+	/*
+	 * Constants relating to the Palette Prompt section of the main window
+	 */
+	public static final double PALETTEX = CMDHISTORYWIDTH + TURTLEVIEWWIDTH;
+	public static final double PALETTEY = 1.0 / 10 * WINDOWHEIGHT + STATEHEIGHT;
+	public static final double PALETTEWIDTH = 1.7 / 7 * WINDOWWIDTH;
+	public static final double PALETTEHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
+	
+	
+	
 	
 	/*
 	 * Local variables governing JavaFX objects in the main window
@@ -78,6 +95,9 @@ public class SlogoView implements Observer, Observable{
 	private Toolbar myToolbar;
 	private TurtleDisplay myTurtleDisplay;
 	private VariableView myVariableView;
+	private Palettes myPalette;
+	private CurrentState myCurrentState;
+	
 
 	/*
 	 * Data structures for SceneElements, variables,
@@ -139,6 +159,11 @@ public class SlogoView implements Observer, Observable{
 		myToolbar = new Toolbar();
 		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
+		
+//		myCurrentState = new CurrentState();
+//		sceneElements.add(myCurrentState);
+//		myPalette = new Palettes();
+//		sceneElements.add(myPalette);		
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {

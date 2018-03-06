@@ -222,15 +222,15 @@ public class TreeBuilder {
 //    }
     
     
-    public static void main(String[] args){
-        SlogoNode[] array = new SlogoNode[3];
-        array[0] = new Sum();
-        array[1] = new NumberNode(50);
-        array[2] = new NumberNode(50);
-        TreeBuilder builder = new TreeBuilder();
-        SlogoNode headNode = builder.buildTree(array);
-//        System.out.println(headNode.getNumchildren());
-//        System.out.println(headNode.getChildren().get(0).getNumchildren());
-//        System.out.println(headNode.getChildren().get(1).getNumchildren());
-    }
+//    public static void main(String[] args){
+//        SlogoNode[] array = new SlogoNode[3];
+//        array[0] = new Sum();
+//        array[1] = new NumberNode(50);
+//        array[2] = new NumberNode(50);
+//        TreeBuilder builder = new TreeBuilder();
+//        SlogoNode headNode = builder.buildTree(array);
+////        System.out.println(headNode.getNumchildren());
+////        System.out.println(headNode.getChildren().get(0).getNumchildren());
+////        System.out.println(headNode.getChildren().get(1).getNumchildren());
+//    }
 }
