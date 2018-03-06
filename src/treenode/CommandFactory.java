@@ -3,6 +3,7 @@ package treenode;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import Deprecated.VariableNode;
 import VarOp.MakeVariable;
@@ -11,9 +12,15 @@ import VarOp.MakeVariable;
  * takes in an Array of strings and uses NodeBuilder to build those strings
  */
 public class CommandFactory {
+	
+	private Map<String, SlogoNode> functionMap;
+
 	/*
 	 * method that converts a array of strings into an array of unique Nodes
 	 */
+	public CommandFactory(Map<String, SlogoNode> functions) {
+		this.functionMap = functions;
+	}
 	
 	private boolean isDouble(String str) {
         try {
@@ -24,21 +31,29 @@ public class CommandFactory {
         }
     }
 	
-	public CommandFactory() {	};
-	public SlogoNode[] convertStringtoNode(String[] commandList){
+	//checks if the word is only made of strings.
+	private Boolean isString(String input) {
+		return input.matches("[a-zA-Z]+");
+	}
+	
+	public SlogoNode[] convertStringtoNode(String[] commandList, Map<String, SlogoNode> functions){
 		SlogoNode[] nodeList = new SlogoNode[commandList.length];
+		NodeBuilder nodeBuilder = new NodeBuilder(functions);
 		for (int i = 0; i<commandList.length;i++) { 
 			String current = commandList[i];
 			SlogoNode currentNode = null;
 			//If case for variable node, number node, or normal command node
 			if(isDouble(current) ) {
-				currentNode = NodeBuilder.createNumberNode(current);
+				currentNode = nodeBuilder.createNumberNode(current);
 			}
 			else if (isVariable(current)) {
-				currentNode = NodeBuilder.createVariableNode(current);
+				currentNode = nodeBuilder.createVariableNode(current);
+			}
+			else if (isString(current) && !nodeBuilder.checkFunctionMap(current)) {
+				currentNode = nodeBuilder.createStringNode(current);
 			}
 			else {
-			currentNode = NodeBuilder.createNode(current);
+			currentNode = nodeBuilder.createNode(current);
 			}
 			
 			nodeList[i]=currentNode;

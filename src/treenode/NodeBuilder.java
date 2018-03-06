@@ -8,9 +8,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
 import java.util.*;
 
+import VarOp.ToFunction;
+
 public class NodeBuilder{
 
 	private List<Observer> observers = new ArrayList<>();
+	private Map<String, SlogoNode> functionMap;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private static final String LANGUAGE_FILE = "English";
 	private static final String NUMBERNODE_ADDRESS = "treenode.NumberNode";
@@ -30,7 +33,9 @@ public class NodeBuilder{
 //		System.out.println(output[1]);
 //		
 //	}
-
+	public NodeBuilder(Map<String, SlogoNode> functions) {
+		this.functionMap = functions;
+	}
 	/*
 	 * iterates through each value and returns a map of all the languages.
 	 */
@@ -73,7 +78,7 @@ public class NodeBuilder{
 	/*
 	 * creates Variable Node
 	 */
-	public static SlogoNode createVariableNode(String input) {
+	public SlogoNode createVariableNode(String input) {
 		Class<?> commandObject = null;
 		try { //try to create a new class object based on name.
 			commandObject = Class.forName(VARIABLENODE_ADDRESS);
@@ -96,7 +101,7 @@ public class NodeBuilder{
 	/*
 	 * creates Number Node
 	 */
-	public static SlogoNode createNumberNode(String input) {
+	public SlogoNode createNumberNode(String input) {
 		Class<?> commandObject = null;
 		try { //try to create a new class object based on name.
 			commandObject = Class.forName(NUMBERNODE_ADDRESS);
@@ -116,11 +121,18 @@ public class NodeBuilder{
 		return command;
 	}
 
-
+	public SlogoNode createStringNode(String input) {
+		SlogoNode stringNode = new StringNode(input);
+		return stringNode;
+	}
+	
+	public Boolean checkFunctionMap(String input) {
+		return functionMap.containsKey(input);
+	}
 	/*
 	 * builds an individual Command Node
 	 */
-	public static SlogoNode createNode(String input) {
+	public SlogoNode createNode(String input) {
 		String formalCommandName = null;
 
 		if (languageMap.containsKey(input)) { //if the map exists
@@ -129,12 +141,23 @@ public class NodeBuilder{
 		else{
 			throw new InvalidParameterException("NOT A COMMAND");
 		}
+
+		//if statement if the command is a predefined TO function.
+		if (functionMap.containsKey(input)) {
+			SlogoNode commandHead = functionMap.get(input);
+			SlogoNode toFunction = new ToFunction(commandHead);
+			System.out.println("TO function created");
+			return toFunction;
+		}
+
+		//check if the function already exists
 		
-		//check if the function alreaady exists
 		/*
 		 * create a method that checks if the function exists and returns the correct command object with parameters.
 		 */
 		Class<?> commandObject = null;
+		
+
 		
 		try { //try to create a new class object based on name.
 			commandObject = Class.forName("Movement."+formalCommandName);
@@ -170,51 +193,5 @@ public class NodeBuilder{
 		}
 		return command;
 	}
-
-
-
-	//	/*
-	//	 * Reflections for retrieving the right class 
-	//	 */
-	//	private static Class<?> getClassForName(String className) {
-	//		try {
-	//			return Class.forName(myResources.getString(className));
-	//		} catch (Exception e) {
-	//			return null;
-	//
-	//		}
-	//	}
-	//
-	//	/*
-	//	 * Method that iterates through entire resource file and adds to the classMap
-	//	 * All nodes should be created in the class Map
-	//	 */
-	//	private static Map<String, Class<?>> createClassMap(){
-	//		Map<String, Class<?>> classMap = new HashMap<>();
-	//		Enumeration<String> keySet = myResources.getKeys();
-	//
-	//		while (keySet.hasMoreElements()) { //if there are more elements
-	//			String current = keySet.nextElement();  //obtain the next value in the keyset (String)
-	//			Class<?> theClass = getClassForName(current); //obtain the object from the class.
-	//			classMap.put(keySet.nextElement(), theClass);
-	//		} 
-	////		//adding the variable node
-	////		Class<?> theClass = getClassForName("VariableNode"); //obtain the object from the class.
-	////		classMap.put(keySet.nextElement(), theClass);
-	////		//adding the number node
-	////		theClass = getClassForName("NumberNode"); //obtain the object from the class.
-	////		classMap.put(keySet.nextElement(), theClass);
-	//		
-	//		return classMap;
-	//	}
-
-
-	/*
-	 * Method that accesses the classMap to obtain the desired Command Node
-	 */
-	//	public static Class<?> createNode(String commandName){
-	//		return classMap.get(commandName);
-	//	}
-
 
 }

@@ -25,7 +25,7 @@ public class Main extends Application implements Observer{
 	private SlogoView simulation;
 
     private Map<String, Double> variables;
-    private Map<String, SlogoNode> functions;
+    private static Map<String, SlogoNode> functions;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -61,10 +61,10 @@ public class Main extends Application implements Observer{
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
 		//System.out.println(simulation.getPassValue());
 		TreeBuilder Builder = new TreeBuilder(variables, functions, (Turtle) o);
-		CommandFactory factory = new CommandFactory() {};
+		CommandFactory factory = new CommandFactory(functions) {};
 		TreeReader reader = new TreeReader();
 		//System.out.println(simulation.getPassValue());
-		SlogoNode[] BufferArray = factory.convertStringtoNode(sanitize(simulation.getPassValue()));
+		SlogoNode[] BufferArray = factory.convertStringtoNode(sanitize(simulation.getPassValue()), functions);
 		//System.out.println(BufferArray[0]);
 		SlogoNode Head = Builder.buildTree(BufferArray);
         simulation.setConsole(reader.evaluate(Head, variables, functions, (Turtle) o));
