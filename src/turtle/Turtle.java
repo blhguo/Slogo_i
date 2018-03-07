@@ -159,6 +159,11 @@ public class Turtle implements Observable, Observer{
 			return 0.0;
 		}
 	}
+	public boolean isPenUp() {
+		if (myPenUp) {
+			return true;
+		} return false;
+	}
 	public void setHeading(double heading)
 	{
 	    oldHeading = this.heading;

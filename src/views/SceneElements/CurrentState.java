@@ -13,6 +13,10 @@ import javafx.scene.text.Text;
 import views.Observer;
 import views.SlogoView;
 
+// pen up or down
+// pen thickness
+// ID, position, heading
+
 public class CurrentState extends SceneElement implements Observable {
 	private VBox vbox;
 	private Text text;
@@ -27,19 +31,15 @@ public class CurrentState extends SceneElement implements Observable {
 		states = new ArrayList<>();
 		observers = new ArrayList<>();
 		stateLabel = getLabel();
-		text = getText();
-
 		vbox.getChildren().add(stateLabel);
+		vbox.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-background-color: goldenrod;");
 		pane = getPane();
-
-
-		
+	
 	}
 	
 	private Label getLabel() {
 		Label label = new Label("Current States:");
-		label.setStyle("-fx-border-color: white; -fx-border-width: 3;" +
-                "-fx-background-color: black; -fx-text-fill: white");
+        label.setStyle("-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-width: 1;");
 		label.setPrefWidth(SlogoView.STATEWIDTH);;
 		label.maxWidth(SlogoView.STATEWIDTH);
 		label.setAlignment(Pos.CENTER);;
@@ -55,35 +55,27 @@ public class CurrentState extends SceneElement implements Observable {
         return pane;
 	}
 	
-	private Text getText() {
-		Text tex = new Text();
-		tex.setWrappingWidth(SlogoView.CMDHISTORYWIDTH );
-        tex.setStyle("-fx-background-color: grey;");
-        return tex;
-	}
+//	private Text getText() {
+//		Text tex = new Text();
+//		tex.setWrappingWidth(SlogoView.CMDHISTORYWIDTH );
+//        tex.setStyle("-fx-background-color: grey;");
+//        return tex;
+//	}
 	
-	public void updateStateView(Map<String, String> variables) {
-		updateState(variables);
+	public void updateStateView(Map<String, String> stateMap) {
+		updateState(stateMap);
 	}
 
-	public void updateState(Map<String, String> variables) {
+	public void updateState(Map<String, String> stateMap) {
 		vbox.getChildren().removeAll(states);
 		states.clear();
-		for (String key : variables.keySet()) {
-			Label l = new Label(key + " : " + variables.get(key));
+		for (String key : stateMap.keySet()) {
+			Label l = new Label(key + " : " + stateMap.get(key));
 //			l.setPadding(new Insets(1, 1, 1, 5));
 			states.add(l);
 		}
 		vbox.getChildren().addAll(states);
 	}
-	
-//	public Text getStatus() {
-//		
-//	}
-	
-	
-	
-	
 	
     public void updateObservers(){
         for (Observer o : observers){

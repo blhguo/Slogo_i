@@ -17,19 +17,19 @@ public class Palettes extends SceneElement implements Observable{
 	private Text text;
 	private List<Observer> observers;
     private ScrollPane pane;
-    private List<String> states;
-    private Label stateLabel;
+    private List<String> palettes;
+    private Label paletteLabel;
 	
 	
 	public Palettes() {
 		vbox = new VBox();
-		states = new ArrayList<>();
+		palettes = new ArrayList<>();
 		observers = new ArrayList<>();
-		stateLabel = getLabel();
+		paletteLabel = getLabel();
 		text = getText();
 		pane = getPane();
 
-		vbox.getChildren().add(stateLabel);
+		vbox.getChildren().add(paletteLabel);
 
 		
 
@@ -62,14 +62,11 @@ public class Palettes extends SceneElement implements Observable{
         return tex;
 	}
 
-	public void updateState() {
+	public void updatePalette() {
 		
 	}
 	
-	
-	
-	
-	
+
 	
     public void updateObservers(){
         for (Observer o : observers){

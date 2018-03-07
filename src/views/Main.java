@@ -26,6 +26,7 @@ public class Main extends Application implements Observer{
 
     private Map<String, Double> variables;
     private Map<String, SlogoNode> functions;
+    private Map<String, String> states;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -42,6 +43,7 @@ public class Main extends Application implements Observer{
 		simulation.addObserver(this);
         variables = new HashMap<>();
         functions = new HashMap<>();
+        states = new HashMap<>();
 		updateVarView();
 	}
 	
@@ -60,7 +62,7 @@ public class Main extends Application implements Observer{
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
 		//System.out.println(simulation.getPassValue());
-		TreeBuilder Builder = new TreeBuilder(variables, functions, (Turtle) o);
+		TreeBuilder Builder = new TreeBuilder(states, variables, functions, (Turtle) o);
 		CommandFactory factory = new CommandFactory() {};
 		TreeReader reader = new TreeReader();
 		//System.out.println(simulation.getPassValue());

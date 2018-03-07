@@ -30,6 +30,8 @@ public class Console extends SceneElement implements Observable{
     private TextArea field;
     private List<Observer> observers;
     private TextField littlefield;
+    private CurrentState myState;
+    private Palettes myPalette;
     public static final double MINITOOLBARHEIGHT = .5 * SlogoView.TOOLBARHEIGHT;
     public Console(){
         vbox = new VBox();
@@ -44,6 +46,8 @@ public class Console extends SceneElement implements Observable{
         myHistory = new History();
         observers = new ArrayList<>();
        // littlefield = new TextField();
+        myState = new CurrentState();
+        myPalette = new Palettes();
     }
     @Override
     public Node getField(){
@@ -103,6 +107,12 @@ public class Console extends SceneElement implements Observable{
     }
     public History getHistory(){
         return myHistory;
+    }
+    public CurrentState getState() {
+    	return myState;
+    }
+    public Palettes getPalette() {
+    	return myPalette;
     }
     private Label getConsoleLabel(){
         Label consolelabel = new Label("Console");

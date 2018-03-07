@@ -160,8 +160,8 @@ public class SlogoView implements Observer, Observable{
 		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
 		
-//		myCurrentState = new CurrentState();
-//		sceneElements.add(myCurrentState);
+		myCurrentState = new CurrentState();
+		sceneElements.add(myCurrentState);
 //		myPalette = new Palettes();
 //		sceneElements.add(myPalette);		
 	}
@@ -215,4 +215,8 @@ public class SlogoView implements Observer, Observable{
     public void updateVarView(Map<String, Double> variables) {
         myVariableView.updateVarView(variables);
 	}
+    
+    public void updateState(Map<String, String> states) {
+    	myCurrentState.updateState(states);
+    }
 }
