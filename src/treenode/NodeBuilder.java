@@ -129,6 +129,10 @@ public class NodeBuilder{
 	public Boolean checkFunctionMap(String input) {
 		return functionMap.containsKey(input);
 	}
+	
+	public Boolean checkLanguageMap(String input) {
+		return languageMap.containsKey(input);
+	}
 	/*
 	 * builds an individual Command Node
 	 */

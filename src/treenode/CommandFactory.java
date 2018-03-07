@@ -49,7 +49,7 @@ public class CommandFactory {
 			else if (isVariable(current)) {
 				currentNode = nodeBuilder.createVariableNode(current);
 			}
-			else if (isString(current) && !nodeBuilder.checkFunctionMap(current)) {
+			else if (isString(current) && !nodeBuilder.checkFunctionMap(current) && !nodeBuilder.checkLanguageMap(current)) {
 				currentNode = nodeBuilder.createStringNode(current);
 			}
 			else {
@@ -72,7 +72,7 @@ public class CommandFactory {
 	/*
 	 * method to check if a number is an integer (for creating number nodes)	   
 	 */
-	public static boolean isNumber(String s) {
+	public boolean isNumber(String s) {
 		try { 
 			Integer.parseInt(s); 
 		} catch(NumberFormatException e) { 
@@ -87,7 +87,7 @@ public class CommandFactory {
 	/*
 	 * regex check for variable node
 	 */
-	public static Boolean isVariable(String input) {
+	public Boolean isVariable(String input) {
 		return input.matches(":(.*)");
 	}
 }
