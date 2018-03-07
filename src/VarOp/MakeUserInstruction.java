@@ -21,6 +21,7 @@ public class MakeUserInstruction extends SlogoNode {
 	@Override
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		List<SlogoNode> leaf = this.getChildren();
+		System.out.println("Executed");
 		// TODO Auto-generated method stub
 		int numOfVariables = leaf.get(1).getNumchildren(); //returns the number of variables
 		//increment through each node of the command and determine if each one is a variable node
@@ -36,6 +37,8 @@ public class MakeUserInstruction extends SlogoNode {
 		if (numOfVariables == numOfVariableNodes) {
 			//number of variables matches the number of variables in the command line, therefore it gets added to function map
 			FunctMap.put(leaf.get(0).getName(), leaf.get(2)); //adds name of function and head node to the function map
+			System.out.println(FunctMap.get(leaf.get(0).getName()));
+			System.out.print(FunctMap.keySet());
 			return 1;
 			//this.getChildren().get(0).getVariableName() == name of the function
 			//this.getChildren().get(2) == head node of the commands. 

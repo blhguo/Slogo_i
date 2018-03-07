@@ -133,6 +133,13 @@ public class NodeBuilder{
 	public Boolean checkLanguageMap(String input) {
 		return languageMap.containsKey(input);
 	}
+	
+	public SlogoNode createToFunctionNode(String input) {
+			SlogoNode commandHead = functionMap.get(input);
+			SlogoNode toFunction = new ToFunction(commandHead);
+			System.out.println("TO function created");
+			return toFunction;
+	}
 	/*
 	 * builds an individual Command Node
 	 */
@@ -145,17 +152,9 @@ public class NodeBuilder{
 		else{
 			throw new InvalidParameterException("NOT A COMMAND");
 		}
-
+		System.out.println(functionMap.keySet());
 		//if statement if the command is a predefined TO function.
-		if (functionMap.containsKey(input)) {
-			SlogoNode commandHead = functionMap.get(input);
-			SlogoNode toFunction = new ToFunction(commandHead);
-			System.out.println("TO function created");
-			return toFunction;
-		}
 
-		//check if the function already exists
-		
 		/*
 		 * create a method that checks if the function exists and returns the correct command object with parameters.
 		 */

@@ -39,6 +39,7 @@ public class CommandFactory {
 	public SlogoNode[] convertStringtoNode(String[] commandList, Map<String, SlogoNode> functions){
 		SlogoNode[] nodeList = new SlogoNode[commandList.length];
 		NodeBuilder nodeBuilder = new NodeBuilder(functions);
+		System.out.println(functions.keySet());
 		for (int i = 0; i<commandList.length;i++) { 
 			String current = commandList[i];
 			SlogoNode currentNode = null;
@@ -49,13 +50,18 @@ public class CommandFactory {
 			else if (isVariable(current)) {
 				currentNode = nodeBuilder.createVariableNode(current);
 			}
+			else if (nodeBuilder.checkFunctionMap(current)) { //if the node exists
+				System.out.println("blahs");
+				currentNode = nodeBuilder.createToFunctionNode(current);
+				
+			}
+			//if state to check if the word is just a variable
 			else if (isString(current) && !nodeBuilder.checkFunctionMap(current) && !nodeBuilder.checkLanguageMap(current)) {
 				currentNode = nodeBuilder.createStringNode(current);
 			}
 			else {
-			currentNode = nodeBuilder.createNode(current);
-			}
-			
+				currentNode = nodeBuilder.createNode(current);
+			}	
 			nodeList[i]=currentNode;
 		}
 		convertLoneVariables(nodeList);//check for lone variables

@@ -8,6 +8,7 @@ import VarOp.IfElse;
 import VarOp.MakeUserInstruction;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
+import VarOp.ToFunction;
 import treenode.*;
 import VarOp.For;
 import turtle.Turtle;
@@ -31,7 +32,7 @@ public class TreeBuilder {
     }
     public SlogoNode buildTree(SlogoNode[] array){
         //System.out.println(array.length);
-
+    		
         master = new MasterNode();
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
@@ -54,9 +55,12 @@ public class TreeBuilder {
         else if (currentNode.getClass().equals(new IfElse().getClass())) {
         	master = handleElseIf(array);
         }
-//        else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
-//        	master = handleElseIf(array);  //testing purposes, may need to create a new handle exception
-//        }
+        else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
+        	master = handleMakeUserInstruction(array);
+        }
+        else if (currentNode.getClass().equals(new ToFunction(null).getClass())) {
+        	master = handleTo(array, currentNode);
+        }
         else {
             master.addChild(build(currentNode, array));
         }
@@ -151,6 +155,8 @@ public class TreeBuilder {
             return retNode;
         }
         
+
+        
         private SlogoNode handleRepeat(SlogoNode[] array){
             SlogoNode retNode = new Repeat();
             SlogoNode expression;
@@ -179,6 +185,63 @@ public class TreeBuilder {
         }
 
 
+    private SlogoNode handleMakeUserInstruction(SlogoNode[] array) {
+    		SlogoNode retNode = new MakeUserInstruction();
+  //  		SlogoNode functionName;
+    		SlogoNode variableList;
+    		SlogoNode commandList;
+    		buildcounter++; //increments past the To word
+   
+    		//checks if the node is a string
+         if (!array[buildcounter].getClass().equals(new StringNode("").getClass())){
+               System.out.println("Sorry, you didn't give a name to the function");
+               return new NumberNode(0);
+          }
+         //builds the string node
+         SlogoNode node = array[buildcounter];
+         retNode.addChild(build(node, array));
+         //increments to the next command
+         buildcounter++; //check if the second node
+         if (buildcounter >= array.length){
+             System.out.println("Out of bounds1");
+             variableList = new NumberNode(0);
+             return variableList;
+         }
+         SlogoNode node2 = array[buildcounter];
+         retNode.addChild(build(node2, array));
+         
+         buildcounter++; //check the third node
+         if (buildcounter >= array.length){
+             System.out.println("Out of bounds2");
+             commandList = new NumberNode(0);
+             return commandList;
+         }
+         retNode.addChild(buildList(array));
+         return retNode;
+         
+    }
+    
+    private SlogoNode handleTo(SlogoNode[] array, SlogoNode currentNode) {
+    		String name = currentNode.getName(); //stores the name of the function
+    		System.out.println(this.FunctMap.keySet());
+    		System.out.println(this.FunctMap.get(name));  //giving a null pointer error
+    		SlogoNode retNode = new ToFunction(this.FunctMap.get(name));
+    		SlogoNode list;
+    		if (array.length==1) { //assume that there are no variables
+    			System.out.println("assumes no parameters");
+    			return retNode;
+    		}
+    		buildcounter++;
+            if (buildcounter >= array.length){
+                System.out.println("Out of bounds2");
+                list = new NumberNode(0);
+                return list;
+            }
+            //System.out.println(buildcounter);
+            retNode.addChild(buildList(array));          
+            return retNode;
+    }
+    
     private SlogoNode handleIf(SlogoNode[] array){
         SlogoNode retNode = new If();
         SlogoNode expression;

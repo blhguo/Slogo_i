@@ -24,10 +24,13 @@ public class ToFunction extends SlogoNode {
 			VarMap.put(variableName, val);
 	}
 	
-	
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+		if (this.getChildren().size()==0) {
+			System.out.println("reached");
+			return this.head.getExecute(VarMap, FunctMap, turtle);
+		}
 		int numOfParameters = this.getChildren().get(0).getNumchildren();
 		double[] parameterArray = new double[numOfParameters];
 		for (int i = 0; i<numOfParameters; i++) {
