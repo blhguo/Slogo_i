@@ -7,6 +7,9 @@ import java.util.Map;
 
 public class BracketNode extends SlogoNode {
 
+	public BracketNode() {
+		numchildren = 0;
+	}
 
     @Override
     public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle) {

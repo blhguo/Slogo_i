@@ -71,7 +71,7 @@ public class Toolbar extends SceneElement implements Observable{
     }
     private void getLink() {
         done = true;
-        Main.openWebPage("https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php");
+        Main.openWebPage(url);
     }
 
     private ColorPicker getColorPicker() {

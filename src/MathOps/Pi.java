@@ -13,6 +13,10 @@ public class Pi extends SlogoNode{
 //		this.val = getValue();
 //	}
 
+	public Pi() {
+		numchildren = 0;
+	}
+	
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub

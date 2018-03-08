@@ -1,12 +1,13 @@
-package Query;
+package Movement;
 
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.paint.Color;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class IsPenDown extends SlogoNode{
+public class SetPalette extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -14,8 +15,8 @@ public class IsPenDown extends SlogoNode{
 //		this.val = getValue();
 //	}
 	
-	public IsPenDown() {
-		numchildren = 0;
+	public SetPalette() {
+		numchildren = 4;
 	}
 
 	@Override
@@ -29,7 +30,14 @@ public class IsPenDown extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		return turtle.isPenDown();
+			List<SlogoNode> leaf = this.getChildren();
+			double index = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+			double r = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
+			double g = leaf.get(2).getExecute(VarMap, FunctMap, turtle);
+			double b = leaf.get(3).getExecute(VarMap, FunctMap, turtle);
+
+			turtle.addColor(index, Color.rgb((int) r, (int) g, (int) b, 1.0));
+			return index;
 		}
 	
 }

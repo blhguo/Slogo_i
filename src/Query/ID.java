@@ -6,7 +6,7 @@ import java.util.Map;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class IsPenDown extends SlogoNode{
+public class ID extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -14,7 +14,7 @@ public class IsPenDown extends SlogoNode{
 //		this.val = getValue();
 //	}
 	
-	public IsPenDown() {
+	public ID() {
 		numchildren = 0;
 	}
 
@@ -29,7 +29,7 @@ public class IsPenDown extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		return turtle.isPenDown();
+		return (double) turtle.getID();
 		}
 	
 }

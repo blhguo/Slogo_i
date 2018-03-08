@@ -15,6 +15,10 @@ public class XCoordinate extends SlogoNode{
 //		this.val = getValue();
 //	}
 
+	
+	public XCoordinate() {
+		numchildren = 0;
+	}
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
