@@ -42,6 +42,11 @@ public abstract class SlogoNode implements Command {
 		return getExecute(VarMap, FunctMap, turtle);
 	}
 	
+//	//returns the name of the String
+//	public void setName(String input) {
+//		name = input;
+//	}
+	
 	public String getName() {
 		return "does not exist";
 	}

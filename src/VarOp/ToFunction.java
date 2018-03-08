@@ -12,16 +12,20 @@ import turtle.Turtle;
  */
 public class ToFunction extends SlogoNode {
 	private SlogoNode head;
-
+	private String name;
 	
-	public ToFunction(SlogoNode headOfCommands) {
+	public ToFunction(SlogoNode headOfCommands, String name) {
 		this.head = headOfCommands;
+		this.name = name;
 		numchildren = 1; //only one child with all of the variables
 	}
-	
 	//changes the value of the variable
 	public void changeValue(Map<String, Double> VarMap, String variableName, double val) {
 			VarMap.put(variableName, val);
+	}
+	
+	public String getToName() {
+		return this.name;
 	}
 	
 
@@ -29,7 +33,9 @@ public class ToFunction extends SlogoNode {
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		if (this.getChildren().size()==0) {
 			System.out.println("reached");
-			return this.head.getExecute(VarMap, FunctMap, turtle);
+			System.out.println(this.head);
+			this.head.getExecute(VarMap, FunctMap, turtle);
+			return this.head.getValue(VarMap, FunctMap, turtle);
 		}
 		int numOfParameters = this.getChildren().get(0).getNumchildren();
 		double[] parameterArray = new double[numOfParameters];

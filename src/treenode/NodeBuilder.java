@@ -136,7 +136,7 @@ public class NodeBuilder{
 	
 	public SlogoNode createToFunctionNode(String input) {
 			SlogoNode commandHead = functionMap.get(input);
-			SlogoNode toFunction = new ToFunction(commandHead);
+			SlogoNode toFunction = new ToFunction(commandHead, input);
 			System.out.println("TO function created");
 			return toFunction;
 	}

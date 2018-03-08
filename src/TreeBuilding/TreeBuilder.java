@@ -58,8 +58,11 @@ public class TreeBuilder {
         else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
         	master = handleMakeUserInstruction(array);
         }
-        else if (currentNode.getClass().equals(new ToFunction(null).getClass())) {
-        	master = handleTo(array, currentNode);
+        else if (currentNode.getClass().equals(new ToFunction(null, null).getClass())) {
+        ToFunction toNode = new ToFunction(null, null);
+        toNode = (ToFunction) currentNode;
+        String name = toNode.getToName();
+        	master = handleTo(array, currentNode, name);
         }
         else {
             master.addChild(build(currentNode, array));
@@ -188,6 +191,7 @@ public class TreeBuilder {
     private SlogoNode handleMakeUserInstruction(SlogoNode[] array) {
     		SlogoNode retNode = new MakeUserInstruction();
   //  		SlogoNode functionName;
+    		System.out.println(array.length);
     		SlogoNode variableList;
     		SlogoNode commandList;
     		buildcounter++; //increments past the To word
@@ -199,6 +203,7 @@ public class TreeBuilder {
           }
          //builds the string node
          SlogoNode node = array[buildcounter];
+         System.out.println(node);
          retNode.addChild(build(node, array));
          //increments to the next command
          buildcounter++; //check if the second node
@@ -208,24 +213,25 @@ public class TreeBuilder {
              return variableList;
          }
          SlogoNode node2 = array[buildcounter];
-         retNode.addChild(build(node2, array));
+         retNode.addChild(buildList(array));
          
          buildcounter++; //check the third node
-         if (buildcounter >= array.length){
-             System.out.println("Out of bounds2");
-             commandList = new NumberNode(0);
-             return commandList;
-         }
+//         if (buildcounter >= array.length){
+//             System.out.println("Out of bounds2");
+//             commandList = new NumberNode(0);
+//             return commandList;
+//         }
          retNode.addChild(buildList(array));
          return retNode;
          
     }
     
-    private SlogoNode handleTo(SlogoNode[] array, SlogoNode currentNode) {
-    		String name = currentNode.getName(); //stores the name of the function
+    private SlogoNode handleTo(SlogoNode[] array, SlogoNode currentNode, String name) {
+    		System.out.println(currentNode);
+    		System.out.println(name + "blalalal");
     		System.out.println(this.FunctMap.keySet());
     		System.out.println(this.FunctMap.get(name));  //giving a null pointer error
-    		SlogoNode retNode = new ToFunction(this.FunctMap.get(name));
+    		SlogoNode retNode = new ToFunction(this.FunctMap.get(name), name);
     		SlogoNode list;
     		if (array.length==1) { //assume that there are no variables
     			System.out.println("assumes no parameters");
