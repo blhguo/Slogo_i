@@ -14,7 +14,6 @@ import VarOp.MakeVariable;
 public class CommandFactory {
 	
 	private Map<String, SlogoNode> functionMap;
-
 	/*
 	 * method that converts a array of strings into an array of unique Nodes
 	 */
@@ -52,8 +51,7 @@ public class CommandFactory {
 			}
 			else if (nodeBuilder.checkFunctionMap(current)) { //if the node exists
 				System.out.println("blahs");
-				currentNode = nodeBuilder.createToFunctionNode(current);
-				
+				currentNode = nodeBuilder.createToFunctionNode(current);		
 			}
 			//if state to check if the word is just a variable
 			else if (isString(current) && !nodeBuilder.checkFunctionMap(current) && !nodeBuilder.checkLanguageMap(current)) {
@@ -74,7 +72,6 @@ public class CommandFactory {
 			}
 		}
 	}
-
 	/*
 	 * method to check if a number is an integer (for creating number nodes)	   
 	 */

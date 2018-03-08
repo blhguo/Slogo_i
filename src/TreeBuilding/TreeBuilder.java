@@ -32,7 +32,7 @@ public class TreeBuilder {
     }
     public SlogoNode buildTree(SlogoNode[] array){
         //System.out.println(array.length);
-    		
+    	
         master = new MasterNode();
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
