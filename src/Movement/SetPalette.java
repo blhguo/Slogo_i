@@ -36,7 +36,7 @@ public class SetPalette extends SlogoNode{
 			double g = leaf.get(2).getExecute(VarMap, FunctMap, turtle);
 			double b = leaf.get(3).getExecute(VarMap, FunctMap, turtle);
 
-			turtle.addColor(index, Color.rgb((int) r, (int) g, (int) b, 1.0));
+			turtle.addColor((int) index, Color.rgb((int) r, (int) g, (int) b, 1.0));
 			return index;
 		}
 	
