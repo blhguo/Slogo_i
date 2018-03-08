@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.javafx.geom.Shape;
+
 /**
 *
 * Turtle holds knowledge about themselves that can be
@@ -31,7 +33,6 @@ public class Turtle implements Observable, Observer{
 	private Color lineColor = Color.BLACK;
 	private boolean isShowing;
 	public static double initHeading = 0;
-	public static double CMDBUFF = 60;
     private double oldHeading;
 
 
@@ -43,16 +44,19 @@ public class Turtle implements Observable, Observer{
             - .5 * TURTLESIZE;
     public static final double BASEY = SlogoView.TURTLEVIEWY + 1.0 / 2 * SlogoView.TURTLEVIEWHEIGHT
             - .5 * TURTLESIZE;
+    public static final double TURTLESIZEHALF = TURTLESIZE * 0.5;
+	public static final double CMDBUFF = 60;
+	public static final double FULLDEGREES = 360;
     public static final Point2D originalLocation = new Point2D(BASEX, BASEY);
-
+    
     
     public Map<Integer, Double> turtleColorMap = new HashMap<>();
     public int turtleId;
     public boolean isActive;
     public double penSize;
     public double thickness;
-    
-    
+    public double penColor;
+    public Shape turtleShape;
     
 	/**
 	 * Variety of getters and setters used to access Information in actors, for
@@ -102,7 +106,7 @@ public class Turtle implements Observable, Observer{
     }
 	public void setLocation(Point2D newpos)
 	{
-		if ((newpos.getX() < SlogoView.TURTLEVIEWX) || (newpos.getX() > (SlogoView.TURTLEVIEWX + SlogoView.TURTLEVIEWWIDTH - TURTLESIZE * 0.5) || (newpos.getY() < SlogoView.TURTLEVIEWY) || (newpos.getY() > (SlogoView.TURTLEVIEWY - CMDBUFF + SlogoView.TURTLEVIEWHEIGHT + TURTLESIZE * 0.5))))
+		if ((newpos.getX() < SlogoView.TURTLEVIEWX) || (newpos.getX() > (SlogoView.TURTLEVIEWX + SlogoView.TURTLEVIEWWIDTH - TURTLESIZEHALF) || (newpos.getY() < SlogoView.TURTLEVIEWY) || (newpos.getY() > (SlogoView.TURTLEVIEWY - CMDBUFF + SlogoView.TURTLEVIEWHEIGHT + TURTLESIZEHALF))))
 			return;
         addLine(newpos);
         currentpos = newpos;
@@ -118,10 +122,10 @@ public class Turtle implements Observable, Observer{
             Line l = new Line();
             l.setStroke(lineColor);
             l.setStrokeWidth(2);
-            l.setStartX(currentpos.getX() + .5 * TURTLESIZE);
-            l.setStartY(currentpos.getY() + .5 * TURTLESIZE);
-            l.setEndX(newpos.getX() + .5 * TURTLESIZE);
-            l.setEndY(newpos.getY() + .5 * TURTLESIZE);
+            l.setStartX(currentpos.getX() + TURTLESIZEHALF);
+            l.setStartY(currentpos.getY() + TURTLESIZEHALF);
+            l.setEndX(newpos.getX() + TURTLESIZEHALF);
+            l.setEndY(newpos.getY() + TURTLESIZEHALF);
             lines.add(l);
             System.out.println(lineColor);
         }
@@ -167,7 +171,7 @@ public class Turtle implements Observable, Observer{
 	public void setHeading(double heading)
 	{
 	    oldHeading = this.heading;
-	    this.heading = heading % 360;
+	    this.heading = heading % FULLDEGREES;
 	    setRotate(heading);
 	}
 	
@@ -215,9 +219,6 @@ public class Turtle implements Observable, Observer{
 		myCanvas.getGraphicsContext2D().clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
 	}
 	
-	
-	
-
 	public void addColors(double color) {
 		turtleColorMap.put(turtleId , color);
 	}
@@ -237,13 +238,21 @@ public class Turtle implements Observable, Observer{
 	public void setPenSize(double newPenSize) {
 		penSize = newPenSize;
 	}
-	
-	public void setThickness(double newThickness) {
-		thickness = newThickness;
+	public double getPenSize() {
+		return penSize;
+	}
+
+	public void setPenColor(double newPenColor) {
+		penColor = newPenColor;
+	}
+	public double getPenColor() {
+		return penColor;
+	}
+	public void setShape(Shape shape) {
+		turtleShape = shape;
 	}
 	
 		
-	
 	
 	
     @Override
