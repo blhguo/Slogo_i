@@ -1,9 +1,11 @@
 package views;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import turtle.Turtle;
@@ -105,7 +107,8 @@ public class SlogoView implements Observer, Observable{
 		initializeObservers();
 		observers = new ArrayList<>();
 		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
-		myScene.setOnKeyPressed(e -> quit(e.getCode()));
+		myScene.setOnKeyPressed(e -> quit(e.getCode())); 
+		//addEventHandler for hovering over turtle
 		return myScene;
 	}
 
@@ -141,8 +144,11 @@ public class SlogoView implements Observer, Observable{
 		sceneElements.add(myHistory);
 		myVariableView = new VariableView();
 		sceneElements.add(myVariableView);
-		myTurtleDisplay = new TurtleDisplay(turtles.get(0));
-		sceneElements.add(myTurtleDisplay);
+		//loop that adds all the turtles to the view
+		for (int i = 0; i<turtles.size();i++) {
+			myTurtleDisplay = new TurtleDisplay(turtles.get(i));
+			sceneElements.add(myTurtleDisplay);
+		}
 		myToolbar = new Toolbar();
 		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
