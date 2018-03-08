@@ -1,15 +1,16 @@
-package treenode;
+package VarOp;
 
+import treenode.SlogoNode;
 import turtle.Turtle;
 
 import java.util.List;
 import java.util.Map;
 
-public class MasterNode extends SlogoNode implements Command {
+public class For extends SlogoNode {
 
     //	private double value = 0;
 //	private double distance = 0;
-    public MasterNode() {
+    public For() {
     }
 
     @Override

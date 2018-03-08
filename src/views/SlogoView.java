@@ -23,8 +23,8 @@ public class SlogoView implements Observer, Observable{
 	/*
 	 * Constants relating to the characteristics of the main window as a whole
 	 */
-	public static final int WINDOWHEIGHT = 600;
-	public static final int WINDOWWIDTH = 800;
+	public static final int WINDOWHEIGHT = 650;
+	public static final int WINDOWWIDTH = 1000;
 	public static final Color BACKGROUND = Color.ANTIQUEWHITE;
 	/*
 	 * Constants relating to the tool bar and its dimensions

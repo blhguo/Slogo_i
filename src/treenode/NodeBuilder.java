@@ -8,9 +8,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
 import java.util.*;
 
+import VarOp.ToFunction;
+
 public class NodeBuilder{
 
-	private List<Observer> observers = new ArrayList<>();
+	private Map<String, SlogoNode> functionMap;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private static final String LANGUAGE_FILE = "English";
 	private static final String NUMBERNODE_ADDRESS = "treenode.NumberNode";
@@ -18,19 +20,10 @@ public class NodeBuilder{
 	private static String language = LANGUAGE_FILE;
 	private static ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
 	public static Map<String, String> languageMap = createLanguageMap(myResources);
-	//private static final Map<String, Class<?>> classMap = createClassMap();  //creates the classMap of all objects.
-
-//	public static void main(String[] args) {
-//		createLanguageMap(myResources);
-//		String[] a = new String[2];
-//		a[0]= "pi";
-//		a[1] = "pi";
-//		SlogoNode[] output = CommandFactory.convertStringtoNode(a);
-//		System.out.println(output[0]);
-//		System.out.println(output[1]);
-//		
-//	}
-
+	
+	public NodeBuilder(Map<String, SlogoNode> functions) {
+		this.functionMap = functions;
+	}
 	/*
 	 * iterates through each value and returns a map of all the languages.
 	 */
@@ -38,10 +31,8 @@ public class NodeBuilder{
 		Map<String, String> languageMap = new HashMap<>();
 		Set<String> keySet = myResources.keySet();
 		Iterator<String> it = keySet.iterator();
-
 		while(it.hasNext()) {
 			String curr = it.next();
-			//System.out.println(curr);
 			//put in the resource string as the key, and the key as the value
 			if (isMultipleKeyword(myResources.getString(curr))) {
 				//System.out.println(myResources.getString(curr));
@@ -57,14 +48,13 @@ public class NodeBuilder{
 		}
 		return languageMap; //returns a map with all of the 
 	}
-
-
 	/*
 	 * checks if there is an Or operator that splits the words
 	 */
 	private static Boolean isMultipleKeyword(String input) {
 		return input.contains("|");
 	}
+	
 	public static void changeLanguage(String newlanguage){
 	    language = newlanguage;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
@@ -73,7 +63,7 @@ public class NodeBuilder{
 	/*
 	 * creates Variable Node
 	 */
-	public static SlogoNode createVariableNode(String input) {
+	public SlogoNode createVariableNode(String input) {
 		Class<?> commandObject = null;
 		try { //try to create a new class object based on name.
 			commandObject = Class.forName(VARIABLENODE_ADDRESS);
@@ -96,7 +86,7 @@ public class NodeBuilder{
 	/*
 	 * creates Number Node
 	 */
-	public static SlogoNode createNumberNode(String input) {
+	public SlogoNode createNumberNode(String input) {
 		Class<?> commandObject = null;
 		try { //try to create a new class object based on name.
 			commandObject = Class.forName(NUMBERNODE_ADDRESS);
@@ -116,11 +106,29 @@ public class NodeBuilder{
 		return command;
 	}
 
-
+	public SlogoNode createStringNode(String input) {
+		SlogoNode stringNode = new StringNode(input);
+		return stringNode;
+	}
+	
+	public Boolean checkFunctionMap(String input) {
+		return functionMap.containsKey(input);
+	}
+	
+	public Boolean checkLanguageMap(String input) {
+		return languageMap.containsKey(input);
+	}
+	
+	public SlogoNode createToFunctionNode(String input) {
+			SlogoNode commandHead = functionMap.get(input);
+			SlogoNode toFunction = new ToFunction(commandHead, input);
+			System.out.println("TO function created");
+			return toFunction;
+	}
 	/*
 	 * builds an individual Command Node
 	 */
-	public static SlogoNode createNode(String input) {
+	public SlogoNode createNode(String input) {
 		String formalCommandName = null;
 
 		if (languageMap.containsKey(input)) { //if the map exists
@@ -129,8 +137,13 @@ public class NodeBuilder{
 		else{
 			throw new InvalidParameterException("NOT A COMMAND");
 		}
+		System.out.println(functionMap.keySet());
+		//if statement if the command is a predefined TO function.
+
+		/*
+		 * create a method that checks if the function exists and returns the correct command object with parameters.
+		 */
 		Class<?> commandObject = null;
-		
 		try { //try to create a new class object based on name.
 			commandObject = Class.forName("Movement."+formalCommandName);
 			}
@@ -165,51 +178,5 @@ public class NodeBuilder{
 		}
 		return command;
 	}
-
-
-
-	//	/*
-	//	 * Reflections for retrieving the right class 
-	//	 */
-	//	private static Class<?> getClassForName(String className) {
-	//		try {
-	//			return Class.forName(myResources.getString(className));
-	//		} catch (Exception e) {
-	//			return null;
-	//
-	//		}
-	//	}
-	//
-	//	/*
-	//	 * Method that iterates through entire resource file and adds to the classMap
-	//	 * All nodes should be created in the class Map
-	//	 */
-	//	private static Map<String, Class<?>> createClassMap(){
-	//		Map<String, Class<?>> classMap = new HashMap<>();
-	//		Enumeration<String> keySet = myResources.getKeys();
-	//
-	//		while (keySet.hasMoreElements()) { //if there are more elements
-	//			String current = keySet.nextElement();  //obtain the next value in the keyset (String)
-	//			Class<?> theClass = getClassForName(current); //obtain the object from the class.
-	//			classMap.put(keySet.nextElement(), theClass);
-	//		} 
-	////		//adding the variable node
-	////		Class<?> theClass = getClassForName("VariableNode"); //obtain the object from the class.
-	////		classMap.put(keySet.nextElement(), theClass);
-	////		//adding the number node
-	////		theClass = getClassForName("NumberNode"); //obtain the object from the class.
-	////		classMap.put(keySet.nextElement(), theClass);
-	//		
-	//		return classMap;
-	//	}
-
-
-	/*
-	 * Method that accesses the classMap to obtain the desired Command Node
-	 */
-	//	public static Class<?> createNode(String commandName){
-	//		return classMap.get(commandName);
-	//	}
-
 
 }

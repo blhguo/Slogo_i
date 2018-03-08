@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import turtle.Turtle;
-
 /*
  * builds the abstract node class that all commands will follow
  */
-public abstract class SlogoNode implements CommandInterface{
+public abstract class SlogoNode implements Command {
 	protected int numchildren = 0;
 	private List<SlogoNode> children = new ArrayList<>();
 	
@@ -40,6 +38,14 @@ public abstract class SlogoNode implements CommandInterface{
 	public List<SlogoNode> getChildren(){
 		return children;
 	}
+	public double getDummyExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+		return getExecute(VarMap, FunctMap, turtle);
+	}
+	
+//	//returns the name of the String
+//	public void setName(String input) {
+//		name = input;
+//	}
 	
 	public String getName() {
 		return "does not exist";
