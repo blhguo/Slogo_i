@@ -17,6 +17,9 @@ public class ShowTurtle extends SlogoNode{
 	private void visible(Turtle turtle) {
 		turtle.show();
 	}
+	public ShowTurtle() {
+		numchildren = 0;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {

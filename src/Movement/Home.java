@@ -14,7 +14,10 @@ public class Home extends SlogoNode{
 //		this.val = getValue();
 //	}
 	
-
+	public Home() {
+		numchildren = 0;
+	}
+	
 	private void home(Turtle turtle) {
 		turtle.setLocation(turtle.getOriginalLocation());
 	}

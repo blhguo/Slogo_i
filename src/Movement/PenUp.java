@@ -17,6 +17,10 @@ public class PenUp extends SlogoNode{
 	private void pen(Turtle turtle) {
 		turtle.penUp();
 	}
+	
+	public PenUp() {
+		numchildren = 0;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {

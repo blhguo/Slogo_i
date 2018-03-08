@@ -13,6 +13,10 @@ public class IsShowing extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
+	
+	public IsShowing() {
+		numchildren = 0;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {

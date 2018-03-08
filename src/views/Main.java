@@ -26,6 +26,7 @@ public class Main extends Application implements Observer{
 
     private Map<String, Double> variables;
     private static Map<String, SlogoNode> functions;
+    private Map<Integer, Turtle> TurtleMap;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -86,4 +87,13 @@ public class Main extends Application implements Observer{
 	public void updateVarView(){
 	    simulation.updateVarView(variables);
     }
+	public ArrayList<Turtle> getActive(Map<Integer, Turtle> iliketurtles) {
+		ArrayList<Turtle> turtles = new ArrayList<Turtle>();
+		for (Map.Entry<Integer, Turtle> entry : TurtleMap.entrySet()) {
+			if (entry.getValue().isActive())
+			turtles.add(entry.getValue());
+		}
+		return turtles;
+	}
+	
 }
