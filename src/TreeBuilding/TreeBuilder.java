@@ -9,7 +9,10 @@ import VarOp.MakeUserInstruction;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
 import VarOp.ToFunction;
-import treenode.*;
+import treenode.MasterNode;
+import treenode.NumberNode;
+import treenode.SlogoNode;
+import treenode.StringNode;
 import VarOp.For;
 import turtle.Turtle;
 
@@ -32,7 +35,7 @@ public class TreeBuilder {
     }
     public SlogoNode buildTree(SlogoNode[] array){
         //System.out.println(array.length);
-    		
+    	
         master = new MasterNode();
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];

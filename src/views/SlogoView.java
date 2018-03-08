@@ -7,7 +7,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import turtle.Turtle;
-import views.SceneElements.*;
+import views.SceneElements.Console;
+import views.SceneElements.History;
+import views.SceneElements.Observable;
+import views.SceneElements.SceneElement;
+import views.SceneElements.Toolbar;
+import views.SceneElements.TurtleDisplay;
+import views.SceneElements.VariableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +25,7 @@ public class SlogoView implements Observer, Observable{
 	 * Make all constants public and static
 	 * no need to prevent state manipulation
 	 */
-
+	
 	/*
 	 * Constants relating to the characteristics of the main window as a whole
 	 */
@@ -108,6 +114,7 @@ public class SlogoView implements Observer, Observable{
 			System.exit(0);
 		}
 	}
+	
 
 	public String[] getPassValue() {
 		return myConsole.getPassValue();

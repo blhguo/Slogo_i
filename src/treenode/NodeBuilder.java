@@ -6,13 +6,16 @@ import views.SceneElements.Observable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 import VarOp.ToFunction;
 
 public class NodeBuilder{
 
-	private List<Observer> observers = new ArrayList<>();
 	private Map<String, SlogoNode> functionMap;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private static final String LANGUAGE_FILE = "English";
@@ -21,18 +24,7 @@ public class NodeBuilder{
 	private static String language = LANGUAGE_FILE;
 	private static ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
 	public static Map<String, String> languageMap = createLanguageMap(myResources);
-	//private static final Map<String, Class<?>> classMap = createClassMap();  //creates the classMap of all objects.
-
-//	public static void main(String[] args) {
-//		createLanguageMap(myResources);
-//		String[] a = new String[2];
-//		a[0]= "pi";
-//		a[1] = "pi";
-//		SlogoNode[] output = CommandFactory.convertStringtoNode(a);
-//		System.out.println(output[0]);
-//		System.out.println(output[1]);
-//		
-//	}
+	
 	public NodeBuilder(Map<String, SlogoNode> functions) {
 		this.functionMap = functions;
 	}
@@ -43,10 +35,8 @@ public class NodeBuilder{
 		Map<String, String> languageMap = new HashMap<>();
 		Set<String> keySet = myResources.keySet();
 		Iterator<String> it = keySet.iterator();
-
 		while(it.hasNext()) {
 			String curr = it.next();
-			//System.out.println(curr);
 			//put in the resource string as the key, and the key as the value
 			if (isMultipleKeyword(myResources.getString(curr))) {
 				//System.out.println(myResources.getString(curr));
@@ -62,14 +52,13 @@ public class NodeBuilder{
 		}
 		return languageMap; //returns a map with all of the 
 	}
-
-
 	/*
 	 * checks if there is an Or operator that splits the words
 	 */
 	private static Boolean isMultipleKeyword(String input) {
 		return input.contains("|");
 	}
+	
 	public static void changeLanguage(String newlanguage){
 	    language = newlanguage;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
@@ -159,9 +148,6 @@ public class NodeBuilder{
 		 * create a method that checks if the function exists and returns the correct command object with parameters.
 		 */
 		Class<?> commandObject = null;
-		
-
-		
 		try { //try to create a new class object based on name.
 			commandObject = Class.forName("Movement."+formalCommandName);
 			}
