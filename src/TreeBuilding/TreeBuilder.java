@@ -9,7 +9,10 @@ import VarOp.MakeUserInstruction;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
 import VarOp.ToFunction;
-import treenode.*;
+import treenode.MasterNode;
+import treenode.NumberNode;
+import treenode.SlogoNode;
+import treenode.StringNode;
 import VarOp.For;
 import turtle.Turtle;
 

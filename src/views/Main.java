@@ -7,8 +7,7 @@ import treenode.NodeBuilder;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
