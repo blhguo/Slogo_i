@@ -48,13 +48,13 @@ public class Turtle implements Observable, Observer{
     public static final Point2D originalLocation = new Point2D(BASEX, BASEY);
     
     
-    public Map<Integer, Color> turtleColorMap = new HashMap<>();
-    public Map<Integer, Shape> turtleShapeMap = new HashMap<>();
+    public Map<Integer, Color> turtleColorMap = new HashMap<Integer, Color>();
+    public Map<Integer, Shape> turtleShapeMap = new HashMap<Integer, Shape>();
     public int turtleId;
     public boolean isActive;
     public double penSize;
     public double thickness;
-    public double penColor;
+    public Color penColor;
     public Shape turtleShape;
     
 	/**
@@ -242,10 +242,15 @@ public class Turtle implements Observable, Observer{
 	}
 
 	public void setPenColor(double newPenColor) {
-		penColor = newPenColor;
+		penColor = turtleColorMap.get(newPenColor);
 	}
 	public double getPenColor() {
-		return penColor;
+		for (int n = 0; n < turtleColorMap.size(); n++) {
+			if (turtleColorMap.get(n).equals(penColor)) {
+				return (double) n;
+			}
+		}
+		return 0;
 	}
 	public void setShape(int index) {
 		turtleShape = turtleShapeMap.get(index);
@@ -272,5 +277,16 @@ public class Turtle implements Observable, Observer{
 //			line.setStroke((Color)o);
 //		}
 		lineColor = (Color)o;
+	}
+
+
+	public double getShape() {
+		// TODO Auto-generated method stub
+		for (int n = 0; n < turtleShapeMap.size(); n++) {
+			if (turtleShapeMap.get(n).equals(turtleShape)) {
+				return (double) n;
+			}
+		}
+		return 0;
 	}
 }

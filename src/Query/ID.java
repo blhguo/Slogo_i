@@ -29,7 +29,7 @@ public class ID extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		return (double) turtle.getID();
+		return (double) turtle.getId();
 		}
 	
 }

@@ -31,7 +31,7 @@ public class SetShape extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 			List<SlogoNode> leaf = this.getChildren();
 			double index = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
-			turtle.setShape(index);
+			turtle.setShape( (int) index);
 			return index;
 		}
 	

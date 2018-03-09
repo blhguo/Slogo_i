@@ -31,7 +31,7 @@ public class PenColor extends SlogoNode{
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
 			List<SlogoNode> leaf = this.getChildren();
-			double index = turtle.getColor();
+			double index = turtle.getPenColor();
 			return index;
 		}
 	
