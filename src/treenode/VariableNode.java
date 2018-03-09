@@ -37,7 +37,7 @@ public class VariableNode extends SlogoNode{
 		if (this.numchildren!=0) {  //if key already exists
 			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtleMap));
 		}
-		return VarMap.get(this.variableName); //obtains value from map
+		return VarMap.getOrDefault(this.variableName, 0.0); //obtains value from map
 	}
 
 }
