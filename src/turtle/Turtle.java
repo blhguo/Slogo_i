@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import views.Observer;
 import views.SceneElements.Observable;
@@ -67,7 +68,6 @@ public class Turtle implements Observable, Observer{
 
     private boolean isActive = true;
     public double penSize;
-    public double thickness;
     public Color penColor;
     public Shape turtleShape;
     
@@ -99,6 +99,11 @@ public class Turtle implements Observable, Observer{
 		isActive = true;
 		toggleActive();
 		turtleId = turtleColorMap.size() + 1;
+		penSize = 2;
+		penColor = Color.BLACK;
+		turtleShape = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
+                SlogoView.TURTLEVIEWHEIGHT);
+
 	}
 
     private void toggleActive() {
@@ -241,10 +246,7 @@ public class Turtle implements Observable, Observer{
 			return 0.0;
 		}
 	}
-	
-	public void update() {
-		
-	}
+
 	
 	public void clear(){
 	    lines.clear();
@@ -281,11 +283,15 @@ public class Turtle implements Observable, Observer{
 		}
 		return 0;
 	}
+	public String penColor(){
+		return penColor.toString();
+	}
 	public void setShape(int index) {
 		turtleShape = turtleShapeMap.get(index);
 	}
-	
-		
+	public void setTurtleShape(Shape newShape) {
+		turtleShape = newShape;
+	}
 	
 	
     @Override
@@ -302,9 +308,6 @@ public class Turtle implements Observable, Observer{
 
 	@Override
 	public void update(Object o) {
-//		for (Line line : lines){
-//			line.setStroke((Color)o);
-//		}
 		lineColor = (Color)o;
 	}
 
@@ -317,5 +320,8 @@ public class Turtle implements Observable, Observer{
 			}
 		}
 		return 0;
+	}
+	public String turtleShape(){
+		return turtleShape.toString();
 	}
 }

@@ -94,6 +94,7 @@ public class History extends SceneElement implements Observable{
 //        }
 	    //System.out.println(command);
         scrollPane.setVvalue(1);
+   
         commands.add(command);
         updateText(command);
         pos = commands.size();

@@ -11,8 +11,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import turtle.Turtle;
 import views.SceneElements.Console;
+import views.SceneElements.CurrentState;
 import views.SceneElements.History;
 import views.SceneElements.Observable;
+import views.SceneElements.Palettes;
 import views.SceneElements.SceneElement;
 import views.SceneElements.Toolbar;
 import views.SceneElements.TurtleDisplay;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SlogoView implements Observer, Observable{
-	
+
 	/*
 	 * Make all constants public and static
 	 * no need to prevent state manipulation
@@ -47,7 +49,7 @@ public class SlogoView implements Observer, Observable{
 	public static final double CMDHISTORYY = 1.0 / 10 * WINDOWHEIGHT;
 	public static final double CMDHISTORYWIDTH = 2.0 / 9 * WINDOWWIDTH;
 	public static final double CMDHISTORYHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
-	
+
 	/*
 	 * Constants relating to the Variable View section of the main window
 	 */
@@ -70,7 +72,24 @@ public class SlogoView implements Observer, Observable{
 	public static final double CONSOLEY = TOOLBARHEIGHT + TURTLEVIEWHEIGHT;
 	public static final double CONSOLEWIDTH = TURTLEVIEWWIDTH;
 	public static final double CONSOLEHEIGHT = (1 - PERCENTHEIGHT) * (WINDOWHEIGHT - TOOLBARHEIGHT);
-	
+	/*
+	 * Constants relating to the State Prompt section of the main window
+	 */
+	public static final double STATEX = CMDHISTORYWIDTH + TURTLEVIEWWIDTH;
+	public static final double STATEY = 1.0 / 10 * WINDOWHEIGHT;
+	public static final double STATEWIDTH = 1.7 / 7 * WINDOWWIDTH;
+	public static final double STATEHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
+	/*
+	 * Constants relating to the Palette Prompt section of the main window
+	 */
+	public static final double PALETTEX = CMDHISTORYWIDTH + TURTLEVIEWWIDTH;
+	public static final double PALETTEY = 1.0 / 10 * WINDOWHEIGHT + STATEHEIGHT;
+	public static final double PALETTEWIDTH = 1.7 / 7 * WINDOWWIDTH;
+	public static final double PALETTEHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
+
+
+
+
 	/*
 	 * Local variables governing JavaFX objects in the main window
 	 */
@@ -79,12 +98,15 @@ public class SlogoView implements Observer, Observable{
 	private Scene myScene;
 
 
-    /*
-     * Local SceneElement variables
-     */
+	/*
+	 * Local SceneElement variables
+	 */
 	private Console myConsole;
 	private Toolbar myToolbar;
 	private VariableView myVariableView;
+	private Palettes myPalette;
+	private CurrentState myCurrentState;
+
 
 	/*
 	 * Data structures for SceneElements, variables,
@@ -129,6 +151,9 @@ public class SlogoView implements Observer, Observable{
         }
 	}
 
+
+
+
 	private void initializeObservers() {
     	for (SceneElement element: sceneElements){
     	    element.addObserver(this);
@@ -142,7 +167,7 @@ public class SlogoView implements Observer, Observable{
     }
 	private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
-        myConsole = new Console();
+        myConsole = new Console(turtles.get(0));
         sceneElements.add(myConsole);
         History myHistory = myConsole.getHistory();
 		sceneElements.add(myHistory);
@@ -156,6 +181,10 @@ public class SlogoView implements Observer, Observable{
 			myToolbar.addObserver(myTurtleDisplay);
 		//}
 		sceneElements.add(myToolbar);
+		myCurrentState = new CurrentState(turtles.get(0));
+		sceneElements.add(myCurrentState);
+		myPalette = new Palettes();
+		sceneElements.add(myPalette);		
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {
@@ -167,8 +196,8 @@ public class SlogoView implements Observer, Observable{
 	private Group getElements(){
 		Group retgroup = new Group();
 		for (SceneElement element : sceneElements){
-		    retgroup.getChildren().add(element.getField());
-        }
+			retgroup.getChildren().add(element.getField());
+		}
 		return retgroup;
 	}
 	public void update(Object o) {
@@ -207,12 +236,23 @@ public class SlogoView implements Observer, Observable{
         }
     }
 
-    @Override
-    public void addObserver(Observer o) {
-        observers.add(o);
-    }
-
-    public void updateVarView(Map<String, Double> variables) {
-        myVariableView.updateVarView(variables);
+	@Override
+	public void addObserver(Observer o) {
+		observers.add(o);
 	}
+
+	public void updateVarView(Map<String, Double> variables) {
+		myVariableView.updateVarView(variables);
+	}
+
+//	public void updateState() {
+//		myCurrentState.updateState();
+//	}
+	public void updatePalette(Map<String, String> palettes) {
+		myPalette.updatePalette(palettes);
+	}
+//	public void update() {
+//		myCurrentState.reset();
+////		myCurrentState.updateState();		
+//	}
 }

@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import turtle.Turtle;
 import views.Observer;
 import views.SlogoView;
 
@@ -22,14 +23,15 @@ import java.util.List;
 public class Console extends SceneElement implements Observable{
     private VBox vbox;
     private String currentString = "";
-
-
-
     private String[] passValue;
     private History myHistory;
+    private CurrentState myCurrentState;
     private TextArea field;
     private List<Observer> observers;
     private TextField littlefield;
+    private CurrentState myState;
+    private Palettes myPalette;
+	private Turtle turtle;
     public static final double MINITOOLBARHEIGHT = .5 * SlogoView.TOOLBARHEIGHT;
     public static final double VBOXBUFFER = 5;
     public Console(){
@@ -46,6 +48,8 @@ public class Console extends SceneElement implements Observable{
         myHistory.setMyConsole(this);
         observers = new ArrayList<>();
        // littlefield = new TextField();
+//        myState = new CurrentState(turtles.get(0));
+//  myPalette = new Palettes();
     }
     @Override
     public Node getField(){
@@ -93,6 +97,7 @@ public class Console extends SceneElement implements Observable{
             //System.out.println(temp.toString());
             myHistory.addCommand(currentString);
             //System.out.println(currentString);
+            myCurrentState.getTurtleInfo(this.turtle);
             field.setText("");
             //passValue = currentString.split(" ");
         } catch (InvalidParameterException e) {
@@ -106,12 +111,19 @@ public class Console extends SceneElement implements Observable{
     public History getHistory(){
         return myHistory;
     }
+    public CurrentState getState() {
+    	return myState;
+    }
+    public Palettes getPalette() {
+    	return myPalette;
+    }
     private Label getConsoleLabel(){
         Label consolelabel = new Label("Console");
         return consolelabel;
     }
     private TextArea getTextArea(){
         field = new TextArea();
+        field.setMaxWidth(SlogoView.CONSOLEWIDTH);
         field.setPromptText("Enter a SLogo command");
         field.setFocusTraversable(false);
         field.setCursor(Cursor.TEXT);
@@ -151,6 +163,7 @@ public class Console extends SceneElement implements Observable{
     public String getCurrentString(){
         return currentString;
     }
+    
     public void updateObservers(){
         for (Observer o : observers){
             o.update(new Object());
