@@ -124,14 +124,21 @@ public class SlogoView implements Observer, Observable{
 	}
 	private void initializeDataStructures() {
         turtles = new ArrayList<>();
-        turtles.add(new Turtle());
+//        turtles.add(new Turtle());
+        for (int i = 0; i<3; i++) {
+        		turtles.add(new Turtle());
+        }
+        
+        
 	}
 
 	private void initializeObservers() {
     	for (SceneElement element: sceneElements){
     	    element.addObserver(this);
         }
-        myToolbar.addObserver(turtles.get(0));
+    		for(int i = 0; i<turtles.size();i++) {
+        myToolbar.addObserver(turtles.get(i));
+    		}
 	}
     public void setConsole(Double d){
 	    myConsole.setLittleField(d.toString());
@@ -145,12 +152,12 @@ public class SlogoView implements Observer, Observable{
 		myVariableView = new VariableView();
 		sceneElements.add(myVariableView);
 		//loop that adds all the turtles to the view
+		myToolbar = new Toolbar();
 		for (int i = 0; i<turtles.size();i++) {
 			myTurtleDisplay = new TurtleDisplay(turtles.get(i));
 			sceneElements.add(myTurtleDisplay);
+			myToolbar.addObserver(myTurtleDisplay);
 		}
-		myToolbar = new Toolbar();
-		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
 	}
 
@@ -172,7 +179,9 @@ public class SlogoView implements Observer, Observable{
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
-        myRoot.getChildren().addAll(turtles.get(0).getLines());
+        for (int i = 0; i<turtles.size();i++) {
+        myRoot.getChildren().addAll(turtles.get(i).getLines());
+        }
 //        if (o.getClass().getTypeName().equals("java.lang.String")){
 //            getHostServices().showDocument((String)o);
 //        }
@@ -184,14 +193,18 @@ public class SlogoView implements Observer, Observable{
 		for (SceneElement element : sceneElements){
 			myRoot.getChildren().add(element.getField());
 		}
-		myRoot.getChildren().addAll(turtles.get(0).getLines());
+		for (int i= 0; i<turtles.size();i++) {
+			myRoot.getChildren().addAll(turtles.get(i).getLines());
+		}
 	}
 
 
     @Override
     public void updateObservers() {
         for (Observer o : observers){
-            o.update(turtles.get(0));
+        		for (int i = 0; i< turtles.size();i++) {
+            o.update(turtles.get(i));
+        		}
         }
     }
 

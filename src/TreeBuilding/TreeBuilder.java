@@ -207,7 +207,7 @@ public class TreeBuilder {
          //builds the string node
          SlogoNode node = array[buildcounter];
          System.out.println(node);
-         retNode.addChild(build(node, array));
+         retNode.addChild(build(node,array));
          //increments to the next command
          buildcounter++; //check if the second node
          if (buildcounter >= array.length){
