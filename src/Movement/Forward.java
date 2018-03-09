@@ -39,9 +39,9 @@ public class Forward extends SlogoNode{
                 map.put(n, step);
             }
         }
-        for (Integer i : map.keySet()){
-            System.out.println("Key: " + i + " Value: " + map.get(i));
-        }
+//        for (Integer i : map.keySet()){
+//            System.out.println("Key: " + i + " Value: " + map.get(i));
+//        }
         forward(turtleMap, VarMap, map);
 		return step;  //returns the final value of the node
 	}
