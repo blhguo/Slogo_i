@@ -54,7 +54,7 @@ public class CommandFactory {
 				currentNode = nodeBuilder.createToFunctionNode(current);		
 			}
 			//if state to check if the word is just a variable
-			else if (isString(current) && !nodeBuilder.checkFunctionMap(current) && !nodeBuilder.checkLanguageMap(current)) {
+			else if (isString(current) && !nodeBuilder.checkFunctionMap(current) && !nodeBuilder.checkLanguageMap(current)) {			
 				currentNode = nodeBuilder.createStringNode(current);
 			}
 			else {

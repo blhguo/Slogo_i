@@ -197,16 +197,17 @@ public class TreeBuilder {
     		SlogoNode variableList;
     		SlogoNode commandList;
     		buildcounter++; //increments past the To word
-   
+    		
+    		System.out.println(array[buildcounter]);
     		//checks if the node is a string
-         if (!array[buildcounter].getClass().equals(new StringNode("").getClass())){
-               System.out.println("Sorry, you didn't give a name to the function");
-               return new NumberNode(0);
-          }
+//         if (!array[buildcounter].getClass().equals(new StringNode("").getClass())){
+//               System.out.println("Sorry, you didn't give a name to the function");
+//               return new NumberNode(0);
+//          }
          //builds the string node
          SlogoNode node = array[buildcounter];
          System.out.println(node);
-         retNode.addChild(build(node,array));
+         retNode.addChild(build(node, array));
          //increments to the next command
          buildcounter++; //check if the second node
          if (buildcounter >= array.length){
