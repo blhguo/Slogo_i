@@ -49,7 +49,7 @@ public class Main extends Application implements Observer{
         variables = new HashMap<>();
         functions = new HashMap<>();
 		updateVarView();
-		updateState();
+//		updateState();
 	}
 	
 	public String[] sanitize(String[] array) {
@@ -107,9 +107,9 @@ public class Main extends Application implements Observer{
 	public void updateVarView(){
 	    simulation.updateVarView(variables);
     }
-	public void updateState(){
-		simulation.update();
-	}
+//	public void updateState(){
+//		simulation.update();
+//	}
 	/*
 	public ArrayList<Turtle> getActive(Map<Integer, Turtle> iliketurtles) {
 		ArrayList<Turtle> turtles = new ArrayList<Turtle>();

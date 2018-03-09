@@ -20,10 +20,19 @@ import views.SlogoView;
 
 public class CurrentState extends SceneElement implements Observable {
 	private VBox vbox;
+	private Text turtleInfo;
+	private Text text;
 	private Text id;
-	private TextArea info;
+	private Text turtleID;
+	private Text turtleHeading;
+	private Text turtleX;
+	private Text turtleY;
+	private Text penSize;
+	private Text penUP;
+	private Text penColor;
 //	private List<Text> info;
 	private List<Observer> observers;
+	public static final double WRAPBUFFER = 30;
     private ScrollPane pane;
     private List<Text> states;
     private Label stateLabel;
@@ -36,9 +45,8 @@ public class CurrentState extends SceneElement implements Observable {
 		observers = new ArrayList<>();
 		stateLabel = getLabel();
 		vbox.getChildren().add(stateLabel);
-		info = getTurtleInfo();
-		pane = getPane(info);
-
+		text = getText();
+		pane = getPane(text);
 		vbox = getVbox();
 		vbox.getChildren().add(pane);
 	}
@@ -52,17 +60,23 @@ public class CurrentState extends SceneElement implements Observable {
 		return label;
 	}
 	
-	private ScrollPane getPane(TextArea text) {	
-		pane = new ScrollPane(text);
+	private ScrollPane getPane(Text text) {	
+		ScrollPane pane = new ScrollPane(text);
 		pane.setLayoutX(SlogoView.STATEX);
 		pane.setLayoutY(SlogoView.STATEY);
 		pane.setPrefWidth(SlogoView.STATEWIDTH);
         pane.setPrefHeight(SlogoView.STATEHEIGHT);
         pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-       
         return pane;
 	}
 	
+	 private Text getText() {
+	        Text tex = new Text();
+	        tex.setWrappingWidth(SlogoView.CMDHISTORYWIDTH - WRAPBUFFER);
+	        tex.setStyle("-fx-background-color: grey;");
+	        return tex;
+	    }
+	 
 	private VBox getVbox() {
 		vbox.setLayoutX(SlogoView.STATEX);
 		vbox.setLayoutY(SlogoView.STATEY);
@@ -73,52 +87,43 @@ public class CurrentState extends SceneElement implements Observable {
 	}
 
 	
-	public TextArea getTurtleInfo() {
-		Text turtleID = new Text("Turtle ID: " + turtle.getId());
-		Text turtleHeading = new Text("Turtle Heading: " + turtle.getHeading());
-		Text turtleX = new Text("Turtle X Position: " + turtle.getLocation().getX());
-		Text turtleY = new Text("Turtle Y Position: " + turtle.getLocation().getY());
-//		Text turtleShape = new Text("Turtle Shape: " + turtle.turtleShape());
-		Text penSize = new Text("Pen Size: " + turtle.getPenSize());
-		Text penUP = new Text("Pen Up: " + turtle.isPenUp());
-		Text penColor = new Text("Pen Color: " + turtle.penColor());
-
-		info = new TextArea();
-        info.appendText(turtleID.getText()+"\n");
-        info.appendText(turtleHeading.getText()+"\n");
-//        info.appendText(turtleShape.getText() + "\n");
-        info.appendText(turtleX.getText()+"\n");
-        info.appendText(turtleY.getText()+"\n");
-        info.appendText(penSize.getText()+"\n");
-        info.appendText(penUP.getText()+"\n");
-        info.appendText(penColor.getText()+"\n");
-        
-        states.add(turtleID);
-        states.add(turtleHeading);
-        states.add(turtleX);
-        states.add(turtleY);
-        states.add(penSize);
-        states.add(penUP);
-        
-		return info;
+	public void getTurtleInfo(Turtle turtle) {
+		turtleInfo.setText("Turtle ID: " + turtle.getId() + "\n" + "Turtle Heading: " + 
+				turtle.getHeading()+ "Turtle X Position: " + turtle.getLocation().getX() + 
+				"Turtle Y Position: " + turtle.getLocation().getY() + "Pen Size: " + turtle.getPenSize() +
+				"Pen Up: " + turtle.isPenUp() + "Pen Color: " + turtle.penColor());
+		states.add(turtleInfo);
+//		turtleID.setText("Turtle ID: " + turtle.getId());
+//		turtleHeading.setText("Turtle Heading: " + turtle.getHeading());
+//		turtleX.setText("Turtle X Position: " + turtle.getLocation().getX());
+//		turtleY.setText("Turtle Y Position: " + turtle.getLocation().getY());
+//		penSize.setText("Pen Size: " + turtle.getPenSize());
+//		penUP.setText("Pen Up: " + turtle.isPenUp());
+//		penColor.setText("Pen Color: " + turtle.penColor());	
+//        states.add(turtleID);
+//        states.add(turtleHeading);
+//        states.add(turtleX);
+//        states.add(turtleY);
+//        states.add(penSize);
+//        states.add(penUP);   
+		updateObservers();
 	}
 	
 
-	
-	public void updateStateView() {
-		updateState();
-	}
+//	
+//	public void updateStateView() {
+//		updateState();
+//	}
 
-	public void updateState() {
-		reset();
-	}
+//	public void updateState() {
+//		reset();
+//	}
 	
 	
     public void updateObservers(){
         for (Observer o : observers){
         	System.out.println(o.toString());
-//            o.update(new Object());
-            o.update(info);
+            o.update(new Object());
         }
     }
     public void addObserver(Observer o){
@@ -129,14 +134,14 @@ public class CurrentState extends SceneElement implements Observable {
 	public VBox getField() {
 		return vbox;
 	}
-
-	public void reset() {
-		vbox.getChildren().clear();
-		vbox.getChildren().add(stateLabel);
-		info = getTurtleInfo();
-		pane = getPane(info);
-		vbox = getVbox();
-		vbox.getChildren().add(pane);
-	}
+//
+//	public void reset() {
+//		vbox.getChildren().clear();
+//		vbox.getChildren().add(stateLabel);
+//		info = getTurtleInfo();
+//		pane = getPane(info);
+//		vbox = getVbox();
+//		vbox.getChildren().add(pane);
+//	}
 	
 }

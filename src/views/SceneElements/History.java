@@ -31,6 +31,7 @@ public class History extends SceneElement implements Observable{
 	public static final double WRAPBUFFER = 30;
 	private List<String> commands;
 	private int pos;
+	
 	public History(){
         vbox = getVbox();
         histLabel = getLabel();
@@ -93,6 +94,7 @@ public class History extends SceneElement implements Observable{
         text.setText(text.getText() + "\n" + "[" + ZonedDateTime.now().toLocalTime().truncatedTo(ChronoUnit.SECONDS)
                 + "]\n " + command);
         scrollPane.setVvalue(1);
+   
         commands.add(command);
         pos = commands.size();
 //        vbox.getChildren().remove(text);

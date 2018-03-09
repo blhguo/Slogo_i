@@ -16,6 +16,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import turtle.Turtle;
 import views.Observer;
 import views.SlogoView;
 
@@ -27,18 +28,18 @@ import java.util.List;
 public class Console extends SceneElement implements Observable{
     private VBox vbox;
     private String currentString = "";
-
-
-
     private String[] passValue;
     private History myHistory;
+    private CurrentState myCurrentState;
     private TextArea field;
     private List<Observer> observers;
     private TextField littlefield;
     private CurrentState myState;
     private Palettes myPalette;
+	private Turtle turtle;
     public static final double MINITOOLBARHEIGHT = .5 * SlogoView.TOOLBARHEIGHT;
-    public Console(){
+    public Console(Turtle turtle){
+    		this.turtle = turtle;
         vbox = new VBox();
         vbox.getChildren().addAll(getTextArea(), getToolBar());
         vbox.setSpacing(0);
@@ -100,6 +101,7 @@ public class Console extends SceneElement implements Observable{
             //System.out.println(temp.toString());
             myHistory.addCommand(currentString);
             //System.out.println(currentString);
+            myCurrentState.getTurtleInfo(this.turtle);
             field.setText("");
             //passValue = currentString.split(" ");
         } catch (InvalidParameterException e) {

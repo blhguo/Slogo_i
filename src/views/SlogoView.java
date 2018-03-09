@@ -163,7 +163,7 @@ public class SlogoView implements Observer, Observable{
     }
 	private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
-        myConsole = new Console();
+        myConsole = new Console(turtles.get(0));
         sceneElements.add(myConsole);
         History myHistory = myConsole.getHistory();
 		sceneElements.add(myHistory);
@@ -177,7 +177,6 @@ public class SlogoView implements Observer, Observable{
 			myToolbar.addObserver(myTurtleDisplay);
 		//}
 		sceneElements.add(myToolbar);
-
 		myCurrentState = new CurrentState(turtles.get(0));
 		sceneElements.add(myCurrentState);
 		myPalette = new Palettes();
@@ -198,18 +197,18 @@ public class SlogoView implements Observer, Observable{
 		return retgroup;
 	}
 	public void update(Object o){
+
         myRoot.getChildren().removeAll(myRoot.getChildren());
         for (SceneElement element : sceneElements){
             myRoot.getChildren().add(element.getField());
         }
         //for (int i = 0; i<turtles.size();i++) {
         myRoot.getChildren().addAll(turtles.get(0).getLines());
-        //}
-//        if (o.getClass().getTypeName().equals("java.lang.String")){
-//            getHostServices().showDocument((String)o);
-//        }
-
+//		CurrentState currState = new CurrentState(turtles.get(0));
+//		currState.setTextArea(currState.getTurtleInfo());
+//      
 		updateObservers();
+		
 	}
 	public void updateScreen(){
 		myRoot.getChildren().removeAll(myRoot.getChildren());
@@ -240,14 +239,14 @@ public class SlogoView implements Observer, Observable{
 		myVariableView.updateVarView(variables);
 	}
 
-	public void updateState() {
-		myCurrentState.updateState();
-	}
+//	public void updateState() {
+//		myCurrentState.updateState();
+//	}
 	public void updatePalette(Map<String, String> palettes) {
 		myPalette.updatePalette(palettes);
 	}
-	public void update() {
-		myCurrentState.reset();
-//		myCurrentState.updateState();		
-	}
+//	public void update() {
+//		myCurrentState.reset();
+////		myCurrentState.updateState();		
+//	}
 }
