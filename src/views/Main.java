@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class Main extends Application implements Observer{
 
     private Map<String, Double> variables;
     private Map<String, SlogoNode> functions;
-    private Map<String, String> states;
+	private Turtle turtle;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -43,14 +44,15 @@ public class Main extends Application implements Observer{
 		simulation.addObserver(this);
         variables = new HashMap<>();
         functions = new HashMap<>();
-        states = new HashMap<>();
+        
 		updateVarView();
+		updateState();
 	}
 	
 	public String[] sanitize(String[] array) {
 		ArrayList<String> list = new ArrayList<String>();
-			for (String s : array) {
-			    if (!s.matches("#(.*)"))
+		for (String s : array) {
+				if (!s.matches("#(.*)"))
 			        list.add(s);
 		}
 			return list.toArray(new String[list.size()]);
@@ -62,7 +64,7 @@ public class Main extends Application implements Observer{
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
 		//System.out.println(simulation.getPassValue());
-		TreeBuilder Builder = new TreeBuilder(states, variables, functions, (Turtle) o);
+		TreeBuilder Builder = new TreeBuilder(variables, functions, (Turtle) o);
 		CommandFactory factory = new CommandFactory() {};
 		TreeReader reader = new TreeReader();
 		//System.out.println(simulation.getPassValue());
@@ -72,8 +74,19 @@ public class Main extends Application implements Observer{
         simulation.setConsole(reader.evaluate(Head, variables, functions, (Turtle) o));
         simulation.updateScreen();
 		updateVarView();
-
+//		updateState();
+//		updatePalette();
 	}
+	
+//  private void buildStateMap(){
+//	states.put("Turtle ID", String.valueOf(turtle.getId()));
+//	states.put("Turtle Heading", String.valueOf(turtle.getHeading()));
+//	states.put("Turtle Position", String.valueOf(turtle.getLocation()));
+//	states.put("Pen Thickness", String.valueOf(turtle.thickness));
+//	states.put("Pen Size", String.valueOf(turtle.penSize));
+//	states.put("Pen Up", String.valueOf(turtle.isPenUp()));
+////	return states;
+//}
 	
     public static void openWebPage(String url) {
 	    try {
@@ -89,4 +102,9 @@ public class Main extends Application implements Observer{
 	public void updateVarView(){
 	    simulation.updateVarView(variables);
     }
+	public void updateState(){
+		simulation.update();
+	}
 }
+
+

@@ -24,13 +24,16 @@ public class TreeBuilder {
     private Map<String, String> StateMap;
     private Map<String, String> PaletteMap;
     private Turtle turtle;
-    public TreeBuilder(Map<String, String> StateMap, Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle){
+    public TreeBuilder( Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle){
         buildcounter = 0;
         this.VarMap = VarMap;
         this.FunctMap = FunctMap;
         this.turtle = turtle;
         this.StateMap = StateMap;
     }
+//    public Map getMap(){
+//    	return StateMap;
+//    }
     public SlogoNode buildTree(SlogoNode[] array){
         //System.out.println(array.length);
 
@@ -214,15 +217,8 @@ public class TreeBuilder {
         }
         return head;
     }
-    
-    private void buildStateMap(){
-    	StateMap.put("Turtle ID", String.valueOf(turtle.getId()));
-    	StateMap.put("Turtle Heading", String.valueOf(turtle.getHeading()));
-    	StateMap.put("Turtle Position", String.valueOf(turtle.getLocation()));
-    	StateMap.put("Pen Thickness", String.valueOf(turtle.thickness));
-    	StateMap.put("Pen Size", String.valueOf(turtle.penSize));
-    	StateMap.put("Pen Up", String.valueOf(turtle.isPenUp()));
-    }
+}
+
     
     
     
@@ -247,4 +243,4 @@ public class TreeBuilder {
 ////        System.out.println(headNode.getChildren().get(0).getNumchildren());
 ////        System.out.println(headNode.getChildren().get(1).getNumchildren());
 //    }
-}
+

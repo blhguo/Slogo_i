@@ -46,8 +46,8 @@ public class Console extends SceneElement implements Observable{
         myHistory = new History();
         observers = new ArrayList<>();
        // littlefield = new TextField();
-        myState = new CurrentState();
-        myPalette = new Palettes();
+//        myState = new CurrentState(turtles.get(0));
+//  myPalette = new Palettes();
     }
     @Override
     public Node getField(){
@@ -70,7 +70,7 @@ public class Console extends SceneElement implements Observable{
                 clearbutton,
                 littlefield
         );
-        toolbar.setMinSize(SlogoView.TOOLBARWIDTH, MINITOOLBARHEIGHT);
+        toolbar.setMinSize(SlogoView.CONSOLEWIDTH, MINITOOLBARHEIGHT);
         return toolbar;
     }
 
@@ -120,6 +120,7 @@ public class Console extends SceneElement implements Observable{
     }
     private TextArea getTextArea(){
         field = new TextArea();
+        field.setMaxWidth(SlogoView.CONSOLEWIDTH);
         field.setPromptText("Enter a SLogo command");
         field.setFocusTraversable(false);
         field.setCursor(Cursor.TEXT);

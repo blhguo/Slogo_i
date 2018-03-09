@@ -16,6 +16,7 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
     private List<Observer> observers;
     private ArrayList<Turtle> turtles;
     private Group retgroup;
+
     public TurtleDisplay(Turtle turtle){
         rectangle = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);

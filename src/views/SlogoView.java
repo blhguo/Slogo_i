@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SlogoView implements Observer, Observable{
-	
+
 	/*
 	 * Make all constants public and static
 	 * no need to prevent state manipulation
@@ -38,7 +38,7 @@ public class SlogoView implements Observer, Observable{
 	public static final double CMDHISTORYY = 1.0 / 10 * WINDOWHEIGHT;
 	public static final double CMDHISTORYWIDTH = 1.7 / 7 * WINDOWWIDTH;
 	public static final double CMDHISTORYHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
-	
+
 	/*
 	 * Constants relating to the Variable View section of the main window
 	 */
@@ -75,10 +75,10 @@ public class SlogoView implements Observer, Observable{
 	public static final double PALETTEY = 1.0 / 10 * WINDOWHEIGHT + STATEHEIGHT;
 	public static final double PALETTEWIDTH = 1.7 / 7 * WINDOWWIDTH;
 	public static final double PALETTEHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
-	
-	
-	
-	
+
+
+
+
 	/*
 	 * Local variables governing JavaFX objects in the main window
 	 */
@@ -87,9 +87,9 @@ public class SlogoView implements Observer, Observable{
 	private Scene myScene;
 
 
-    /*
-     * Local SceneElement variables
-     */
+	/*
+	 * Local SceneElement variables
+	 */
 	private Console myConsole;
 	private History myHistory;
 	private Toolbar myToolbar;
@@ -97,13 +97,13 @@ public class SlogoView implements Observer, Observable{
 	private VariableView myVariableView;
 	private Palettes myPalette;
 	private CurrentState myCurrentState;
-	
+
 
 	/*
 	 * Data structures for SceneElements, variables,
 	 * functions
 	 */
-    private List<Turtle> turtles;
+	private List<Turtle> turtles;
 	private List<SceneElement> sceneElements;
 	private List<Observer> observers;
 
@@ -111,8 +111,8 @@ public class SlogoView implements Observer, Observable{
 		//constructor
 	}
 	/**
-     * Start the program.
-     */
+	 * Start the program.
+	 */
 	public Scene initializeStartScene() {
 		initializeDataStructures();
 		initializeSceneElements();
@@ -133,24 +133,24 @@ public class SlogoView implements Observer, Observable{
 		return myConsole.getPassValue();
 	}
 	private void initializeDataStructures() {
-        turtles = new ArrayList<>();
-        turtles.add(new Turtle());
+		turtles = new ArrayList<>();
+		turtles.add(new Turtle());
 	}
 
 	private void initializeObservers() {
-    	for (SceneElement element: sceneElements){
-    	    element.addObserver(this);
-        }
-        myToolbar.addObserver(turtles.get(0));
+		for (SceneElement element: sceneElements){
+			element.addObserver(this);
+		}
+		myToolbar.addObserver(turtles.get(0));
 	}
-    public void setConsole(Double d){
-	    myConsole.setLittleField(d.toString());
-    }
+	public void setConsole(Double d){
+		myConsole.setLittleField(d.toString());
+	}
 	private void initializeSceneElements() {
-        sceneElements = new ArrayList<>();
-        myConsole = new Console();
-        sceneElements.add(myConsole);
-        myHistory = myConsole.getHistory();
+		sceneElements = new ArrayList<>();
+		myConsole = new Console();
+		sceneElements.add(myConsole);
+		myHistory = myConsole.getHistory();
 		sceneElements.add(myHistory);
 		myVariableView = new VariableView();
 		sceneElements.add(myVariableView);
@@ -159,11 +159,11 @@ public class SlogoView implements Observer, Observable{
 		myToolbar = new Toolbar();
 		myToolbar.addObserver(myTurtleDisplay);
 		sceneElements.add(myToolbar);
-		
-		myCurrentState = new CurrentState();
+
+		myCurrentState = new CurrentState(turtles.get(0));
 		sceneElements.add(myCurrentState);
-//		myPalette = new Palettes();
-//		sceneElements.add(myPalette);		
+		myPalette = new Palettes();
+		sceneElements.add(myPalette);		
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {
@@ -175,21 +175,21 @@ public class SlogoView implements Observer, Observable{
 	private Group getElements(){
 		Group retgroup = new Group();
 		for (SceneElement element : sceneElements){
-		    retgroup.getChildren().add(element.getField());
-        }
+			retgroup.getChildren().add(element.getField());
+		}
 		return retgroup;
 	}
 	public void update(Object o){
-        myRoot.getChildren().removeAll(myRoot.getChildren());
-        for (SceneElement element : sceneElements){
-            myRoot.getChildren().add(element.getField());
-        }
-        myRoot.getChildren().addAll(turtles.get(0).getLines());
-//        if (o.getClass().getTypeName().equals("java.lang.String")){
-//            getHostServices().showDocument((String)o);
-//        }
+		myRoot.getChildren().removeAll(myRoot.getChildren());
+		for (SceneElement element : sceneElements){
+			myRoot.getChildren().add(element.getField());
+		}
+		myRoot.getChildren().addAll(turtles.get(0).getLines());
+		//        if (o.getClass().getTypeName().equals("java.lang.String")){
+		//            getHostServices().showDocument((String)o);
+		//        }
 
-        updateObservers();
+		updateObservers();
 	}
 	public void updateScreen(){
 		myRoot.getChildren().removeAll(myRoot.getChildren());
@@ -200,23 +200,30 @@ public class SlogoView implements Observer, Observable{
 	}
 
 
-    @Override
-    public void updateObservers() {
-        for (Observer o : observers){
-            o.update(turtles.get(0));
-        }
-    }
-
-    @Override
-    public void addObserver(Observer o) {
-        observers.add(o);
-    }
-
-    public void updateVarView(Map<String, Double> variables) {
-        myVariableView.updateVarView(variables);
+	@Override
+	public void updateObservers() {
+		for (Observer o : observers){
+			o.update(turtles.get(0));
+		}
 	}
-    
-    public void updateState(Map<String, String> states) {
-    	myCurrentState.updateState(states);
-    }
+
+	@Override
+	public void addObserver(Observer o) {
+		observers.add(o);
+	}
+
+	public void updateVarView(Map<String, Double> variables) {
+		myVariableView.updateVarView(variables);
+	}
+
+	public void updateState() {
+		myCurrentState.updateState();
+	}
+	public void updatePalette(Map<String, String> palettes) {
+		myPalette.updatePalette(palettes);
+	}
+	public void update() {
+		myCurrentState.reset();
+//		myCurrentState.updateState();		
+	}
 }

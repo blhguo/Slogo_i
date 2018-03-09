@@ -49,6 +49,7 @@ public class VariableView extends SceneElement implements Observable{
         pane.setLayoutX(SlogoView.VARIABLEVIEWX);
         pane.setLayoutY(SlogoView.VARIABLEVIEWY);
         pane.setPrefWidth(SlogoView.VARIABLEVIEWWIDTH);
+        pane.setPrefHeight(SlogoView.VARIABLEVIEWHEIGHT);
         pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         
         return pane;
