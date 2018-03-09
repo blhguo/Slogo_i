@@ -9,6 +9,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import views.Observer;
+import views.SceneElements.CurrentState;
 import views.SceneElements.Observable;
 import views.SlogoView;
 
@@ -33,6 +34,7 @@ public class Turtle implements Observable, Observer{
 	private boolean isShowing;
 	public static final double initHeading = 0;
     private double oldHeading;
+    private CurrentState myState;
 
 
     private boolean myPenUp;
@@ -54,7 +56,7 @@ public class Turtle implements Observable, Observer{
     public int turtleId;
     public static final String INACTIVE = "turtle.png";
     public static final String ACTIVE = "activeturtle.png";
-    private String currentActive = ACTIVE;
+    private String currentActive = INACTIVE;
 
     public boolean isActive() {
         return isActive;
@@ -96,8 +98,7 @@ public class Turtle implements Observable, Observer{
 		lines = new ArrayList<>();
 		myPenUp = false;
 		isShowing = true;
-		isActive = true;
-		toggleActive();
+		isActive = false;
 		turtleId = turtleColorMap.size() + 1;
 		penSize = 2;
 		penColor = Color.BLACK;
@@ -105,7 +106,9 @@ public class Turtle implements Observable, Observer{
                 SlogoView.TURTLEVIEWHEIGHT);
 
 	}
-
+    public void setState(CurrentState c){
+	    myState = c;
+    }
     private void toggleActive() {
 	     isActive = !isActive;
 	     swapImage();
@@ -125,6 +128,7 @@ public class Turtle implements Observable, Observer{
 //        turtleview.setLayoutY(this.currentpos.getY());
 //        turtleview.setOnMouseClicked(e -> toggleActive());
         //updateObservers();
+        myState.refresh();
     }
 
     /**

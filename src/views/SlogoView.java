@@ -129,7 +129,7 @@ public class SlogoView implements Observer, Observable{
 		initializeObservers();
 		observers = new ArrayList<>();
 		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
-		myScene.setOnKeyPressed(e -> quit(e.getCode())); 
+		myScene.setOnKeyPressed(e -> quit(e.getCode()));
 		//addEventHandler for hovering over turtle
 		return myScene;
 	}
@@ -167,7 +167,7 @@ public class SlogoView implements Observer, Observable{
     }
 	private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
-        myConsole = new Console(turtles.get(0));
+        myConsole = new Console(turtles);
         sceneElements.add(myConsole);
         History myHistory = myConsole.getHistory();
 		sceneElements.add(myHistory);
@@ -176,15 +176,20 @@ public class SlogoView implements Observer, Observable{
 		//loop that adds all the turtles to the view
 		myToolbar = new Toolbar();
 		//for (int i = 0; i<turtles.size();i++) {
-			TurtleDisplay myTurtleDisplay = new TurtleDisplay(turtles);
-			sceneElements.add(myTurtleDisplay);
-			myToolbar.addObserver(myTurtleDisplay);
+        TurtleDisplay myTurtleDisplay = new TurtleDisplay(turtles);
+        sceneElements.add(myTurtleDisplay);
+        myToolbar.addObserver(myTurtleDisplay);
 		//}
 		sceneElements.add(myToolbar);
-		myCurrentState = new CurrentState(turtles.get(0));
+		myCurrentState = new CurrentState(turtles);
+		myConsole.setCurrentState(myCurrentState);
+		myCurrentState.getTurtleInfo(turtles);
 		sceneElements.add(myCurrentState);
 		myPalette = new Palettes();
-		sceneElements.add(myPalette);		
+		sceneElements.add(myPalette);
+		for (int i : turtles.keySet()){
+		    turtles.get(i).setState(myCurrentState);
+        }
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {

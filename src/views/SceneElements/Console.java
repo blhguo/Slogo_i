@@ -19,6 +19,7 @@ import views.SlogoView;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Console extends SceneElement implements Observable{
     private VBox vbox;
@@ -32,9 +33,11 @@ public class Console extends SceneElement implements Observable{
     private CurrentState myState;
     private Palettes myPalette;
 	private Turtle turtle;
+	private Map<Integer, Turtle> turtleMap;
     public static final double MINITOOLBARHEIGHT = .5 * SlogoView.TOOLBARHEIGHT;
     public static final double VBOXBUFFER = 5;
-    public Console(){
+    public Console(Map<Integer, Turtle> turtleMap){
+        this.turtleMap = turtleMap;
         vbox = new VBox();
         vbox.getChildren().addAll(getTextArea(), getToolBar());
         vbox.setSpacing(0);
@@ -97,7 +100,7 @@ public class Console extends SceneElement implements Observable{
             //System.out.println(temp.toString());
             myHistory.addCommand(currentString);
             //System.out.println(currentString);
-            myCurrentState.getTurtleInfo(this.turtle);
+            myCurrentState.getTurtleInfo(turtleMap);
             field.setText("");
             //passValue = currentString.split(" ");
         } catch (InvalidParameterException e) {
@@ -176,5 +179,9 @@ public class Console extends SceneElement implements Observable{
     public void getCommand(String text) {
         field.setText(text);
         sendText();
+    }
+
+    public void setCurrentState(CurrentState myCurrentState) {
+        this.myCurrentState = myCurrentState;
     }
 }

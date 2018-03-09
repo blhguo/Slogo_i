@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -37,9 +38,11 @@ public class CurrentState extends SceneElement implements Observable {
     private List<Text> states;
     private Label stateLabel;
 	private Turtle turtle;
+	private Map<Integer, Turtle> turtleMap;
+	private List<Label> turtleList;
 	
-	public CurrentState(Turtle turtle) {
-		this.turtle = turtle;
+	public CurrentState(Map<Integer, Turtle> map) {
+		turtleMap = map;
 		vbox = new VBox();
 		states = new ArrayList<>();
 		observers = new ArrayList<>();
@@ -48,7 +51,9 @@ public class CurrentState extends SceneElement implements Observable {
 		text = getText();
 		pane = getPane(text);
 		vbox = getVbox();
-		vbox.getChildren().add(pane);
+		turtleList = new ArrayList<>();
+
+		//vbox.getChildren().add(pane);
 	}
 	
 	private Label getLabel() {
@@ -83,32 +88,35 @@ public class CurrentState extends SceneElement implements Observable {
 		vbox.setPrefWidth(SlogoView.STATEWIDTH);
         vbox.setMinHeight(SlogoView.STATEHEIGHT);
         vbox.setPrefHeight(SlogoView.STATEHEIGHT);
+        vbox.setPadding(new Insets(1,1,1,1));
+        vbox.setSpacing(1);
         return vbox;
 	}
 
 	
-	public void getTurtleInfo(Turtle turtle) {
-		turtleInfo.setText("Turtle ID: " + turtle.getId() + "\n" + "Turtle Heading: " + 
-				turtle.getHeading()+ "Turtle X Position: " + turtle.getLocation().getX() + 
-				"Turtle Y Position: " + turtle.getLocation().getY() + "Pen Size: " + turtle.getPenSize() +
-				"Pen Up: " + turtle.isPenUp() + "Pen Color: " + turtle.penColor());
-		states.add(turtleInfo);
-//		turtleID.setText("Turtle ID: " + turtle.getId());
-//		turtleHeading.setText("Turtle Heading: " + turtle.getHeading());
-//		turtleX.setText("Turtle X Position: " + turtle.getLocation().getX());
-//		turtleY.setText("Turtle Y Position: " + turtle.getLocation().getY());
-//		penSize.setText("Pen Size: " + turtle.getPenSize());
-//		penUP.setText("Pen Up: " + turtle.isPenUp());
-//		penColor.setText("Pen Color: " + turtle.penColor());	
-//        states.add(turtleID);
-//        states.add(turtleHeading);
-//        states.add(turtleX);
-//        states.add(turtleY);
-//        states.add(penSize);
-//        states.add(penUP);   
-		updateObservers();
+	public void getTurtleInfo(Map<Integer, Turtle> turtleMap) {
+	    vbox.getChildren().removeAll(turtleList);
+	    turtleList.clear();
+	   for (Integer i : turtleMap.keySet()) {
+           Label l = new Label("Turtle: " + i + " is " + turtleMap.get(i).isActive());
+           l.setStyle("-fx-border-color: black; -fx-border-width: 2;");
+           l.setPrefWidth(SlogoView.PALETTEWIDTH - 30);
+           if (turtleMap.get(i).isActive()){
+               l.setStyle("-fx-background-color: green;");
+           }
+           else {
+               l.setStyle("-fx-background-color: red;");
+           }
+           turtleList.add(l);
+
+       }
+        vbox.getChildren().addAll(turtleList);
+		//updateObservers();
 	}
-	
+
+	public void refresh(){
+	    getTurtleInfo(turtleMap);
+    }
 
 //	
 //	public void updateStateView() {
