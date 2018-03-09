@@ -16,7 +16,7 @@ public class PenDown extends SlogoNode{
 	
 	private void pen(Map<Integer, Turtle> turtleMap) {
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		turtleMap.get(n).penDown();
 	}}}
 

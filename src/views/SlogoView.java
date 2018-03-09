@@ -1,6 +1,7 @@
 package views;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
@@ -89,7 +90,7 @@ public class SlogoView implements Observer, Observable{
 	 * Data structures for SceneElements, variables,
 	 * functions
 	 */
-    private List<Turtle> turtles;
+    private Map<Integer, Turtle> turtles;
 	private List<SceneElement> sceneElements;
 	private List<Observer> observers;
 
@@ -99,7 +100,8 @@ public class SlogoView implements Observer, Observable{
 	/**
      * Start the program.
      */
-	public Scene initializeStartScene() {
+	public Scene initializeStartScene(Map<Integer, Turtle> TurtleMap) {
+	    turtles = TurtleMap;
 		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
@@ -121,22 +123,19 @@ public class SlogoView implements Observer, Observable{
 		return myConsole.getPassValue();
 	}
 	private void initializeDataStructures() {
-        turtles = new ArrayList<>();
 //        turtles.add(new Turtle());
-        for (int i = 0; i<3; i++) {
-        		turtles.add(new Turtle());
+        for (int i = 0; i<2; i++) {
+            turtles.put(i, new Turtle(new Point2D(i * 40 + 575, 260.0), 5));
         }
-        
-        
 	}
 
 	private void initializeObservers() {
     	for (SceneElement element: sceneElements){
     	    element.addObserver(this);
         }
-    		//for(int i = 0; i<turtles.size();i++) {
-        myToolbar.addObserver(turtles.get(0));
-    		//}
+        for(int i = 0; i<turtles.size();i++) {
+            myToolbar.addObserver(turtles.get(0));
+    	}
 	}
     public void setConsole(Double d){
 	    myConsole.setLittleField(d.toString());
@@ -152,7 +151,7 @@ public class SlogoView implements Observer, Observable{
 		//loop that adds all the turtles to the view
 		myToolbar = new Toolbar();
 		//for (int i = 0; i<turtles.size();i++) {
-			TurtleDisplay myTurtleDisplay = new TurtleDisplay(turtles.get(0));
+			TurtleDisplay myTurtleDisplay = new TurtleDisplay(turtles);
 			sceneElements.add(myTurtleDisplay);
 			myToolbar.addObserver(myTurtleDisplay);
 		//}
@@ -172,14 +171,14 @@ public class SlogoView implements Observer, Observable{
         }
 		return retgroup;
 	}
-	public void update(Object o){
+	public void update(Object o) {
         myRoot.getChildren().removeAll(myRoot.getChildren());
-        for (SceneElement element : sceneElements){
+        for (SceneElement element : sceneElements) {
             myRoot.getChildren().add(element.getField());
         }
-        //for (int i = 0; i<turtles.size();i++) {
-        myRoot.getChildren().addAll(turtles.get(0).getLines());
-        //}
+        for (Integer i : turtles.keySet()) {
+            myRoot.getChildren().addAll(turtles.get(i).getLines());
+        }
 //        if (o.getClass().getTypeName().equals("java.lang.String")){
 //            getHostServices().showDocument((String)o);
 //        }
@@ -192,7 +191,9 @@ public class SlogoView implements Observer, Observable{
 			myRoot.getChildren().add(element.getField());
 		}
 		//for (int i= 0; i<turtles.size();i++) {
-			myRoot.getChildren().addAll(turtles.get(0).getLines());
+        for (Integer i : turtles.keySet()) {
+            myRoot.getChildren().addAll(turtles.get(i).getLines());
+        }
 		//}
 	}
 
@@ -201,7 +202,7 @@ public class SlogoView implements Observer, Observable{
     public void updateObservers() {
         for (Observer o : observers){
 //        		for (int i = 0; i< turtles.size();i++) {
-            o.update(turtles.get(0));
+			o.update(turtles.get(0));
 //        		}
         }
     }

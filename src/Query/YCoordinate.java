@@ -29,9 +29,9 @@ public class YCoordinate extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-double ret = 0;
+		double ret = 0;
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		ret = -1*(turtleMap.get(n).getLocation().getY() - (SlogoView.TURTLEVIEWY + .5 * SlogoView.TURTLEVIEWHEIGHT - .5 * Turtle.TURTLESIZE));
 		}} return ret; }
 	

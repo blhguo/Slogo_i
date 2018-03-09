@@ -32,7 +32,7 @@ public class XCoordinate extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 		double ret = 0;
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		ret =  turtleMap.get(n).getLocation().getX() - (SlogoView.TURTLEVIEWX + .5 * SlogoView.TURTLEVIEWWIDTH - .5 * Turtle.TURTLESIZE);
 		}} return ret;}
 	

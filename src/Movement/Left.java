@@ -18,7 +18,7 @@ public class Left extends SlogoNode{
 	}
 	private void left(Map<Integer, Turtle> turtleMap, double angle) {
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		turtleMap.get(n).setHeading(turtleMap.get(n).getHeading() + angle); //TODO: Update according to Jamie's stuff
 	}}}
 

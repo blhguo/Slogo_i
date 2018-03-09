@@ -16,7 +16,7 @@ public class HideTurtle extends SlogoNode{
 	
 	private void visible(Map<Integer, Turtle> turtleMap) {
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		turtleMap.get(n).hide();
 	}}}
 	

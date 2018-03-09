@@ -33,7 +33,7 @@ public class PenColor extends SlogoNode{
 		double index = 0;
 			List<SlogoNode> leaf = this.getChildren();
 			for (int n : turtleMap.keySet()) {
-				if (turtleMap.get(n).isActive) {
+				if (turtleMap.get(n).isActive()) {
 			index = turtleMap.get(n).getPenColor();
 		}}
 			return index;}

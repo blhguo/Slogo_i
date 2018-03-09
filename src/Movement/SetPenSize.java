@@ -32,7 +32,7 @@ public class SetPenSize extends SlogoNode{
 			List<SlogoNode> leaf = this.getChildren();
 			double size = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 			for (int n : turtleMap.keySet()) {
-				if (turtleMap.get(n).isActive) {
+				if (turtleMap.get(n).isActive()) {
 			turtleMap.get(n).setPenSize(size);
 		}}
 			return size;
