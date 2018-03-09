@@ -23,8 +23,8 @@ public class Main extends Application implements Observer{
 	private static Stage mainStage;
 	private SlogoView simulation;
 
-    private Map<String, Double> variables;
-    private static Map<String, SlogoNode> functions;
+    private Map<String, Double> variables = new HashMap<>();
+    private Map<String, SlogoNode> functions = new HashMap<>();;
     private Map<Integer, Turtle> TurtleMap = new HashMap<>();
 
     public Main() {
@@ -44,8 +44,6 @@ public class Main extends Application implements Observer{
 		primaryStage.setScene(simulation.initializeStartScene());
 		primaryStage.show();
 		simulation.addObserver(this);
-        variables = new HashMap<>();
-        functions = new HashMap<>();
 		updateVarView();
 	}
 	
