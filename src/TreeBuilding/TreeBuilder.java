@@ -5,9 +5,14 @@ import VarOp.DoTimes;
 import VarOp.For;
 import VarOp.If;
 import VarOp.IfElse;
+import VarOp.MakeUserInstruction;
 import VarOp.MakeVariable;
 import VarOp.Repeat;
-import treenode.*;
+import VarOp.ToFunction;
+import treenode.MasterNode;
+import treenode.NumberNode;
+import treenode.SlogoNode;
+import treenode.StringNode;
 import VarOp.For;
 import turtle.Turtle;
 
@@ -18,20 +23,19 @@ public class TreeBuilder {
 
     private int buildcounter;
     private List<SlogoNode> heads;
-    private SlogoNode master;
     private Map<String, Double> VarMap;
     private Map<String, SlogoNode> FunctMap;
-    private Turtle turtle;
-    public TreeBuilder(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle){
+    private Map<Integer, Turtle> turtleMap;
+    public TreeBuilder(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap){
         buildcounter = 0;
         this.VarMap = VarMap;
         this.FunctMap = FunctMap;
-        this.turtle = turtle;
+        this.turtleMap = turtleMap;
     }
     public SlogoNode buildTree(SlogoNode[] array){
         //System.out.println(array.length);
-
-        master = new MasterNode();
+    	
+        SlogoNode master = new MasterNode();
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
         if (currentNode.getClass().equals(new BracketNode().getClass())){
@@ -52,6 +56,15 @@ public class TreeBuilder {
         }
         else if (currentNode.getClass().equals(new IfElse().getClass())) {
         	master = handleElseIf(array);
+        }
+        else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
+        	master = handleMakeUserInstruction(array);
+        }
+        else if (currentNode.getClass().equals(new ToFunction(null, null).getClass())) {
+        ToFunction toNode = new ToFunction(null, null);
+        toNode = (ToFunction) currentNode;
+        String name = toNode.getToName();
+        	master = handleTo(array, currentNode, name);
         }
         else {
             master.addChild(build(currentNode, array));
@@ -75,9 +88,17 @@ public class TreeBuilder {
         }
         //buildcounter--; //For build, which automatically adds one to buildcounter;
         expression = build(array[buildcounter], array);
-        double value = expression.getExecute(VarMap, FunctMap, turtle);
-        //System.out.println(value);
         String name = expression.getChildren().get(0).getName();
+        double temp = 0;
+        boolean hasVal = false;
+        if (VarMap.containsKey(name)){
+            temp = VarMap.get(name);
+            System.out.println(temp);
+            hasVal = true;
+        }
+        double value = expression.getExecute(VarMap, FunctMap, turtleMap);
+        //System.out.println(value);
+
         //double val = expression.getChildren().get(1).getValue(VarMap, FunctMap, turtle);
         buildcounter += 2;
         if (buildcounter >= array.length){
@@ -91,10 +112,12 @@ public class TreeBuilder {
         for (double i = 0; i < value; i++){
 
             VarMap.put(name, i + 1);
-            retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
+            retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtleMap)));
         }
         //TODO Figure out how to modify variable values at execution
-        //VarMap.put(name, value);
+        if (hasVal) {
+            VarMap.put(name, temp);
+        }
         return retNode;
     }
         private SlogoNode handleFor(SlogoNode[] array) {
@@ -120,11 +143,11 @@ public class TreeBuilder {
             increment = build(array[buildcounter], array);
             
 
-            double startval = start.getExecute(VarMap, FunctMap, turtle);
+            double startval = start.getExecute(VarMap, FunctMap, turtleMap);
             System.out.println(startval);
-            double endval = end.getExecute(VarMap, FunctMap, turtle);
+            double endval = end.getExecute(VarMap, FunctMap, turtleMap);
             System.out.println(endval);
-            double incval = increment.getExecute(VarMap, FunctMap, turtle);
+            double incval = increment.getExecute(VarMap, FunctMap, turtleMap);
             System.out.println(incval);
             String name = var.getName();
             buildcounter++;
@@ -139,7 +162,7 @@ public class TreeBuilder {
             list = buildList(array);
             for (double i = startval; i <= endval; i+= incval){
                 VarMap.put(name, i + 1);
-                retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtle)));
+                retNode.addChild(new NumberNode(list.getExecute(VarMap, FunctMap, turtleMap)));
             }
             VarMap.remove(name);
 
@@ -147,6 +170,8 @@ public class TreeBuilder {
             //VarMap.put(name, value);
             return retNode;
         }
+        
+
         
         private SlogoNode handleRepeat(SlogoNode[] array){
             SlogoNode retNode = new Repeat();
@@ -176,6 +201,67 @@ public class TreeBuilder {
         }
 
 
+    private SlogoNode handleMakeUserInstruction(SlogoNode[] array) {
+    		SlogoNode retNode = new MakeUserInstruction();
+  //  		SlogoNode functionName;
+    		System.out.println(array.length);
+    		SlogoNode variableList;
+    		SlogoNode commandList;
+    		buildcounter++; //increments past the To word
+    		
+    		System.out.println(array[buildcounter]);
+    		//checks if the node is a string
+//         if (!array[buildcounter].getClass().equals(new StringNode("").getClass())){
+//               System.out.println("Sorry, you didn't give a name to the function");
+//               return new NumberNode(0);
+//          }
+         //builds the string node
+         SlogoNode node = array[buildcounter];
+         System.out.println(node);
+         retNode.addChild(build(node, array));
+         //increments to the next command
+         buildcounter++; //check if the second node
+         if (buildcounter >= array.length){
+             System.out.println("Out of bounds1");
+             variableList = new NumberNode(0);
+             return variableList;
+         }
+         SlogoNode node2 = array[buildcounter];
+         retNode.addChild(buildList(array));
+         
+         buildcounter++; //check the third node
+//         if (buildcounter >= array.length){
+//             System.out.println("Out of bounds2");
+//             commandList = new NumberNode(0);
+//             return commandList;
+//         }
+         retNode.addChild(buildList(array));
+         return retNode;
+         
+    }
+    
+    private SlogoNode handleTo(SlogoNode[] array, SlogoNode currentNode, String name) {
+    		System.out.println(currentNode);
+    		System.out.println(name + "blalalal");
+    		System.out.println(this.FunctMap.keySet());
+    		System.out.println(this.FunctMap.get(name));  //giving a null pointer error
+    		SlogoNode retNode = new ToFunction(this.FunctMap.get(name), name);
+    		SlogoNode list;
+    		if (array.length==1) { //assume that there are no variables
+    			System.out.println("assumes no parameters");
+    			return retNode;
+    		}
+    		buildcounter++;
+            if (buildcounter >= array.length){
+                System.out.println("Out of bounds2");
+                list = new NumberNode(0);
+                return list;
+            }
+            //System.out.println(buildcounter);
+            retNode.addChild(buildList(array));          
+            return retNode;
+    }
+    
     private SlogoNode handleIf(SlogoNode[] array){
         SlogoNode retNode = new If();
         SlogoNode expression;
@@ -202,6 +288,7 @@ public class TreeBuilder {
         
         return retNode;
     }
+    
     
     private SlogoNode handleElseIf(SlogoNode[] array){
         SlogoNode retNode = new IfElse();

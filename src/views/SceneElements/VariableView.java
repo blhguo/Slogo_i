@@ -23,7 +23,6 @@ public class VariableView extends SceneElement implements Observable{
     private Rectangle rectangle;
     private VBox vbox;
     private List<Observer> observers;
-    private Text text;
     private ScrollPane pane;
     public static final double WRAPBUFFER = 30;
     private List<Label> labellist;
@@ -54,8 +53,9 @@ public class VariableView extends SceneElement implements Observable{
         
         return pane;
     }
+    
     private Node getText(){
-        text = new Text("There are no active variables at the moment :(");
+        Text text = new Text("There are no active variables at the moment :(");
         text.setWrappingWidth(SlogoView.VARIABLEVIEWWIDTH - WRAPBUFFER);
 
         //text.setStyle("-fx-background-color: gold;");

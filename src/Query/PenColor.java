@@ -1,16 +1,22 @@
-package MathOps;
+package Query;
 
 import java.util.List;
 import java.util.Map;
+
+import javafx.scene.paint.Color;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class NaturalLog extends SlogoNode{
+public class PenColor extends SlogoNode{
 //	
 //	private double value = 0;
-	private double distance = 0;
-	public NaturalLog() {
-		numchildren = 1;
+//	private double distance = 0;
+//	public Forward() {
+//		this.val = getValue();
+//	}
+	
+	public PenColor() {
+		numchildren = 0;
 	}
 
 	@Override
@@ -24,9 +30,12 @@ public class NaturalLog extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		List<SlogoNode> leaf = this.getChildren();
-		double x = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
-		return Math.log(x);
-		}
+		double index = 0;
+			List<SlogoNode> leaf = this.getChildren();
+			for (int n : turtleMap.keySet()) {
+				if (turtleMap.get(n).isActive) {
+			index = turtleMap.get(n).getPenColor();
+		}}
+			return index;}
 	
 }
