@@ -1,4 +1,4 @@
-package MultipleTurtles;
+package Query;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class Tell extends SlogoNode{
+public class Turtles extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -14,7 +14,7 @@ public class Tell extends SlogoNode{
 //		this.val = getValue();
 //	}
 	
-	public Tell() {
+	public Turtles() {
 		numchildren = 0;
 	}
 
@@ -29,14 +29,7 @@ public class Tell extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		List<SlogoNode> leaf = this.getChildren();
-		double ret = 0;
-		for (int n : turtleMap.keySet()) {
-			if (leaf.contains(turtleMap.get(n).getId())) {
-				turtleMap.get(n).setActive(true);
-				ret = n;
-	
-	}}
-		return ret;}
-	
+		
+		return turtleMap.size();
+	}
 }
