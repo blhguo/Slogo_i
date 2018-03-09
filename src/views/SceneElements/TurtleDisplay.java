@@ -15,7 +15,6 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
     private Rectangle rectangle;
     private List<Observer> observers;
     private ArrayList<Turtle> turtles;
-    private Group retgroup;
     public TurtleDisplay(Turtle turtle){
         rectangle = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);
@@ -32,7 +31,7 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
     }
     @Override
     public Group getField(){
-        retgroup = new Group();
+    		Group retgroup = new Group();
         retgroup.getChildren().add(rectangle);
         rectangle.toBack();
         retgroup.getChildren().add(turtles.get(0).getImage());

@@ -11,12 +11,11 @@ public class Repeat extends SlogoNode{
     public Repeat(){
         this.setNumChildren(2);
     }
-
-    private int counter;
     
     @Override
     public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
-        List<SlogoNode> leaf = this.getChildren();
+    		int counter;
+    		List<SlogoNode> leaf = this.getChildren();
         double ret = 0;
         counter = (int) leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
         for (int i = 0; i < counter; i ++) {

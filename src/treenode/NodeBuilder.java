@@ -23,7 +23,7 @@ public class NodeBuilder{
 	private static final String VARIABLENODE_ADDRESS = "treenode.VariableNode";
 	private static String language = LANGUAGE_FILE;
 	private static ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
-	public static Map<String, String> languageMap = createLanguageMap(myResources);
+	private static Map<String, String> languageMap = createLanguageMap(myResources);
 	
 	public NodeBuilder(Map<String, SlogoNode> functions) {
 		this.functionMap = functions;
