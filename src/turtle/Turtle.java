@@ -51,7 +51,7 @@ public class Turtle implements Observable, Observer{
     public Map<Integer, Color> turtleColorMap = new HashMap<Integer, Color>();
     public Map<Integer, Shape> turtleShapeMap = new HashMap<Integer, Shape>();
     public int turtleId;
-    public boolean isActive;
+    public boolean isActive = true;
     public double penSize;
     public double thickness;
     public Color penColor;

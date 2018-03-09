@@ -22,23 +22,27 @@ public class SetHeading extends SlogoNode{
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
+		double step = getValue(VarMap, FunctMap, turtleMap);
 		return step;
 	}
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
+		double ret = 0;
 		List<SlogoNode> leaf = this.getChildren();
-		double buffer = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		double buffer = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 		if ((buffer % 360)== 0) {buffer = 360.0;}
-		double buffer1 = turtle.getHeading();
-		setHead(turtle, buffer);
-		return Math.abs(Math.min(buffer1 - buffer, buffer - buffer1));
-
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive) {
+		double buffer1 = turtleMap.get(n).getHeading();
+		setHead(turtleMap.get(n), buffer);
+		ret = Math.abs(Math.min(buffer1 - buffer, buffer - buffer1));
+			}}
+		return ret;
 	}
 	
 }

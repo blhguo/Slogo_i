@@ -19,7 +19,7 @@ public class MakeUserInstruction extends SlogoNode {
 	}
 	
 	@Override
-	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		List<SlogoNode> leaf = this.getChildren();
 		System.out.println("Executed");
 		// TODO Auto-generated method stub
@@ -43,13 +43,13 @@ public class MakeUserInstruction extends SlogoNode {
 			//this.getChildren().get(0).getVariableName() == name of the function
 			//this.getChildren().get(2) == head node of the commands. 
 		}else {
-			return this.getValue(VarMap, FunctMap, turtle);
+			return this.getValue(VarMap, FunctMap, turtleMap);
 		}
 		
 	}
 
 	@Override
-	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle) {
+	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		return 0; //should not return any value because the function has yet to be called
 	}

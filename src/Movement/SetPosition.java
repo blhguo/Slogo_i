@@ -30,28 +30,34 @@ public class SetPosition extends SlogoNode{
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
-		setpos(turtle, location);
+		double step = getValue(VarMap, FunctMap, turtleMap);
+//		setpos(turtleMap, location);
 		return step;  //returns the final value of the node
 	}
 	
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		double CurX = turtle.getLocation().getX() - SlogoView.TURTLEVIEWX - .5 * SlogoView.TURTLEVIEWWIDTH
-				+ .5 * Turtle.TURTLESIZE;
-		double CurY = turtle.getLocation().getY() - SlogoView.TURTLEVIEWY - .5 * SlogoView.TURTLEVIEWHEIGHT
-				+ .5 * Turtle.TURTLESIZE;
+		double distance = 0;
 		List<SlogoNode> leaf = this.getChildren();
-		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
-		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
+		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
+		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtleMap);
 		location[0] = xpos;
 		location[1] = ypos;
-		double distance = Math.sqrt(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2));
+		
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive) {
+		double CurX = turtleMap.get(n).getLocation().getX() - SlogoView.TURTLEVIEWX - .5 * SlogoView.TURTLEVIEWWIDTH
+				+ .5 * Turtle.TURTLESIZE;
+		double CurY = turtleMap.get(n).getLocation().getY() - SlogoView.TURTLEVIEWY - .5 * SlogoView.TURTLEVIEWHEIGHT
+				+ .5 * Turtle.TURTLESIZE;
+
+		distance = Math.sqrt(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2));
+		setpos(turtleMap.get(n), location);
+	}}
 		return distance;
-	}
 	
-}
+}}

@@ -12,18 +12,18 @@ public class Tell extends SlogoNode {
 	}
 	
 	@Override
-	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//add turtles to the turtle arraylist
 		SlogoNode leaf = this.getChildren().get(0);
-		Double turtleNum = leaf.getValue(VarMap, FunctMap, turtle);
+		Double turtleNum = leaf.getValue(VarMap, FunctMap, turtleMap);
 		for (int i = 0; i <turtleNum; i++) {
-			turtle.get
+			turtleMap.get
 		}
 	}
 
 	@Override
-	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle) {
+	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
