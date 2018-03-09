@@ -15,7 +15,6 @@ public class Tell extends SlogoNode{
 //	}
 	
 	public Tell() {
-		numchildren = 0;
 	}
 
 	@Override
