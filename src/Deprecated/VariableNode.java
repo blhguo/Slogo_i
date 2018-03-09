@@ -39,4 +39,5 @@ public class VariableNode extends SlogoNode{
 	public String getName() {
 		return name;
 	}
+
 }
