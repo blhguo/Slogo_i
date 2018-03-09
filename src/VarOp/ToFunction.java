@@ -30,17 +30,17 @@ public class ToFunction extends SlogoNode {
 	
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		if (this.getChildren().size()==0) {
 			System.out.println("reached");
 			System.out.println(this.head);
-			this.head.getExecute(VarMap, FunctMap, turtle);
-			return this.head.getValue(VarMap, FunctMap, turtle);
+			this.head.getExecute(VarMap, FunctMap, turtleMap);
+			return this.head.getValue(VarMap, FunctMap, turtleMap);
 		}
 		int numOfParameters = this.getChildren().get(0).getNumchildren();
 		double[] parameterArray = new double[numOfParameters];
 		for (int i = 0; i<numOfParameters; i++) {
-			parameterArray[i]= this.getChildren().get(0).getChildren().get(i).getExecute(VarMap, FunctMap, turtle);
+			parameterArray[i]= this.getChildren().get(0).getChildren().get(i).getExecute(VarMap, FunctMap, turtleMap);
 		}
 		//parameterArray now has all the parameters for the commands
 		//head is the head of the command master node.
@@ -66,14 +66,14 @@ public class ToFunction extends SlogoNode {
 				count++;
 			}
 		}
-		return this.head.getExecute(VarMap, FunctMap, turtle);
+		return this.head.getExecute(VarMap, FunctMap, turtleMap);
 		
 	}
 
 	@Override
-	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Turtle turtle) {
+	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> funct, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		return this.head.getExecute(VarMap, funct, turtle); //returns the value of the head
+		return this.head.getExecute(VarMap, funct, turtleMap); //returns the value of the head
 	}
 
 }
