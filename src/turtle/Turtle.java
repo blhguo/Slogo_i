@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import views.Observer;
 import views.SceneElements.Observable;
 import views.SlogoView;
@@ -14,9 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.sun.javafx.geom.Shape;
-
 /**
 *
 * Turtle holds knowledge about themselves that can be
@@ -50,12 +49,12 @@ public class Turtle implements Observable, Observer{
     public static final Point2D originalLocation = new Point2D(BASEX, BASEY);
     
     
-    public Map<Integer, Double> turtleColorMap = new HashMap<>();
+    public Map<Integer, Color> turtleColorMap = new HashMap<Integer, Color>();
+    public Map<Integer, Shape> turtleShapeMap = new HashMap<Integer, Shape>();
     public int turtleId;
     public boolean isActive;
     public double penSize;
-    public double thickness;
-    public double penColor;
+    public Color penColor;
     public Shape turtleShape;
     
 	/**
@@ -84,6 +83,10 @@ public class Turtle implements Observable, Observer{
 		isShowing = true;
 		isActive = true;
 		turtleId = turtleColorMap.size() + 1;
+		penSize = 2;
+		penColor = Color.BLACK;
+		turtleShape = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
+                SlogoView.TURTLEVIEWHEIGHT);
 	}
 
 	/**
@@ -205,10 +208,7 @@ public class Turtle implements Observable, Observer{
 			return 0.0;
 		}
 	}
-	
-	public void update() {
-		
-	}
+
 	
 	public void clear(){
 	    lines.clear();
@@ -219,8 +219,9 @@ public class Turtle implements Observable, Observer{
 		myCanvas.getGraphicsContext2D().clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
 	}
 	
-	public void addColors(double color) {
-		turtleColorMap.put(turtleId , color);
+	public void addColor(int index, Color color) {
+		turtleColorMap.put(index , color);
+		System.out.println(turtleColorMap.get(1).toString());
 	}
 	
 	public int getId() {
@@ -243,18 +244,27 @@ public class Turtle implements Observable, Observer{
 	}
 
 	public void setPenColor(double newPenColor) {
-		penColor = newPenColor;
+		penColor = turtleColorMap.get(newPenColor);
 	}
 	public double getPenColor() {
-		return penColor;
+		for (int n = 0; n < turtleColorMap.size(); n++) {
+			if (turtleColorMap.get(n).equals(penColor)) {
+				return (double) n;
+			}
+		}
+		return 0;
 	}
-	public void setShape(Shape shape) {
-		turtleShape = shape;
+	public String penColor(){
+		return penColor.toString();
 	}
-	
-		
-	
-	
+	public void setShape(int index) {
+		turtleShape = turtleShapeMap.get(index);
+	}
+	public void setTurtleShape(Shape newShape) {
+		turtleShape = newShape;
+	}
+			
+
     @Override
     public void updateObservers() {
         for (Observer o : observers){
@@ -269,9 +279,19 @@ public class Turtle implements Observable, Observer{
 
 	@Override
 	public void update(Object o) {
-//		for (Line line : lines){
-//			line.setStroke((Color)o);
-//		}
 		lineColor = (Color)o;
+	}
+
+	public double getShape() {
+		// TODO Auto-generated method stub
+		for (int n = 0; n < turtleShapeMap.size(); n++) {
+			if (turtleShapeMap.get(n).equals(turtleShape)) {
+				return (double) n;
+			}
+		}
+		return 0;
+	}
+	public String turtleShape(){
+		return turtleShape.toString();
 	}
 }
