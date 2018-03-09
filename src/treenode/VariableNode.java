@@ -19,7 +19,7 @@ public class VariableNode extends SlogoNode{
 	public String getName() {
 		return this.variableName;
 	}
-	
+
 	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 
 		// TODO Auto-generated method stub

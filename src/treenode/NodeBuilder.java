@@ -1,5 +1,6 @@
 package treenode;
 
+import views.Main;
 import views.Observer;
 import views.SceneElements.Observable;
 
@@ -122,13 +123,14 @@ public class NodeBuilder{
 	 */
 	public static SlogoNode createNode(String input) {
 		String formalCommandName = null;
-
+		
 		if (languageMap.containsKey(input)) { //if the map exists
 			formalCommandName = languageMap.get(input);
 		}
 		else{
 			throw new InvalidParameterException("NOT A COMMAND");
 		}
+		
 		Class<?> commandObject = null;
 		
 		try { //try to create a new class object based on name.
