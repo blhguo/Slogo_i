@@ -14,6 +14,10 @@ public class ClearScreen extends SlogoNode{
 //		this.val = getValue();
 //	}
 
+	public ClearScreen() {
+		numchildren = 0;
+	}
+	
 	private void clear(Turtle turtle) {
 		turtle.clear();
         turtle.setLocation(turtle.getOriginalLocation());
@@ -21,23 +25,29 @@ public class ClearScreen extends SlogoNode{
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
-		clear(turtle);
+		double step = getValue(VarMap, FunctMap, turtleMap);
+		//clear(turtleMap);
 		return step;  //returns the final value of the node
 	}
 	
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		double CurX = turtle.getLocation().getX();
-		double CurY = turtle.getLocation().getY();
+		double distance = 0;
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive) {
+		double CurX = turtleMap.get(n).getLocation().getX();
+		double CurY = turtleMap.get(n).getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();
-		double xpos = turtle.getOriginalLocation().getX();
-		double ypos = turtle.getOriginalLocation().getY();
-		double distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2), 0.5);
+		double xpos = turtleMap.get(n).getOriginalLocation().getX();
+		double ypos = turtleMap.get(n).getOriginalLocation().getY();
+		distance = Math.pow(Math.pow(xpos - CurX, 2) + Math.pow(ypos - CurY, 2), 0.5);
+		clear(turtleMap.get(n));
+			}
+		}
 		return distance;
 	}
 	

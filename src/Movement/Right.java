@@ -16,24 +16,26 @@ public class Right extends SlogoNode{
 	public Right(){
 		numchildren = 1;
 	}
-	private void right(Turtle turtle, double angle) {
-		turtle.setHeading(turtle.getHeading() - angle); //TODO: Update according to Jamie's stuff
-	}
+	private void right(Map<Integer, Turtle> turtleMap, double angle) {
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive) {
+		turtleMap.get(n).setHeading(turtleMap.get(n).getHeading() - angle); //TODO: Update according to Jamie's stuff
+	}}}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
-		right(turtle, step);
+		double step = getValue(VarMap, FunctMap, turtleMap);
+		right(turtleMap, step);
 		return step;  //returns the final value of the node
 	}
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
-		return leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		return leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 	}
 	
 }
