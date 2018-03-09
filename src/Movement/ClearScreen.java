@@ -38,7 +38,7 @@ public class ClearScreen extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 		double distance = 0;
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		double CurX = turtleMap.get(n).getLocation().getX();
 		double CurY = turtleMap.get(n).getLocation().getY();
 		List<SlogoNode> leaf = this.getChildren();

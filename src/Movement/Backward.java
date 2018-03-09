@@ -17,7 +17,7 @@ public class Backward extends SlogoNode{
 
 	private void backward(Map<Integer, Turtle> turtleMap, double distance) {
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		Point2D point = new Point2D(turtleMap.get(n).getLocation().getX() + distance * Math.sin(Math.toRadians(turtleMap.get(n).getHeading())),
 		turtleMap.get(n).getLocation().getY() + distance * Math.cos(Math.toRadians((turtleMap.get(n).getHeading()))));
 		turtleMap.get(n).setLocation(point);

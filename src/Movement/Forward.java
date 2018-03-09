@@ -18,11 +18,11 @@ public class Forward extends SlogoNode{
 
 	private void forward(Map<Integer, Turtle> turtleMap, double distance) {
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
-        Point2D newlocation = new Point2D(turtleMap.get(n).getLocation().getX() - distance * Math.sin(Math.toRadians(turtleMap.get(n).getHeading())),
-                turtleMap.get(n).getLocation().getY() - distance * Math.cos(Math.toRadians(turtleMap.get(n).getHeading())));
-        turtleMap.get(n).setLocation(newlocation);
-	}
+			if (turtleMap.get(n).isActive()) {
+        		Point2D newlocation = new Point2D(turtleMap.get(n).getLocation().getX() - distance * Math.sin(Math.toRadians(turtleMap.get(n).getHeading())),
+                	turtleMap.get(n).getLocation().getY() - distance * Math.cos(Math.toRadians(turtleMap.get(n).getHeading())));
+        		turtleMap.get(n).setLocation(newlocation);
+			}
 		}
 	}
 

@@ -40,7 +40,7 @@ public class SetTowards extends SlogoNode{
 		xpos = xpos + 489.282857;
 		ypos = ypos + 251;
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		double initial = turtleMap.get(n).getHeading(); //TODO: Update according to Jamie's stuff
 		double CurX = turtleMap.get(n).getLocation().getX();
 		double CurY = turtleMap.get(n).getLocation().getY();

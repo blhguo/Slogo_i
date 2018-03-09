@@ -37,7 +37,7 @@ public class SetHeading extends SlogoNode{
 		double buffer = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 		if ((buffer % 360)== 0) {buffer = 360.0;}
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		double buffer1 = turtleMap.get(n).getHeading();
 		setHead(turtleMap.get(n), buffer);
 		ret = Math.abs(Math.min(buffer1 - buffer, buffer - buffer1));

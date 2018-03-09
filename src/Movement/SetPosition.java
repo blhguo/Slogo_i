@@ -49,7 +49,7 @@ public class SetPosition extends SlogoNode{
 		location[1] = ypos;
 		
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		double CurX = turtleMap.get(n).getLocation().getX() - SlogoView.TURTLEVIEWX - .5 * SlogoView.TURTLEVIEWWIDTH
 				+ .5 * Turtle.TURTLESIZE;
 		double CurY = turtleMap.get(n).getLocation().getY() - SlogoView.TURTLEVIEWY - .5 * SlogoView.TURTLEVIEWHEIGHT
