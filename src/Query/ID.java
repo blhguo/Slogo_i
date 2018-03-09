@@ -31,8 +31,10 @@ public class ID extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 		double ret = 0;
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
-		ret =  (double) turtleMap.get(n).getId();
+			if (turtleMap.get(n).isActive()) {
+				ret =  (double) n;
+			}
 		}
-		} return ret;}
+		return ret;
+	}
 }

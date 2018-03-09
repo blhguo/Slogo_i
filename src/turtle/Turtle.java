@@ -52,7 +52,21 @@ public class Turtle implements Observable, Observer{
     public Map<Integer, Color> turtleColorMap = new HashMap<Integer, Color>();
     public Map<Integer, Shape> turtleShapeMap = new HashMap<Integer, Shape>();
     public int turtleId;
-    public boolean isActive = true;
+    public static final String INACTIVE = "turtle.png";
+    public static final String ACTIVE = "activeturtle.png";
+    private String currentActive = ACTIVE;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+        swapImage();
+        //System.out.println("Swapped");
+    }
+
+    private boolean isActive = true;
     public double penSize;
     public Color penColor;
     public Shape turtleShape;
@@ -73,15 +87,17 @@ public class Turtle implements Observable, Observer{
 	    observers = new ArrayList<>();
 		this.currentpos = currentpos;
 		this.speed = speed;
-		Image turtle = new Image("turtle.png", TURTLESIZE,TURTLESIZE,true,true);
+		Image turtle = new Image(currentActive, TURTLESIZE,TURTLESIZE,true,true);
 		turtleview = new ImageView(turtle);
 		turtleview.setLayoutX(this.currentpos.getX());
 		turtleview.setLayoutY(this.currentpos.getY());
+		turtleview.setOnMouseClicked(e -> toggleActive());
 		line = new Line();
 		lines = new ArrayList<>();
 		myPenUp = false;
 		isShowing = true;
 		isActive = true;
+		toggleActive();
 		turtleId = turtleColorMap.size() + 1;
 		penSize = 2;
 		penColor = Color.BLACK;
@@ -90,7 +106,28 @@ public class Turtle implements Observable, Observer{
 
 	}
 
-	/**
+    private void toggleActive() {
+	     isActive = !isActive;
+	     swapImage();
+    }
+
+    private void swapImage() {
+	    if (isActive){
+	        currentActive = ACTIVE;
+        }
+        else {
+	        currentActive = INACTIVE;
+        }
+        Image turtle = new Image(currentActive, TURTLESIZE,TURTLESIZE,true,true);
+        //turtleview = new ImageView(turtle);
+        turtleview.setImage(turtle);
+//        turtleview.setLayoutX(this.currentpos.getX());
+//        turtleview.setLayoutY(this.currentpos.getY());
+//        turtleview.setOnMouseClicked(e -> toggleActive());
+        //updateObservers();
+    }
+
+    /**
 	 * Point representing the current currentpos of the actor
 	 * 
 	 * @return Point currentpos
@@ -226,14 +263,6 @@ public class Turtle implements Observable, Observer{
 	
 	public int getId() {
 		return turtleId;
-	}
-	
-	public void setActive() {
-		isActive = true;
-	}
-	
-	public void setInactive() {
-		isActive = false;
 	}
 	
 	public void setPenSize(double newPenSize) {

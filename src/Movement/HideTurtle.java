@@ -16,9 +16,12 @@ public class HideTurtle extends SlogoNode{
 	
 	private void visible(Map<Integer, Turtle> turtleMap) {
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
-		turtleMap.get(n).hide();
-	}}}
+			if (turtleMap.get(n).isActive()) {
+				turtleMap.get(n).hide();
+			}
+		}
+		//System.out.println("HMMM");
+	}
 	
 	public HideTurtle() {
 		numchildren = 0;
@@ -27,6 +30,7 @@ public class HideTurtle extends SlogoNode{
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
+        //System.out.println("HMMM");
 		double step = getValue(VarMap, FunctMap, turtleMap);
 		visible(turtleMap);
 		return step;  //returns the final value of the node

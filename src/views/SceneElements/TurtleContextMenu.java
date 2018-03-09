@@ -17,6 +17,33 @@ public class TurtleContextMenu extends SceneElement implements Observable, Obser
 		
 	}
 
+	public TurtleContextMenu(Turtle turtle) {
+		this.contextMenu = getTurtleFacts(turtle);
+		
+	}
+	
+	private ContextMenu getTurtleFacts(Turtle turtle) {
+		ContextMenu contextMenu = new ContextMenu();
+		TextField position = new TextField();
+		TextField heading = new TextField();
+		TextField pen = new TextField();
+		TextField pencolor = new TextField();
+		TextField penthickness = new TextField();
+		
+		position.setText(Double.toString(turtle.getLocation().getX())+ " , " + Double.toString(turtle.getLocation().getY()));
+		heading.setText(Double.toString(turtle.getHeading()));
+		if(turtle.isShowing() == 1) {
+			
+		}
+		//pen.setText();
+		
+		//contextMenu.getItems().addAll(position, heading, pen, pencolor, penthickness);
+		return null;
+		
+	}
+	
+	
+	
 	
 	
 }

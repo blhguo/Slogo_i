@@ -85,7 +85,9 @@ public class VariableView extends SceneElement implements Observable{
             //text.setText(text.getText() + "\n " + key + " : " + variables.get(key));
             Label l = new Label(key + " : " + variables.get(key));
             l.setPadding(new Insets(1,1,1,5));
-            labellist.add(l);
+            if (!key.contains("RESERVED")) {
+                labellist.add(l);
+            }
         }
         vbox.getChildren().addAll(labellist);
     }

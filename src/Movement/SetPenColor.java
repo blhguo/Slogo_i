@@ -32,7 +32,7 @@ public class SetPenColor extends SlogoNode{
 			List<SlogoNode> leaf = this.getChildren();
 			double index = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 			for (int n : turtleMap.keySet()) {
-				if (turtleMap.get(n).isActive) {
+				if (turtleMap.get(n).isActive()) {
 			turtleMap.get(n).setPenColor(index);
 		}}
 	return index;

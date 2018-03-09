@@ -1,6 +1,7 @@
 package views;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
@@ -34,7 +35,7 @@ public class SlogoView implements Observer, Observable{
 	 * Constants relating to the characteristics of the main window as a whole
 	 */
 	public static final int WINDOWHEIGHT = 650;
-	public static final int WINDOWWIDTH = 1000;
+	public static final int WINDOWWIDTH = 1200;
 	public static final Color BACKGROUND = Color.ANTIQUEWHITE;
 	/*
 	 * Constants relating to the tool bar and its dimensions
@@ -46,7 +47,7 @@ public class SlogoView implements Observer, Observable{
 	 */
 	public static final double CMDHISTORYX = 0;
 	public static final double CMDHISTORYY = 1.0 / 10 * WINDOWHEIGHT;
-	public static final double CMDHISTORYWIDTH = 1.7 / 7 * WINDOWWIDTH;
+	public static final double CMDHISTORYWIDTH = 2.0 / 9 * WINDOWWIDTH;
 	public static final double CMDHISTORYHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 
 	/*
@@ -54,14 +55,14 @@ public class SlogoView implements Observer, Observable{
 	 */
 	public static final double VARIABLEVIEWX = 0;
 	public static final double VARIABLEVIEWY = 1.0 / 10 * WINDOWHEIGHT + CMDHISTORYHEIGHT;
-	public static final double VARIABLEVIEWWIDTH = 1.7 / 7 * WINDOWWIDTH;
+	public static final double VARIABLEVIEWWIDTH = 2.0 / 9 * WINDOWWIDTH;
 	public static final double VARIABLEVIEWHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	/*
 	 * Constants relating to the Console section of the main window
 	 */
 	public static final double TURTLEVIEWX = CMDHISTORYWIDTH;
 	public static final double TURTLEVIEWY = TOOLBARHEIGHT;
-	public static final double TURTLEVIEWWIDTH = WINDOWWIDTH - 2* CMDHISTORYWIDTH;
+	public static final double TURTLEVIEWWIDTH = WINDOWWIDTH - 2 * CMDHISTORYWIDTH;
 	public static final double PERCENTHEIGHT = .8;
 	public static final double TURTLEVIEWHEIGHT = PERCENTHEIGHT * (WINDOWHEIGHT - TOOLBARHEIGHT);
 	/*
@@ -111,7 +112,7 @@ public class SlogoView implements Observer, Observable{
 	 * Data structures for SceneElements, variables,
 	 * functions
 	 */
-	private List<Turtle> turtles;
+    private Map<Integer, Turtle> turtles;
 	private List<SceneElement> sceneElements;
 	private List<Observer> observers;
 
@@ -119,9 +120,10 @@ public class SlogoView implements Observer, Observable{
 		//constructor
 	}
 	/**
-	 * Start the program.
-	 */
-	public Scene initializeStartScene() {
+     * Start the program.
+     */
+	public Scene initializeStartScene(Map<Integer, Turtle> TurtleMap) {
+	    turtles = TurtleMap;
 		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
@@ -143,8 +145,10 @@ public class SlogoView implements Observer, Observable{
 		return myConsole.getPassValue();
 	}
 	private void initializeDataStructures() {
-		turtles = new ArrayList<>();
-		turtles.add(new Turtle());
+//        turtles.add(new Turtle());
+        for (int i = 0; i<7; i++) {
+            turtles.put(i, new Turtle(new Point2D((i-3) * 40 + 575, 260.0), 5));
+        }
 	}
 
 
@@ -154,9 +158,9 @@ public class SlogoView implements Observer, Observable{
     	for (SceneElement element: sceneElements){
     	    element.addObserver(this);
         }
-    		//for(int i = 0; i<turtles.size();i++) {
-        myToolbar.addObserver(turtles.get(0));
-    		//}
+        for(int i = 0; i<turtles.size();i++) {
+            myToolbar.addObserver(turtles.get(0));
+    	}
 	}
     public void setConsole(Double d){
 	    myConsole.setLittleField(d.toString());
@@ -172,7 +176,7 @@ public class SlogoView implements Observer, Observable{
 		//loop that adds all the turtles to the view
 		myToolbar = new Toolbar();
 		//for (int i = 0; i<turtles.size();i++) {
-			TurtleDisplay myTurtleDisplay = new TurtleDisplay(turtles.get(0));
+			TurtleDisplay myTurtleDisplay = new TurtleDisplay(turtles);
 			sceneElements.add(myTurtleDisplay);
 			myToolbar.addObserver(myTurtleDisplay);
 		//}
@@ -196,19 +200,19 @@ public class SlogoView implements Observer, Observable{
 		}
 		return retgroup;
 	}
-	public void update(Object o){
-
+	public void update(Object o) {
         myRoot.getChildren().removeAll(myRoot.getChildren());
-        for (SceneElement element : sceneElements){
+        for (SceneElement element : sceneElements) {
             myRoot.getChildren().add(element.getField());
         }
-        //for (int i = 0; i<turtles.size();i++) {
-        myRoot.getChildren().addAll(turtles.get(0).getLines());
-//		CurrentState currState = new CurrentState(turtles.get(0));
-//		currState.setTextArea(currState.getTurtleInfo());
-//      
-		updateObservers();
-		
+        for (Integer i : turtles.keySet()) {
+            myRoot.getChildren().addAll(turtles.get(i).getLines());
+        }
+//        if (o.getClass().getTypeName().equals("java.lang.String")){
+//            getHostServices().showDocument((String)o);
+//        }
+
+        updateObservers();
 	}
 	public void updateScreen(){
 		myRoot.getChildren().removeAll(myRoot.getChildren());
@@ -216,7 +220,9 @@ public class SlogoView implements Observer, Observable{
 			myRoot.getChildren().add(element.getField());
 		}
 		//for (int i= 0; i<turtles.size();i++) {
-			myRoot.getChildren().addAll(turtles.get(0).getLines());
+        for (Integer i : turtles.keySet()) {
+            myRoot.getChildren().addAll(turtles.get(i).getLines());
+        }
 		//}
 	}
 
@@ -225,7 +231,7 @@ public class SlogoView implements Observer, Observable{
     public void updateObservers() {
         for (Observer o : observers){
 //        		for (int i = 0; i< turtles.size();i++) {
-            o.update(turtles.get(0));
+			o.update(turtles.get(0));
 //        		}
         }
     }

@@ -43,7 +43,7 @@ public class Main extends Application implements Observer{
 		//mainStage=simulation.initializeStartScene(primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(TITLE);
-		primaryStage.setScene(simulation.initializeStartScene());
+		primaryStage.setScene(simulation.initializeStartScene(TurtleMap));
 		primaryStage.show();
 		simulation.addObserver(this);
         variables = new HashMap<>();

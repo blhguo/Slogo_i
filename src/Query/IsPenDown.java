@@ -31,7 +31,7 @@ public class IsPenDown extends SlogoNode{
 		//TODO: Update according to Jamie's stuff
 		double ret = 0;
 		for (int n : turtleMap.keySet()) {
-			if (turtleMap.get(n).isActive) {
+			if (turtleMap.get(n).isActive()) {
 		ret = turtleMap.get(n).isPenDown();
 		}}
 	return ret;

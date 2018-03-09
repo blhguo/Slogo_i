@@ -1,12 +1,9 @@
 package views.SceneElements;
 
 
-import javafx.event.Event;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -14,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import turtle.Turtle;
 import views.Observer;
@@ -22,7 +18,6 @@ import views.SlogoView;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.List;
 
 public class Console extends SceneElement implements Observable{
@@ -38,18 +33,19 @@ public class Console extends SceneElement implements Observable{
     private Palettes myPalette;
 	private Turtle turtle;
     public static final double MINITOOLBARHEIGHT = .5 * SlogoView.TOOLBARHEIGHT;
-    public Console(Turtle turtle){
-    		this.turtle = turtle;
+    public static final double VBOXBUFFER = 5;
+    public Console(){
         vbox = new VBox();
         vbox.getChildren().addAll(getTextArea(), getToolBar());
         vbox.setSpacing(0);
-        vbox.setPadding(new Insets(1,1,3,1));
+        vbox.setPadding(new Insets(1,1,3,1));;
         vbox.setLayoutX(SlogoView.CONSOLEX);
         vbox.setLayoutY(SlogoView.CONSOLEY);
-        vbox.setPrefWidth(SlogoView.CONSOLEWIDTH);
+        vbox.setMaxWidth(SlogoView.CONSOLEWIDTH);
         vbox.setPrefHeight(SlogoView.CONSOLEHEIGHT);
         vbox.setStyle("-fx-border-color: black; -fx-border-width: 2");
         myHistory = new History();
+        myHistory.setMyConsole(this);
         observers = new ArrayList<>();
        // littlefield = new TextField();
 //        myState = new CurrentState(turtles.get(0));
@@ -76,7 +72,7 @@ public class Console extends SceneElement implements Observable{
                 clearbutton,
                 littlefield
         );
-        toolbar.setMinSize(SlogoView.CONSOLEWIDTH, MINITOOLBARHEIGHT);
+        toolbar.setMinSize(SlogoView.CONSOLEWIDTH - VBOXBUFFER, MINITOOLBARHEIGHT);
         return toolbar;
     }
 
@@ -132,11 +128,12 @@ public class Console extends SceneElement implements Observable{
         field.setFocusTraversable(false);
         field.setCursor(Cursor.TEXT);
         field.clipProperty();
-        field.setOnKeyPressed(event -> clearText(event.getCode()));
+        field.setOnKeyPressed(event -> handleText(event.getCode()));
         field.setPadding(new Insets(1,1,1,5));
+        field.setMaxWidth(SlogoView.CONSOLEWIDTH - VBOXBUFFER);
         return field;
     }
-    private void clearText(KeyCode code){
+    private void handleText(KeyCode code){
 //        if(code == KeyCode.ENTER) {
 //            sendText();
 //        }
@@ -174,5 +171,10 @@ public class Console extends SceneElement implements Observable{
     }
     public void addObserver(Observer o){
         observers.add(o);
+    }
+
+    public void getCommand(String text) {
+        field.setText(text);
+        sendText();
     }
 }

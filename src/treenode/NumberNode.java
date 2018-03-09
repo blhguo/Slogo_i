@@ -25,9 +25,9 @@ public class NumberNode extends SlogoNode {
 
 	@Override
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
-		// TODO Auto-generated method stub
-		return this.val;
-	}
+        // TODO Auto-generated method stub
+        return this.val;
+    }
 	
 	
 	

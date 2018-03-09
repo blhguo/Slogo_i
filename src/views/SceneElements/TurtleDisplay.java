@@ -10,22 +10,20 @@ import views.SlogoView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TurtleDisplay extends SceneElement implements Observable, Observer {
     private Rectangle rectangle;
     private List<Observer> observers;
-    private ArrayList<Turtle> turtles;
-    private Group retgroup;
-
-    public TurtleDisplay(Turtle turtle){
+    private Map<Integer, Turtle> turtles;
+    public TurtleDisplay(Map<Integer, Turtle> turtles){
         rectangle = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);
         rectangle.setFill(Color.ANTIQUEWHITE);
         rectangle.setStroke(Color.BLACK);
         rectangle.setStrokeWidth(2);
         observers = new ArrayList<>();
-        turtles = new ArrayList<>();
-        turtles.add(turtle);
+        this.turtles = turtles;
         //loop to add turtles to the display.
         for (int i = 0; i<turtles.size(); i++) {
         	 turtles.get(i).addObserver(this);
@@ -33,10 +31,12 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
     }
     @Override
     public Group getField(){
-    		Group retgroup = new Group();
+        Group retgroup = new Group();
         retgroup.getChildren().add(rectangle);
         rectangle.toBack();
-        retgroup.getChildren().add(turtles.get(0).getImage());
+        for (Integer i : turtles.keySet()) {
+            retgroup.getChildren().add(turtles.get(i).getImage());
+        }
         return retgroup;
     }
     public void updateObservers(){
