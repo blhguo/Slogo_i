@@ -1,5 +1,6 @@
 package TreeBuilding;
 
+import Query.Tell;
 import Query.BracketNode;
 import VarOp.DoTimes;
 import VarOp.For;
@@ -12,8 +13,6 @@ import VarOp.ToFunction;
 import treenode.MasterNode;
 import treenode.NumberNode;
 import treenode.SlogoNode;
-import treenode.StringNode;
-import VarOp.For;
 import turtle.Turtle;
 
 import java.util.List;
@@ -60,6 +59,10 @@ public class TreeBuilder {
         else if (currentNode.getClass().equals(new MakeUserInstruction().getClass())) {
         	master = handleMakeUserInstruction(array);
         }
+        else if (currentNode.getClass().equals(new Tell().getClass())){
+            currentNode.addChild(handleTell(array));
+            return currentNode;
+        }
         else if (currentNode.getClass().equals(new ToFunction(null, null).getClass())) {
         ToFunction toNode = new ToFunction(null, null);
         toNode = (ToFunction) currentNode;
@@ -74,13 +77,28 @@ public class TreeBuilder {
         return master;
     }
 
+    private SlogoNode handleTell(SlogoNode[] array) {
+        SlogoNode retNode = new MasterNode();
+        buildcounter++;
+        if (!array[buildcounter].getClass().equals(new BracketNode().getClass())){
+            System.out.println("Sorry, you don't have the right number of brackets -- Tell Command");
+            return new NumberNode(0);
+        }
+        buildcounter++;
+        while (!array[buildcounter].getClass().equals(new BracketNode().getClass())){
+            retNode.addChild(build(array[buildcounter], array));
+            buildcounter++;
+        }
+        return retNode;
+    }
+
     private SlogoNode handleDotimes(SlogoNode currentNode, SlogoNode[] array) {
         SlogoNode retNode = new MasterNode();
         SlogoNode expression;
         SlogoNode list;
         buildcounter++;
-        if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
-            System.out.println("Sorry, you don't have the right number of brackets");
+        if (!array[buildcounter].getClass().equals(new BracketNode().getClass())){
+            System.out.println("Sorry, you don't have the right number of brackets -- DoTimes Initial");
             return new NumberNode(0);
         }
         else {

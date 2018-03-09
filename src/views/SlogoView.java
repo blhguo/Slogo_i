@@ -124,8 +124,8 @@ public class SlogoView implements Observer, Observable{
 	}
 	private void initializeDataStructures() {
 //        turtles.add(new Turtle());
-        for (int i = 0; i<2; i++) {
-            turtles.put(i, new Turtle(new Point2D(i * 40 + 575, 260.0), 5));
+        for (int i = 0; i<7; i++) {
+            turtles.put(i, new Turtle(new Point2D((i-3) * 40 + 575, 260.0), 5));
         }
 	}
 

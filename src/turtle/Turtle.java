@@ -61,6 +61,8 @@ public class Turtle implements Observable, Observer{
 
     public void setActive(boolean active) {
         isActive = active;
+        swapImage();
+        //System.out.println("Swapped");
     }
 
     private boolean isActive = true;
@@ -95,6 +97,7 @@ public class Turtle implements Observable, Observer{
 		myPenUp = false;
 		isShowing = true;
 		isActive = true;
+		toggleActive();
 		turtleId = turtleColorMap.size() + 1;
 	}
 
