@@ -1,5 +1,6 @@
 package TreeBuilding;
 
+import Query.ID;
 import Query.Tell;
 import Query.BracketNode;
 import VarOp.DoTimes;
@@ -13,6 +14,7 @@ import VarOp.ToFunction;
 import treenode.MasterNode;
 import treenode.NumberNode;
 import treenode.SlogoNode;
+import treenode.VariableNode;
 import turtle.Turtle;
 
 import java.util.List;
@@ -63,10 +65,26 @@ public class TreeBuilder {
             currentNode.addChild(handleTell(array));
             return currentNode;
         }
+        else if (currentNode.getClass().equals(new ID().getClass())){
+            master = new MakeVariable();
+            master.addChild(new VariableNode("ID_RESERVED"));
+            int val = 0;
+            for (Integer i : turtleMap.keySet()){
+                if (i > val && turtleMap.get(i).isActive()){
+                    val = i;
+                }
+            }
+            master.addChild(new NumberNode(val));
+            double dummy = master.getExecute(VarMap, FunctMap, turtleMap);
+            //master = new MasterNode();
+            master = new VariableNode("ID_RESERVED");
+            master.addChild(new NumberNode(val));
+            return master;
+        }
         else if (currentNode.getClass().equals(new ToFunction(null, null).getClass())) {
-        ToFunction toNode = new ToFunction(null, null);
-        toNode = (ToFunction) currentNode;
-        String name = toNode.getToName();
+            ToFunction toNode = new ToFunction(null, null);
+            toNode = (ToFunction) currentNode;
+            String name = toNode.getToName();
         	master = handleTo(array, currentNode, name);
         }
         else {
@@ -162,11 +180,11 @@ public class TreeBuilder {
             
 
             double startval = start.getExecute(VarMap, FunctMap, turtleMap);
-            System.out.println(startval);
+            //System.out.println(startval);
             double endval = end.getExecute(VarMap, FunctMap, turtleMap);
-            System.out.println(endval);
+            //System.out.println(endval);
             double incval = increment.getExecute(VarMap, FunctMap, turtleMap);
-            System.out.println(incval);
+            //System.out.println(incval);
             String name = var.getName();
             buildcounter++;
             if (buildcounter >= array.length){
@@ -367,6 +385,18 @@ public class TreeBuilder {
             else if (current.getClass().equals(new For().getClass())){
                 retNode.addChild(handleFor(array));
             }
+            else if (current.getClass().equals(new Tell().getClass())){
+                retNode.addChild(handleTell(array));
+            }
+            else if (array[buildcounter].getClass().equals(new ID().getClass())){
+                SlogoNode master = new MakeVariable();
+                master.addChild(new VariableNode("ID_RESERVED"));
+                master.addChild(new NumberNode(turtleMap.size() - 1));
+                double dummy = master.getExecute(VarMap, FunctMap, turtleMap);
+                //master = new MasterNode();
+                master = new VariableNode("ID_RESERVED");
+                retNode.addChild(master);
+            }
             else {
                 retNode.addChild(build(current, array));
             }
@@ -390,7 +420,33 @@ public class TreeBuilder {
                     //System.out.println("Out of bounds");
                     break;
                 }
-                head.addChild(build(array[buildcounter], array));
+                if (array[buildcounter].getClass().equals(new BracketNode().getClass())){
+                    break;
+                }
+                else if (array[buildcounter].getClass().equals(new Repeat().getClass())){
+                    head.addChild(handleRepeat(array));
+                }
+                else if (array[buildcounter].getClass().equals(new DoTimes().getClass())){
+                    head.addChild(handleDotimes(array[buildcounter], array));
+                }
+                else if (array[buildcounter].getClass().equals(new For().getClass())){
+                    head.addChild(handleFor(array));
+                }
+                else if (array[buildcounter].getClass().equals(new Tell().getClass())){
+                    head.addChild(handleTell(array));
+                }
+                else if (array[buildcounter].getClass().equals(new ID().getClass())){
+                    SlogoNode master = new MakeVariable();
+                    master.addChild(new VariableNode("ID_RESERVED"));
+                    master.addChild(new NumberNode(turtleMap.size() - 1));
+                    double dummy = master.getExecute(VarMap, FunctMap, turtleMap);
+                    //master = new MasterNode();
+                    master = new VariableNode("ID_RESERVED");
+                    head.addChild(master);
+                }
+                else {
+                    head.addChild(build(array[buildcounter], array));
+                }
 
             }
         }

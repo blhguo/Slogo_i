@@ -1,6 +1,7 @@
 package Query;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -34,12 +35,8 @@ public class Tell extends SlogoNode{
 		List<SlogoNode> leaf = this.getChildren().get(0).getChildren();
 		List<Double> leafnums = new ArrayList<>();
 		for (SlogoNode s : leaf){
-		    System.out.println(s);
+		    //System.out.println(s);
 		    leafnums.add(s.getValue(VarMap, FunctMap, turtleMap));
-        }
-
-        for (Double d : leafnums){
-            System.out.println(d);
         }
 		double ret = 0;
 		for (int n : turtleMap.keySet()) {
@@ -51,11 +48,11 @@ public class Tell extends SlogoNode{
 			    turtleMap.get(n).setActive(false);
             }
 		}
-		for (double d : leafnums){
-		    if (!turtleMap.containsKey((int) d)) {
+		for (int i = 0; i <= Collections.max(leafnums); i++){
+		    if (!turtleMap.containsKey(i)) {
                 Turtle t = new Turtle();
                 t.setActive(true);
-                turtleMap.put((int) d, t);
+                turtleMap.put(i, t);
             }
 
         }

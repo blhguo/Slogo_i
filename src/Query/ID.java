@@ -32,7 +32,9 @@ public class ID extends SlogoNode{
 		double ret = 0;
 		for (int n : turtleMap.keySet()) {
 			if (turtleMap.get(n).isActive()) {
-		ret =  (double) turtleMap.get(n).getId();
+				ret =  (double) n;
+			}
 		}
-		} return ret;}
+		return ret;
+	}
 }
