@@ -8,28 +8,25 @@ import turtle.Turtle;
 
 public class IfElse extends SlogoNode{
 
-	public IfElse() {
-		numchildren = 3;
-	}
+    public IfElse(){
+        this.setNumChildren(3);
+    }
+    
+    @Override
+    public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
+        List<SlogoNode> leaf = this.getChildren();
+        double ret = 0;
+        double boolin = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
+        if (boolin != 0){
+        	ret = leaf.get(1).getExecute(VarMap, FunctMap, turtleMap);
+        }
+        else
+        	ret = leaf.get(2).getExecute(VarMap, FunctMap, turtleMap);
+        return ret;
+    }
 
-	@Override
-	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
-		double step = getValue(VarMap, FunctMap, turtle);
-		return step;
-	}
-
-	@Override
-	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
-		List<SlogoNode> leaf = this.getChildren();
-		double expr = leaf.get(0).getValue(VarMap, FunctMap, turtle);
-		SlogoNode trueCommand = leaf.get(1);
-		SlogoNode falseCommand = leaf.get(2);
-		if (expr != 0) {
-			trueCommand.getExecute(VarMap, FunctMap, turtle);
-			return trueCommand.getValue(VarMap, FunctMap, turtle);
-		} else {
-			falseCommand.getExecute(VarMap, FunctMap, turtle);
-			return falseCommand.getValue(VarMap, FunctMap, turtle);
-		}
-	}
+    @Override
+    public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
+        return this.getValue(VarMap, FunctMap, turtleMap);
+    }
 }

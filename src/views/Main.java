@@ -7,8 +7,7 @@ import treenode.NodeBuilder;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -25,10 +24,15 @@ public class Main extends Application implements Observer{
 	private static Stage mainStage;
 	private SlogoView simulation;
 
-    private Map<String, Double> variables;
-    private Map<String, SlogoNode> functions;
 	private Turtle turtle;
+    private Map<String, Double> variables = new HashMap<>();
+    private Map<String, SlogoNode> functions = new HashMap<>();;
+    private Map<Integer, Turtle> TurtleMap = new HashMap<>();
 
+    public Main() {
+    	//constructor
+    }
+    
 	public static void main(String[] args) {
 		launch(args);
 		}
@@ -44,7 +48,6 @@ public class Main extends Application implements Observer{
 		simulation.addObserver(this);
         variables = new HashMap<>();
         functions = new HashMap<>();
-        
 		updateVarView();
 		updateState();
 	}
@@ -63,14 +66,17 @@ public class Main extends Application implements Observer{
 	    //TODO Implement this backend stuff
 		//backend.pass(simulation.getPassValue(), (Turtle)o);
 		//System.out.println(simulation.getPassValue());
-		TreeBuilder Builder = new TreeBuilder(variables, functions, (Turtle) o);
-		CommandFactory factory = new CommandFactory() {};
+		if (!TurtleMap.containsValue((Turtle) o)) {
+		TurtleMap.put(TurtleMap.size(), (Turtle) o);
+		}
+		TreeBuilder Builder = new TreeBuilder(variables, functions, TurtleMap);
+		CommandFactory factory = new CommandFactory(functions) {};
 		TreeReader reader = new TreeReader();
 		//System.out.println(simulation.getPassValue());
-		SlogoNode[] BufferArray = factory.convertStringtoNode(sanitize(simulation.getPassValue()));
+		SlogoNode[] BufferArray = factory.convertStringtoNode(sanitize(simulation.getPassValue()), functions);
 		//System.out.println(BufferArray[0]);
 		SlogoNode Head = Builder.buildTree(BufferArray);
-        simulation.setConsole(reader.evaluate(Head, variables, functions, (Turtle) o));
+        simulation.setConsole(reader.evaluate(Head, variables, functions, TurtleMap));
         simulation.updateScreen();
 		updateVarView();
 //		updateState();
@@ -104,6 +110,16 @@ public class Main extends Application implements Observer{
 	public void updateState(){
 		simulation.update();
 	}
+	/*
+	public ArrayList<Turtle> getActive(Map<Integer, Turtle> iliketurtles) {
+		ArrayList<Turtle> turtles = new ArrayList<Turtle>();
+		for (Map.Entry<Integer, Turtle> entry : TurtleMap.entrySet()) {
+			if (entry.getValue().isActive())
+			turtles.add(entry.getValue());
+		}
+		return turtles;
+	}
+	*/
 }
 
 

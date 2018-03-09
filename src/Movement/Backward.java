@@ -15,26 +15,30 @@ public class Backward extends SlogoNode{
 		numchildren = 1;
 	}
 
-	private void backward(Turtle turtle, double distance) {
-		Point2D point = new Point2D(turtle.getLocation().getX() + distance * Math.sin(Math.toRadians(turtle.getHeading())),
-				turtle.getLocation().getY() + distance * Math.cos(Math.toRadians((turtle.getHeading()))));
-		turtle.setLocation(point);
+	private void backward(Map<Integer, Turtle> turtleMap, double distance) {
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive) {
+		Point2D point = new Point2D(turtleMap.get(n).getLocation().getX() + distance * Math.sin(Math.toRadians(turtleMap.get(n).getHeading())),
+		turtleMap.get(n).getLocation().getY() + distance * Math.cos(Math.toRadians((turtleMap.get(n).getHeading()))));
+		turtleMap.get(n).setLocation(point);
+			}
+		}
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
-		backward(turtle, step);
+		double step = getValue(VarMap, FunctMap, turtleMap);
+		backward(turtleMap, step);
 		return step;  //returns the final value of the node
 	}
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
-		return leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		return leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 	}
 	
 }

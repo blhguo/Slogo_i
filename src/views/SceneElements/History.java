@@ -111,8 +111,8 @@ public class History extends SceneElement implements Observable{
             pos = 0;
         }
         String s;
-        if (commands.size() > 0) {
-            s = commands.get(pos);
+	    if (commands.size() != 0) {
+	        s = commands.get(pos);
         }
         else {
 	        s = "";

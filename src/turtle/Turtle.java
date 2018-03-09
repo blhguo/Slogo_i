@@ -31,7 +31,7 @@ public class Turtle implements Observable, Observer{
 	private ArrayList<Line> lines;
 	private Color lineColor = Color.BLACK;
 	private boolean isShowing;
-	public static double initHeading = 0;
+	public static final double initHeading = 0;
     private double oldHeading;
 
 
@@ -52,7 +52,7 @@ public class Turtle implements Observable, Observer{
     public Map<Integer, Color> turtleColorMap = new HashMap<Integer, Color>();
     public Map<Integer, Shape> turtleShapeMap = new HashMap<Integer, Shape>();
     public int turtleId;
-    public boolean isActive;
+    public boolean isActive = true;
     public double penSize;
     public Color penColor;
     public Shape turtleShape;
@@ -87,6 +87,7 @@ public class Turtle implements Observable, Observer{
 		penColor = Color.BLACK;
 		turtleShape = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);
+
 	}
 
 	/**
@@ -221,7 +222,6 @@ public class Turtle implements Observable, Observer{
 	
 	public void addColor(int index, Color color) {
 		turtleColorMap.put(index , color);
-		System.out.println(turtleColorMap.get(1).toString());
 	}
 	
 	public int getId() {
@@ -263,8 +263,8 @@ public class Turtle implements Observable, Observer{
 	public void setTurtleShape(Shape newShape) {
 		turtleShape = newShape;
 	}
-			
-
+	
+	
     @Override
     public void updateObservers() {
         for (Observer o : observers){
@@ -281,6 +281,7 @@ public class Turtle implements Observable, Observer{
 	public void update(Object o) {
 		lineColor = (Color)o;
 	}
+
 
 	public double getShape() {
 		// TODO Auto-generated method stub

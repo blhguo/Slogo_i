@@ -22,29 +22,32 @@ public class SetTowards extends SlogoNode{
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
-		setHead(turtle, step);
+		double step = getValue(VarMap, FunctMap, turtleMap);
 		return step;  //returns the final value of the node
 	}
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double initial = turtle.getHeading(); //TODO: Update according to Jamie's stuff
-		double CurX = turtle.getLocation().getX();
-		double CurY = turtle.getLocation().getY();
+		double newhead = 0;
 		List<SlogoNode> leaf = this.getChildren();
-		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
-		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
+		double xpos = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
+		double ypos = leaf.get(1).getExecute(VarMap, FunctMap, turtleMap);
 		//hi here are some magic numbers please dont judge will be fixed later
 		xpos = xpos + 489.282857;
 		ypos = ypos + 251;
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive) {
+		double initial = turtleMap.get(n).getHeading(); //TODO: Update according to Jamie's stuff
+		double CurX = turtleMap.get(n).getLocation().getX();
+		double CurY = turtleMap.get(n).getLocation().getY();
+
+		newhead = -1 * Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
+		setHead(turtleMap.get(n), newhead);
 		
-		double newhead = -1 * Math.toDegrees(Math.atan((xpos - CurX)/(ypos - CurY)));
-		return newhead;
-	}
+	}}return newhead;}
 	
 }

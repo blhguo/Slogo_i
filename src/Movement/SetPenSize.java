@@ -1,15 +1,20 @@
-package MathOps;
+package Movement;
 
 import java.util.List;
 import java.util.Map;
+
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class NaturalLog extends SlogoNode{
+public class SetPenSize extends SlogoNode{
 //	
 //	private double value = 0;
-	private double distance = 0;
-	public NaturalLog() {
+//	private double distance = 0;
+//	public Forward() {
+//		this.val = getValue();
+//	}
+	
+	public SetPenSize() {
 		numchildren = 1;
 	}
 
@@ -24,9 +29,13 @@ public class NaturalLog extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		List<SlogoNode> leaf = this.getChildren();
-		double x = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
-		return Math.log(x);
-		}
+			List<SlogoNode> leaf = this.getChildren();
+			double size = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
+			for (int n : turtleMap.keySet()) {
+				if (turtleMap.get(n).isActive) {
+			turtleMap.get(n).setPenSize(size);
+		}}
+			return size;
+
 	
-}
+	}}

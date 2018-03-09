@@ -26,7 +26,6 @@ public class Toolbar extends SceneElement implements Observable{
     private ColorPicker picker;
     private ColorPicker newpicker;
     private Hyperlink link;
-    private boolean done;
     public static final File CHINESE = new File("resources.languages/Chinese.properties");
     public static final File ENGLISH = new File("resources.languages/English.properties");
     public static final File FRENCH = new File("resources.languages/French.properties");
@@ -37,6 +36,7 @@ public class Toolbar extends SceneElement implements Observable{
     public static final File SPANISH = new File("resources.languages/Spanish.properties");
 
     private String url = "https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php";
+    
     public Toolbar() {
         //The Tool Bar is on the top, so no need to set X and Y values
         link = new Hyperlink("Help");
@@ -70,8 +70,7 @@ public class Toolbar extends SceneElement implements Observable{
         return filelist;
     }
     private void getLink() {
-        done = true;
-        Main.openWebPage("https://www2.cs.duke.edu/courses/compsci308/spring18/assign/03_slogo/commands.php");
+        Main.openWebPage(url);
     }
 
     private ColorPicker getColorPicker() {

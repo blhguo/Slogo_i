@@ -26,11 +26,14 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
         observers = new ArrayList<>();
         turtles = new ArrayList<>();
         turtles.add(turtle);
-        turtles.get(0).addObserver(this);
+        //loop to add turtles to the display.
+        for (int i = 0; i<turtles.size(); i++) {
+        	 turtles.get(i).addObserver(this);
+        }
     }
     @Override
     public Group getField(){
-        retgroup = new Group();
+    		Group retgroup = new Group();
         retgroup.getChildren().add(rectangle);
         rectangle.toBack();
         retgroup.getChildren().add(turtles.get(0).getImage());
