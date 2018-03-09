@@ -13,6 +13,10 @@ public class Heading extends SlogoNode{
 //	public Forward() {
 //		this.val = getValue();
 //	}
+	
+	public Heading() {
+		numchildren = 0;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {

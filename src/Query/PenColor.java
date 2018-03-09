@@ -3,10 +3,11 @@ package Query;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.paint.Color;
 import treenode.SlogoNode;
 import turtle.Turtle;
 
-public class IsPenDown extends SlogoNode{
+public class PenColor extends SlogoNode{
 //	
 //	private double value = 0;
 //	private double distance = 0;
@@ -14,7 +15,7 @@ public class IsPenDown extends SlogoNode{
 //		this.val = getValue();
 //	}
 	
-	public IsPenDown() {
+	public PenColor() {
 		numchildren = 0;
 	}
 
@@ -29,7 +30,9 @@ public class IsPenDown extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
-		return turtle.isPenDown();
+			List<SlogoNode> leaf = this.getChildren();
+			double index = turtle.getPenColor();
+			return index;
 		}
 	
 }

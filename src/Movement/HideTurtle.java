@@ -17,6 +17,10 @@ public class HideTurtle extends SlogoNode{
 	private void visible(Turtle turtle) {
 		turtle.hide();
 	}
+	
+	public HideTurtle() {
+		numchildren = 0;
+	}
 
 	@Override
 	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {

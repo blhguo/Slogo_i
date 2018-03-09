@@ -14,6 +14,10 @@ public class ClearScreen extends SlogoNode{
 //		this.val = getValue();
 //	}
 
+	public ClearScreen() {
+		numchildren = 0;
+	}
+	
 	private void clear(Turtle turtle) {
 		turtle.clear();
         turtle.setLocation(turtle.getOriginalLocation());

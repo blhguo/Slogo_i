@@ -6,7 +6,11 @@ import views.SceneElements.Observable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 import VarOp.ToFunction;
 
@@ -19,7 +23,7 @@ public class NodeBuilder{
 	private static final String VARIABLENODE_ADDRESS = "treenode.VariableNode";
 	private static String language = LANGUAGE_FILE;
 	private static ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+language);
-	public static Map<String, String> languageMap = createLanguageMap(myResources);
+	private static Map<String, String> languageMap = createLanguageMap(myResources);
 	
 	public NodeBuilder(Map<String, SlogoNode> functions) {
 		this.functionMap = functions;
