@@ -82,9 +82,7 @@ public class SlogoView implements Observer, Observable{
      * Local SceneElement variables
      */
 	private Console myConsole;
-	private History myHistory;
 	private Toolbar myToolbar;
-	private TurtleDisplay myTurtleDisplay;
 	private VariableView myVariableView;
 
 	/*
@@ -147,14 +145,14 @@ public class SlogoView implements Observer, Observable{
         sceneElements = new ArrayList<>();
         myConsole = new Console();
         sceneElements.add(myConsole);
-        myHistory = myConsole.getHistory();
+        History myHistory = myConsole.getHistory();
 		sceneElements.add(myHistory);
 		myVariableView = new VariableView();
 		sceneElements.add(myVariableView);
 		//loop that adds all the turtles to the view
 		myToolbar = new Toolbar();
 		for (int i = 0; i<turtles.size();i++) {
-			myTurtleDisplay = new TurtleDisplay(turtles.get(i));
+			TurtleDisplay myTurtleDisplay = new TurtleDisplay(turtles.get(i));
 			sceneElements.add(myTurtleDisplay);
 			myToolbar.addObserver(myTurtleDisplay);
 		}

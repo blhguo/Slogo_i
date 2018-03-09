@@ -27,6 +27,10 @@ public class Main extends Application implements Observer{
     private static Map<String, SlogoNode> functions;
     private Map<Integer, Turtle> TurtleMap;
 
+    public Main() {
+    	//constructor
+    }
+    
 	public static void main(String[] args) {
 		launch(args);
 		}

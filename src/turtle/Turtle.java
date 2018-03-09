@@ -30,7 +30,7 @@ public class Turtle implements Observable, Observer{
 	private ArrayList<Line> lines;
 	private Color lineColor = Color.BLACK;
 	private boolean isShowing;
-	public static double initHeading = 0;
+	public static final double initHeading = 0;
     private double oldHeading;
 
 

@@ -23,7 +23,6 @@ public class TreeBuilder {
 
     private int buildcounter;
     private List<SlogoNode> heads;
-    private SlogoNode master;
     private Map<String, Double> VarMap;
     private Map<String, SlogoNode> FunctMap;
     private Turtle turtle;
@@ -36,7 +35,7 @@ public class TreeBuilder {
     public SlogoNode buildTree(SlogoNode[] array){
         //System.out.println(array.length);
     	
-        master = new MasterNode();
+        SlogoNode master = new MasterNode();
         //heads = new ArrayList<>();
         SlogoNode currentNode = array[0];
         if (currentNode.getClass().equals(new BracketNode().getClass())){
