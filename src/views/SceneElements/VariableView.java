@@ -17,6 +17,7 @@ import views.SlogoView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class VariableView extends SceneElement implements Observable{
     private Rectangle rectangle;
@@ -36,7 +37,7 @@ public class VariableView extends SceneElement implements Observable{
     }
 
     private Node getLabel() {
-        Label l = new Label("Active Variables:");
+        Label l = new Label("Active Variables: (Double click to change values)");
         l.setStyle("-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-width: 1;");
         l.setPrefWidth(SlogoView.VARIABLEVIEWWIDTH);
         l.setAlignment(Pos.CENTER);
@@ -84,18 +85,25 @@ public class VariableView extends SceneElement implements Observable{
             //text.setText(text.getText() + "\n " + key + " : " + variables.get(key));
             Label l = new Label(key + " : " + variables.get(key));
             l.setPadding(new Insets(1,1,1,5));
-            l.setOnMouseClicked(e->alterVar(key, variables));
+            l.setOnMouseClicked(e -> alterVar(key, variables));
+            //System.out.println(l.getOnMouseClicked());
             if (!key.contains("RESERVED")) {
                 labellist.add(l);
+                vbox.getChildren().add(l);
             }
         }
-        vbox.getChildren().addAll(labellist);
+        //vbox.getChildren().addAll(labellist);
     }
 
     private void alterVar(String key, Map<String, Double> variables) {
-        TextInputDialog dialog = new TextInputDialog("Enter a new value for " + key);
-        dialog.showAndWait();
-        variables.put(key, Double.parseDouble(dialog.getContentText()));
+        System.out.println("Hi");
+        TextInputDialog dialog = new TextInputDialog("New value (double)");
+        dialog.setHeaderText("Enter a new value for the variable \"" + key + "\"");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            variables.put(key, Double.parseDouble(result.get()));
+            updateVarView(variables);
+        }
 
     }
 }

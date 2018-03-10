@@ -186,7 +186,7 @@ public class Turtle implements Observable, Observer{
             l.setEndX(newpos.getX() + TURTLESIZEHALF);
             l.setEndY(newpos.getY() + TURTLESIZEHALF);
             lines.add(l);
-            System.out.println(lineColor);
+            //System.out.println(lineColor);
         }
     }
 
