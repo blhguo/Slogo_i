@@ -121,6 +121,7 @@ public class CurrentState extends SceneElement implements Observable {
                "Location: " + "(" + turtle.getRelativeLocation().getX() + " , "
                 + turtle.getRelativeLocation().getY() + ")" + "\n"
                 + "Heading: " + turtle.getHeading() + "\n" +
+                "PenUp Status: " + turtle.isPenUp() + "\n" +
                 "-------------------";
 		Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.CLOSE);
 		alert.setTitle("");

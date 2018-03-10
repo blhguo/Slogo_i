@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.scene.control.Hyperlink;
@@ -41,6 +42,8 @@ public class Toolbar extends SceneElement implements Observable{
         //The Tool Bar is on the top, so no need to set X and Y values
         link = new Hyperlink("Help");
         link.setOnAction(e -> getLink());
+        Button pendown = new Button("Toggle Pen Up/Down");
+        pendown.setOnAction(e -> toggleUpDown());
         toolbar = new ToolBar(
                 link,
                 new Separator(),
@@ -50,12 +53,19 @@ public class Toolbar extends SceneElement implements Observable{
                 getFileBox(),
                 new Label("Choose Line Color"),
                 getNewColorPicker(),
-                new Separator()
+                new Separator(),
+                pendown
+
 
         );
         toolbar.setMinSize(SlogoView.TOOLBARWIDTH, SlogoView.TOOLBARHEIGHT);
         observers = new ArrayList<>();
     }
+
+    private void toggleUpDown() {
+        updateObservers();
+    }
+
     private ComboBox<String> getFileBox(){
         ComboBox<String> ret = new ComboBox<String>(getFileList());
         ret.setValue("Language");
@@ -99,6 +109,9 @@ public class Toolbar extends SceneElement implements Observable{
             }
             if (o.getClass().getTypeName().equals("turtle.Turtle")){
                 o.update(newpicker.getValue());
+            }
+            else {
+                o.update(new Rectangle());
             }
         }
 //        if (done) {

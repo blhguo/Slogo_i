@@ -8,6 +8,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import turtle.Turtle;
 import views.SceneElements.Console;
@@ -210,6 +211,17 @@ public class SlogoView implements Observer, Observable{
 		return retgroup;
 	}
 	public void update(Object o) {
+		if (o.getClass().equals(new Rectangle().getClass())){
+			for (int i : turtles.keySet()){
+				if (turtles.get(i).isPenUp()){
+				    turtles.get(i).penDown();
+                }
+                else {
+				    turtles.get(i).penUp();
+                }
+			}
+			return;
+		}
         myRoot.getChildren().removeAll(myRoot.getChildren());
         for (SceneElement element : sceneElements) {
             myRoot.getChildren().add(element.getField());
