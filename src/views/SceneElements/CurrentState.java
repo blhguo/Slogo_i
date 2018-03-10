@@ -6,11 +6,11 @@ import java.util.Map;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import turtle.Turtle;
 import views.Observer;
 import views.SlogoView;
@@ -57,7 +57,7 @@ public class CurrentState extends SceneElement implements Observable {
 	}
 	
 	private Label getLabel() {
-		Label label = new Label("Current States:");
+		Label label = new Label("Current States: (Click for more Info)");
         label.setStyle("-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-width: 1;");
 		label.setPrefWidth(SlogoView.STATEWIDTH);;
 		label.maxWidth(SlogoView.STATEWIDTH);
@@ -98,15 +98,16 @@ public class CurrentState extends SceneElement implements Observable {
 	    vbox.getChildren().removeAll(turtleList);
 	    turtleList.clear();
 	   for (Integer i : turtleMap.keySet()) {
-           Label l = new Label("Turtle: " + i + " is " + turtleMap.get(i).isActive());
+           Label l = new Label("Turtle: " + i + " is " + turtleMap.get(i).getWhichString());
            l.setStyle("-fx-border-color: black; -fx-border-width: 2;");
            l.setPrefWidth(SlogoView.PALETTEWIDTH - 30);
            if (turtleMap.get(i).isActive()){
-               l.setStyle("-fx-background-color: green;");
+               l.setStyle("-fx-background-color: lightgreen;");
            }
            else {
-               l.setStyle("-fx-background-color: red;");
+               l.setStyle("-fx-background-color: orangered;");
            }
+           l.setOnMouseClicked(e -> popUp(turtleMap.get(i), i));
            turtleList.add(l);
 
        }
@@ -114,8 +115,26 @@ public class CurrentState extends SceneElement implements Observable {
 		//updateObservers();
 	}
 
+	private void popUp(Turtle turtle, int number) {
+	    String message = "Turtle: " + number + "\n" +
+                "Status: " + turtle.getWhichString() + "\n" +
+               "Location: " + "(" + turtle.getRelativeLocation().getX() + " , "
+                + turtle.getRelativeLocation().getY() + ")" + "\n"
+                + "Heading: " + turtle.getHeading() + "\n" +
+                "-------------------";
+		Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.CLOSE);
+		alert.setTitle("Turtle " + number + " Information");
+		alert.showAndWait();
+
+		if (alert.getResult() == ButtonType.YES) {
+			//do stuff
+		}
+	}
+
 	public void refresh(){
-	    getTurtleInfo(turtleMap);
+//	    vbox.getChildren().removeAll(turtleList);
+//	    vbox.getChildren().addAll(turtleList);
+        getTurtleInfo(turtleMap);
     }
 
 //	

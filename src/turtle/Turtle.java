@@ -56,9 +56,16 @@ public class Turtle implements Observable, Observer{
     public int turtleId;
     public static final String INACTIVE = "turtle.png";
     public static final String ACTIVE = "activeturtle.png";
-    private String currentActive = INACTIVE;
+    public static final String ACT = "ACTIVE";
+    public static final String INACT = "INACTIVE";
+	private String currentActive = INACTIVE;
+	private String whichString = "INACTIVE";
 
-    public boolean isActive() {
+	public String getCurrentActive() {
+		return currentActive;
+	}
+
+	public boolean isActive() {
         return isActive;
     }
 
@@ -117,9 +124,11 @@ public class Turtle implements Observable, Observer{
     private void swapImage() {
 	    if (isActive){
 	        currentActive = ACTIVE;
+	        whichString = "ACTIVE";
         }
         else {
 	        currentActive = INACTIVE;
+	        whichString = "INACTIVE";
         }
         Image turtle = new Image(currentActive, TURTLESIZE,TURTLESIZE,true,true);
         //turtleview = new ImageView(turtle);
@@ -128,7 +137,8 @@ public class Turtle implements Observable, Observer{
 //        turtleview.setLayoutY(this.currentpos.getY());
 //        turtleview.setOnMouseClicked(e -> toggleActive());
         //updateObservers();
-        myState.refresh();
+        //if (myState != null)
+            myState.refresh();
     }
 
     /**
@@ -145,6 +155,10 @@ public class Turtle implements Observable, Observer{
 	public void setAbsoluteLocation(Point2D newpos){
 	    setLocation(new Point2D(getOriginalLocation().getX() + newpos.getX(), getOriginalLocation().getY() +
                 newpos.getY()));
+    }
+    public Point2D getRelativeLocation(){
+	    return new Point2D(getLocation().getX() - getOriginalLocation().getX(),
+                -1 * getLocation().getY() + getOriginalLocation().getY());
     }
     public double getOldHeading() {
         return oldHeading;
@@ -328,4 +342,8 @@ public class Turtle implements Observable, Observer{
 	public String turtleShape(){
 		return turtleShape.toString();
 	}
+
+    public String getWhichString() {
+        return whichString;
+    }
 }

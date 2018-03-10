@@ -48,7 +48,9 @@ public class Tell extends SlogoNode{
 			    turtleMap.get(n).setActive(false);
             }
 		}
-		for (int i = 0; i <= Collections.max(leafnums); i++){
+		System.out.println(leafnums.size());
+		double max = Collections.max(leafnums);
+		for (int i = 0; i <= (int) max; i++){
 		    if (!turtleMap.containsKey(i)) {
                 Turtle t = new Turtle();
                 t.setActive(true);

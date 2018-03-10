@@ -147,8 +147,12 @@ public class SlogoView implements Observer, Observable{
 	private void initializeDataStructures() {
 //        turtles.add(new Turtle());
         for (int i = 0; i<7; i++) {
-            turtles.put(i, new Turtle(new Point2D((i-3) * 40 + 575, 260.0), 5));
+            turtles.put(i, new Turtle(new Point2D((i-3) * 40 + 575, new Turtle().getOriginalLocation().getY()), 5));
         }
+		myCurrentState = new CurrentState(turtles);
+        for (int i : turtles.keySet()){
+        	turtles.get(i).setState(myCurrentState);
+		}
 	}
 
 
@@ -181,7 +185,7 @@ public class SlogoView implements Observer, Observable{
         myToolbar.addObserver(myTurtleDisplay);
 		//}
 		sceneElements.add(myToolbar);
-		myCurrentState = new CurrentState(turtles);
+
 		myConsole.setCurrentState(myCurrentState);
 		myCurrentState.getTurtleInfo(turtles);
 		sceneElements.add(myCurrentState);

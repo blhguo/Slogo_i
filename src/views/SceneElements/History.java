@@ -119,6 +119,9 @@ public class History extends SceneElement implements Observable{
 
     public void removeLastCommand(){
 	    pos--;
+        vbox.getChildren().removeAll(commandlabels);
+	    commandlabels.remove(pos);
+        vbox.getChildren().addAll(commandlabels);
 	    commands.remove(pos);
 	    pos--;
     }

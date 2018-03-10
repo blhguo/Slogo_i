@@ -103,7 +103,7 @@ public class Console extends SceneElement implements Observable{
             myCurrentState.getTurtleInfo(turtleMap);
             field.setText("");
             //passValue = currentString.split(" ");
-        } catch (InvalidParameterException e) {
+        } catch (InvalidParameterException e){
             myHistory.removeLastCommand();
             field.setText("Sorry, that's not a valid command");
             field.selectAll();
