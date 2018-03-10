@@ -1,6 +1,8 @@
 package views.SceneElements;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -65,7 +67,15 @@ public class Console extends SceneElement implements Observable{
         Button button = new Button("Execute");
         Button clearbutton = new Button("Clear");
         clearbutton.setOnAction(e -> clearHistory());
-        button.setOnAction(e -> sendText());
+        button.setOnAction(e -> sendText(true));
+        Button forward = new Button("Forward");
+        forward.setOnAction(e -> handleForward());
+        Button backward = new Button("Backward");
+        backward.setOnAction(e->handleBack());
+        Button right = new Button("Right turn");
+        right.setOnAction(e->handleRight());
+        Button left = new Button("Left turn");
+        left.setOnAction(e->handleLeft());
         littlefield = new TextField();
         ToolBar toolbar = new ToolBar(
                 new Label("Console"),
@@ -73,12 +83,32 @@ public class Console extends SceneElement implements Observable{
                 button,
                 new Separator(),
                 clearbutton,
-                littlefield
+                littlefield,
+                forward,
+                backward,
+                left,
+                right
         );
         toolbar.setMinSize(SlogoView.CONSOLEWIDTH - VBOXBUFFER, MINITOOLBARHEIGHT);
         return toolbar;
     }
 
+    private void handleForward() {
+        field.setText("fd 20");
+        sendText(false);
+    }
+    private void handleBack() {
+        field.setText("bk 20");
+        sendText(false);
+    }
+    private void handleRight() {
+        field.setText("rt 30");
+        sendText(false);
+    }
+    private void handleLeft() {
+        field.setText("lt 30");
+        sendText(false);
+    }
     private void clearHistory() {
         field.setText("");
         myHistory.clear();
@@ -86,7 +116,7 @@ public class Console extends SceneElement implements Observable{
     public void setLittleField(String s){
         littlefield.setText("Return: " + s);
     }
-    private void sendText(){
+    private void sendText(boolean send){
         try {
             //Refactor this to be "if invalid, do something"
             if (field.getText().equals("")) {
@@ -98,7 +128,7 @@ public class Console extends SceneElement implements Observable{
             passValue = currentString.split(" ");
             //StringBuilder temp = new StringBuilder(currentString);
             //System.out.println(temp.toString());
-            myHistory.addCommand(currentString);
+            myHistory.addCommand(currentString, send);
             //System.out.println(currentString);
             myCurrentState.getTurtleInfo(turtleMap);
             field.setText("");
@@ -141,7 +171,7 @@ public class Console extends SceneElement implements Observable{
 //            sendText();
 //        }
         if (code == KeyCode.ESCAPE){
-            sendText();
+            sendText(true);
         }
         else if (code == KeyCode.UP){
             field.setText(myHistory.getLastCommand());
@@ -178,7 +208,7 @@ public class Console extends SceneElement implements Observable{
 
     public void getCommand(String text) {
         field.setText(text);
-        sendText();
+        sendText(true);
     }
 
     public void setCurrentState(CurrentState myCurrentState) {

@@ -88,20 +88,15 @@ public class History extends SceneElement implements Observable{
     public ScrollPane getField(){
 	    return scrollPane;
     }
-	public void addCommand(String command){
-//	    for (Observer o : observers){
-//	        System.out.println(o.getClass().toString());
-//        }
-	    //System.out.println(command);
-        scrollPane.setVvalue(1);
-   
+	public void addCommand(String command, boolean send){
         commands.add(command);
-        updateText(command);
+        if (send) {
+            updateText(command);
+        }
         pos = commands.size();
-//        vbox.getChildren().remove(text);
-//        vbox.getChildren().add(text);
-        //System.out.println("Hit it " + command);
         updateObservers();
+        scrollPane.setVvalue(1);
+
     }
     private void updateText(String command) {
 	    Label toAdd = new Label("[" + ZonedDateTime.now().toLocalTime().truncatedTo(ChronoUnit.SECONDS)
