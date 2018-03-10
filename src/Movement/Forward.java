@@ -51,7 +51,7 @@ public class Forward extends SlogoNode{
 	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
-		System.out.println(leaf.get(0));
+		//System.out.println(leaf.get(0));
 		return leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 	}
 	

@@ -37,7 +37,7 @@ public class VariableView extends SceneElement implements Observable{
     }
 
     private Node getLabel() {
-        Label l = new Label("Active Variables: (Double click to change values)");
+        Label l = new Label("Active Variables: (Click variable name to change value)");
         l.setStyle("-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-width: 1;");
         l.setPrefWidth(SlogoView.VARIABLEVIEWWIDTH);
         l.setAlignment(Pos.CENTER);
@@ -96,7 +96,7 @@ public class VariableView extends SceneElement implements Observable{
     }
 
     private void alterVar(String key, Map<String, Double> variables) {
-        System.out.println("Hi");
+        //System.out.println("Hi");
         TextInputDialog dialog = new TextInputDialog("New value (double)");
         dialog.setHeaderText("Enter a new value for the variable \"" + key + "\"");
         Optional<String> result = dialog.showAndWait();
