@@ -129,7 +129,7 @@ public class TreeBuilder {
         boolean hasVal = false;
         if (VarMap.containsKey(name)){
             temp = VarMap.get(name);
-            System.out.println(temp);
+            //System.out.println(temp);
             hasVal = true;
         }
         double value = expression.getExecute(VarMap, FunctMap, turtleMap);
@@ -193,7 +193,7 @@ public class TreeBuilder {
                 return retNode;
             }
             //System.out.println(buildcounter);
-            System.out.println(buildcounter);
+            //System.out.println(buildcounter);
             buildcounter++;
             list = buildList(array);
             for (double i = startval; i <= endval; i+= incval){
@@ -253,7 +253,7 @@ public class TreeBuilder {
 //          }
          //builds the string node
          SlogoNode node = array[buildcounter];
-         System.out.println(node);
+         //System.out.println(node);
          retNode.addChild(build(node, array));
          //increments to the next command
          buildcounter++; //check if the second node
@@ -367,7 +367,7 @@ public class TreeBuilder {
         SlogoNode current;
         if (!array[buildcounter].getClass().equals(new BracketNode().getClass())){
             System.out.println("Sorry, you don't have the right number of brackets");
-            System.out.println(buildcounter);
+            //System.out.println(buildcounter);
             return new NumberNode(0);
         }
         buildcounter++;

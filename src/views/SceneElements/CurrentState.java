@@ -123,7 +123,8 @@ public class CurrentState extends SceneElement implements Observable {
                 + "Heading: " + turtle.getHeading() + "\n" +
                 "-------------------";
 		Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.CLOSE);
-		alert.setTitle("Turtle " + number + " Information");
+		alert.setTitle("");
+		alert.setHeaderText("Turtle " + number + " Information");
 		alert.showAndWait();
 
 		if (alert.getResult() == ButtonType.YES) {
