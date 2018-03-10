@@ -1,6 +1,7 @@
 package treenode;
 
 import java.lang.reflect.Constructor;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,12 @@ public class CommandFactory {
 			}
 			//if state to check if the word is just a variable
 			else if (isString(current) && !nodeBuilder.checkFunctionMap(current) && !nodeBuilder.checkLanguageMap(current)) {
-				currentNode = nodeBuilder.createStringNode(current);
+				if (i != 0 && !commandList[i - 1].equals("to")) {
+					currentNode = nodeBuilder.createStringNode(current);
+				}
+				else {
+					throw new InvalidParameterException();
+				}
 			}
 			else {
 				currentNode = nodeBuilder.createNode(current);

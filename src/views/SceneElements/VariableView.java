@@ -3,8 +3,7 @@ package views.SceneElements;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -85,8 +84,18 @@ public class VariableView extends SceneElement implements Observable{
             //text.setText(text.getText() + "\n " + key + " : " + variables.get(key));
             Label l = new Label(key + " : " + variables.get(key));
             l.setPadding(new Insets(1,1,1,5));
-            labellist.add(l);
+            l.setOnMouseClicked(e->alterVar(key, variables));
+            if (!key.contains("RESERVED")) {
+                labellist.add(l);
+            }
         }
         vbox.getChildren().addAll(labellist);
+    }
+
+    private void alterVar(String key, Map<String, Double> variables) {
+        TextInputDialog dialog = new TextInputDialog("Enter a new value for " + key);
+        dialog.showAndWait();
+        variables.put(key, Double.parseDouble(dialog.getContentText()));
+
     }
 }

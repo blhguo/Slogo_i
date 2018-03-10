@@ -6,8 +6,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import views.Observer;
+import views.SceneElements.CurrentState;
 import views.SceneElements.Observable;
 import views.SlogoView;
 
@@ -32,6 +34,7 @@ public class Turtle implements Observable, Observer{
 	private boolean isShowing;
 	public static final double initHeading = 0;
     private double oldHeading;
+    private CurrentState myState;
 
 
     private boolean myPenUp;
@@ -51,9 +54,29 @@ public class Turtle implements Observable, Observer{
     public Map<Integer, Color> turtleColorMap = new HashMap<Integer, Color>();
     public Map<Integer, Shape> turtleShapeMap = new HashMap<Integer, Shape>();
     public int turtleId;
-    public boolean isActive;
+    public static final String INACTIVE = "turtle.png";
+    public static final String ACTIVE = "activeturtle.png";
+    public static final String ACT = "ACTIVE";
+    public static final String INACT = "INACTIVE";
+	private String currentActive = INACTIVE;
+	private String whichString = "INACTIVE";
+
+	public String getCurrentActive() {
+		return currentActive;
+	}
+
+	public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+        swapImage();
+        //System.out.println("Swapped");
+    }
+
+    private boolean isActive = true;
     public double penSize;
-    public double thickness;
     public Color penColor;
     public Shape turtleShape;
     
@@ -73,19 +96,52 @@ public class Turtle implements Observable, Observer{
 	    observers = new ArrayList<>();
 		this.currentpos = currentpos;
 		this.speed = speed;
-		Image turtle = new Image("turtle.png", TURTLESIZE,TURTLESIZE,true,true);
+		Image turtle = new Image(currentActive, TURTLESIZE,TURTLESIZE,true,true);
 		turtleview = new ImageView(turtle);
 		turtleview.setLayoutX(this.currentpos.getX());
 		turtleview.setLayoutY(this.currentpos.getY());
+		turtleview.setOnMouseClicked(e -> toggleActive());
 		line = new Line();
 		lines = new ArrayList<>();
 		myPenUp = false;
 		isShowing = true;
-		isActive = true;
+		isActive = false;
 		turtleId = turtleColorMap.size() + 1;
-	}
+		penSize = 2;
+		penColor = Color.BLACK;
+		turtleShape = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
+                SlogoView.TURTLEVIEWHEIGHT);
 
-	/**
+	}
+    public void setState(CurrentState c){
+	    myState = c;
+    }
+    private void toggleActive() {
+	     isActive = !isActive;
+	     swapImage();
+    }
+
+    private void swapImage() {
+	    if (isActive){
+	        currentActive = ACTIVE;
+	        whichString = "ACTIVE";
+        }
+        else {
+	        currentActive = INACTIVE;
+	        whichString = "INACTIVE";
+        }
+        Image turtle = new Image(currentActive, TURTLESIZE,TURTLESIZE,true,true);
+        //turtleview = new ImageView(turtle);
+        turtleview.setImage(turtle);
+//        turtleview.setLayoutX(this.currentpos.getX());
+//        turtleview.setLayoutY(this.currentpos.getY());
+//        turtleview.setOnMouseClicked(e -> toggleActive());
+        //updateObservers();
+        //if (myState != null)
+            myState.refresh();
+    }
+
+    /**
 	 * Point representing the current currentpos of the actor
 	 * 
 	 * @return Point currentpos
@@ -99,6 +155,10 @@ public class Turtle implements Observable, Observer{
 	public void setAbsoluteLocation(Point2D newpos){
 	    setLocation(new Point2D(getOriginalLocation().getX() + newpos.getX(), getOriginalLocation().getY() +
                 newpos.getY()));
+    }
+    public Point2D getRelativeLocation(){
+	    return new Point2D(getLocation().getX() - getOriginalLocation().getX(),
+                -1 * getLocation().getY() + getOriginalLocation().getY());
     }
     public double getOldHeading() {
         return oldHeading;
@@ -204,10 +264,7 @@ public class Turtle implements Observable, Observer{
 			return 0.0;
 		}
 	}
-	
-	public void update() {
-		
-	}
+
 	
 	public void clear(){
 	    lines.clear();
@@ -224,14 +281,6 @@ public class Turtle implements Observable, Observer{
 	
 	public int getId() {
 		return turtleId;
-	}
-	
-	public void setActive() {
-		isActive = true;
-	}
-	
-	public void setInactive() {
-		isActive = false;
 	}
 	
 	public void setPenSize(double newPenSize) {
@@ -252,11 +301,15 @@ public class Turtle implements Observable, Observer{
 		}
 		return 0;
 	}
+	public String penColor(){
+		return penColor.toString();
+	}
 	public void setShape(int index) {
 		turtleShape = turtleShapeMap.get(index);
 	}
-	
-		
+	public void setTurtleShape(Shape newShape) {
+		turtleShape = newShape;
+	}
 	
 	
     @Override
@@ -273,9 +326,6 @@ public class Turtle implements Observable, Observer{
 
 	@Override
 	public void update(Object o) {
-//		for (Line line : lines){
-//			line.setStroke((Color)o);
-//		}
 		lineColor = (Color)o;
 	}
 
@@ -289,4 +339,11 @@ public class Turtle implements Observable, Observer{
 		}
 		return 0;
 	}
+	public String turtleShape(){
+		return turtleShape.toString();
+	}
+
+    public String getWhichString() {
+        return whichString;
+    }
 }

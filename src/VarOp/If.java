@@ -13,18 +13,18 @@ public class If extends SlogoNode{
     }
     
     @Override
-    public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+    public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
         List<SlogoNode> leaf = this.getChildren();
         double ret = 0;
-        double boolin = leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+        double boolin = leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
         if (boolin != 0){
-        	ret = leaf.get(1).getExecute(VarMap, FunctMap, turtle);
+        	ret = leaf.get(1).getExecute(VarMap, FunctMap, turtleMap);
         }
         return ret;
     }
 
     @Override
-    public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
-        return this.getValue(VarMap, FunctMap, turtle);
+    public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
+        return this.getValue(VarMap, FunctMap, turtleMap);
     }
 }

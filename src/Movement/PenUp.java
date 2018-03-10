@@ -14,24 +14,26 @@ public class PenUp extends SlogoNode{
 //		this.val = getValue();
 //	}
 	
-	private void pen(Turtle turtle) {
-		turtle.penUp();
-	}
+	private void pen(Map<Integer, Turtle> turtleMap) {
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive()) {
+		turtleMap.get(n).penUp();
+	}}}
 	
 	public PenUp() {
 		numchildren = 0;
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
-		pen(turtle);
+		double step = getValue(VarMap, FunctMap, turtleMap);
+		pen(turtleMap);
 		return step;  //returns the final value of the node
 	}
 	
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		//TODO: Update according to Jamie's stuff
 		return 0;

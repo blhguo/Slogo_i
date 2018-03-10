@@ -1,5 +1,6 @@
 package Movement;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,24 +17,39 @@ public class Left extends SlogoNode{
 	public Left(){
 		numchildren = 1;
 	}
-	private void left(Turtle turtle, double angle) {
-		turtle.setHeading(turtle.getHeading() + angle); //TODO: Update according to Jamie's stuff
+	private void left(Map<Integer, Turtle> turtleMap, Map<Integer, Double> map) {
+		for (int n : turtleMap.keySet()) {
+			if (turtleMap.get(n).isActive()) {
+				turtleMap.get(n).setHeading(turtleMap.get(n).getHeading() + map.get(n)); //TODO: Update according to Jamie's stuff
+			}
+		}
 	}
 
 	@Override
-	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap,  Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
-		double step = getValue(VarMap, FunctMap, turtle);
-		left(turtle, step);
+        double step = 0;
+        HashMap<Integer, Double> map = new HashMap<>();
+        for (int n : turtleMap.keySet()) {
+            if (turtleMap.get(n).isActive()) {
+                VarMap.put("ID_RESERVED", (double) n);
+                step = getValue(VarMap, FunctMap, turtleMap);
+                map.put(n, step);
+            }
+        }
+//        for (Integer i : map.keySet()){
+//            System.out.println("Key: " + i + " Value: " + map.get(i));
+//        }
+		left(turtleMap, map);
 		return step;  //returns the final value of the node
 	}
 
 
 	@Override
-	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String,Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 		// TODO Auto-generated method stub
 		List<SlogoNode> leaf = this.getChildren();
-		return leaf.get(0).getExecute(VarMap, FunctMap, turtle);
+		return leaf.get(0).getExecute(VarMap, FunctMap, turtleMap);
 	}
 	
 }

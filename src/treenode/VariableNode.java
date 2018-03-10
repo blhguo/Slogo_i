@@ -20,24 +20,24 @@ public class VariableNode extends SlogoNode{
 		return this.variableName;
 	}
 	
-	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getExecute(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 
 		// TODO Auto-generated method stub
-		return getValue(VarMap, FunctMap, turtle);
+		return getValue(VarMap, FunctMap, turtleMap);
 	}
 
 	@Override
-	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Turtle turtle) {
+	public double getValue(Map<String, Double> VarMap, Map<String, SlogoNode> FunctMap, Map<Integer, Turtle> turtleMap) {
 //		// TODO Auto-generated method stub
 //		if (VarMap.containsKey(this.variableName) && this.numchildren!=0) {  //if key already exists
 //			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle));
 //		}else {
 //			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle)); //returns a default value of 0.0
 //		}
-		if (this.numchildren!=0) {  //if key already exists
-			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtle));
-		}
-		return VarMap.get(this.variableName); //obtains value from map
+//		if (this.getChildren().size()!=0) {  //if key already exists
+//			VarMap.put(this.variableName, this.getChildren().get(0).getValue(VarMap, FunctMap, turtleMap));
+//		}
+		return VarMap.getOrDefault(this.variableName, 0.0); //obtains value from map
 	}
 
 }
