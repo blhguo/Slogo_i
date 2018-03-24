@@ -11,7 +11,7 @@
 - Allow for a variety of front-end display elements displaying the status of all of these commands, i.e. variables, user-functions, turtle-statuses, and other data. 
 - Allow user to change preferences and turtle behavior graphically, via buttons and drop-down menus
 - Support programming in several languages beyond just English
-- Yo Brandon 
+
 ### How to Add New Features/Commands
 
 #### Adding a New Command to the Language:
