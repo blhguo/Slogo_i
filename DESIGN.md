@@ -11,7 +11,7 @@
 - Allow for a variety of front-end display elements displaying the status of all of these commands, i.e. variables, user-functions, turtle-statuses, and other data. 
 - Allow user to change preferences and turtle behavior graphically, via buttons and drop-down menus
 - Support programming in several languages beyond just English
-- 
+- Yo Brandon 
 ### How to Add New Features/Commands
 
 #### Adding a New Command to the Language:
@@ -19,7 +19,7 @@
 Adding a new command to the language has a range of possible difficulties and required changes.
 The following would be completely mandatory:
     - A new SlogoNode class which specifies the behavior of the SlogoNode on execution
-    - A small addition to the properties files with the new command's possible names as a string, and adaptations for differnet 
+    - A small addition to the properties files with the new command's possible names as a string, and adaptations for different languages.
 For a command which takes atypical arguments (i.e. something like dotimes, for, to, etc.), one might also need to make some changes to TreeBuilder because TreeBuilder uses the type of the parent SlogoNode to decide how to build the tree. 
 
 
@@ -53,9 +53,10 @@ The backend of our project consists of three main parts: The CommandFactory, the
     
 
 ### Assumptions to Simplify/Resolve Ambiguities
-
-#### Tell Command
     
-Our tell command creates all turtles with ids up to the value entered in a tell command. I.E. if a user enters tell [ 100 ] turtles 0-100 will be created. 
-
-#### 
+- Our tell command creates all turtles with ids up to the value entered in a tell command. I.E. if a user enters tell [ 100 ] turtles 0-100 will be created. 
+- Brackets are followed by and preceded by a space, e.g. [ x ]
+- All commands will have the necessary number of children, e.g. sum 10 will not be entered (error will be thrown)
+- Subclasses (Instances of a Command Node) will all properly implement the two methods getValue and getExecute, and any other methods will be private and internal
+- Every Command Node will exist within one of the currently existing packages; edits will need to be made to change that
+- User does not want the turtle off screen; currently the built in behavior is to cancel the movement that moves the turtle out of the window.
