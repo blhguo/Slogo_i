@@ -1,14 +1,14 @@
-####Estimation:
+###Estimation
 I think this feature will take approximately 1-2 hours to complete.
 I think I will only need to create two node classes, stamp and clearStamp, because of our use of the command factory pattern. I may need to update other classes that associate with the view of the turtles, but I'm not entirely sure because it has been a while since I've looked at this code.
 
 
-####Review
+###Review
 The new feature actually only took 20 minutes
 I needed to add 2 classes, one for the stamp node and one for the clearStamp node. I also updated the turtle class to create methods that add images to a list of stamped images. Then I update the SlogoView class in order to adjust these changes and display these stamped images. Lastly, I added the stamp and clearStamp command to the properties file, which is used as a reference of all possible commands.
 Surprisingly, I got this added feature correct on my 2nd try. It took some time to read through the code and become familiar with how it worked, but once I understood how we implemented the command node design pattern, the code was easily extended to add these new features.
 
-####Analysis
+###Analysis
 I was honestly surprised at how extensible our Slogo program was. Because we had used the command factory pattern to create classes that represented nodes of commands, the process of adding new commands to the project was fairly easy. I had originally thought that our Slogo code was not as clean and efficient as it could have been, but from this exercise, I realized that the design pattern truly made this challenge much easier because it only required creating a couple of node classes and adding additional methods to the view and the turtle class. 
 I think that a minor improvement could be adding sufficient documentation at each method and class. This would have helped me a lot, especially since I was fairly unfamiliar with much of the implementation from the front end. With sufficient explanation of how these classes work and interact with one another, I would have immediately known how and where to make changes.
 If I was not familiar with the code, the process would have taken longer, but I still think that because we used the command factory pattern, it would have been easy to make these new changes. Someone who is unfamiliar with the code would immediately notice that each command is represented by a class and that in order for someone to add a new command, they would need to extend a new command from the SlogoNode. Hooking up this command with turtle method API's that are called from the view would be a little tricky, but by looking at how other command nodes are utilized, one could easily figure out to connect all components to make this feature work. I personally looked at the PenDown Node and adapted the code to write both the ClearStamp and Stamp node classes. Because each class had a basic and clear structure, it was very easy for me to pick up from where I left off and add new features to my project.
