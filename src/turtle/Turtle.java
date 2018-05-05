@@ -60,7 +60,8 @@ public class Turtle implements Observable, Observer{
     public static final String INACT = "INACTIVE";
 	private String currentActive = INACTIVE;
 	private String whichString = "INACTIVE";
-
+	private List<ImageView> stampImages = new ArrayList<ImageView>();
+	
 	public String getCurrentActive() {
 		return currentActive;
 	}
@@ -213,6 +214,25 @@ public class Turtle implements Observable, Observer{
 	public double getHeading()
 	{
 		return heading;
+	}
+	
+	/**
+	 * Created new method to stamp image of turtle on page
+	 */
+	public void stamp() {
+		ImageView stamp = new ImageView(turtleview.getImage());
+		stamp.setLayoutX(turtleview.getLayoutX());
+		stamp.setLayoutY(turtleview.getLayoutY());
+		stampImages.add(stamp);
+		System.out.println(stampImages.size());
+	}
+	
+	public void clearStamps() {
+		stampImages.clear();
+	}
+	
+	public List<ImageView> getStamps() {
+		return stampImages;
 	}
 
 	public double isPenDown() {
