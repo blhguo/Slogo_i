@@ -52,7 +52,7 @@ public class CurrentState extends SceneElement implements Observable {
 		pane = getPane(text);
 		vbox = getVbox();
 		turtleList = new ArrayList<>();
-
+		getTurtleInfo(map);
 		//vbox.getChildren().add(pane);
 	}
 	

@@ -48,7 +48,6 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
         observers.add(o);
     }
     public void update(Object o){
-        //System.out.print(o.getClass().getTypeName());
         if (o.getClass().getTypeName().equals("javafx.scene.paint.Color")) {
             rectangle.setFill((Color) o);
         }

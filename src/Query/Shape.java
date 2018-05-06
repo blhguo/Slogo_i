@@ -34,7 +34,8 @@ public class Shape extends SlogoNode{
 			List<SlogoNode> leaf = this.getChildren();
 			for (int n : turtleMap.keySet()) {
 				if (turtleMap.get(n).isActive()) {
-			index = turtleMap.get(n).getShape();
+			//index = turtleMap.get(n).getShape();
+			index = 3;
 		}} return index;}
 	
 }

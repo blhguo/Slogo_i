@@ -39,11 +39,11 @@ public class Main extends Application implements Observer{
 		
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		simulation = new SlogoView();
+		simulation = new SlogoView(TurtleMap);
 		//mainStage=simulation.initializeStartScene(primaryStage);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(TITLE);
-		primaryStage.setScene(simulation.initializeStartScene(TurtleMap));
+		primaryStage.setScene(simulation.getMyScene());
 		primaryStage.show();
 		simulation.addObserver(this);
         variables = new HashMap<>();
@@ -63,12 +63,6 @@ public class Main extends Application implements Observer{
 
 	@Override
 	public void update(Object o) {
-	    //TODO Implement this backend stuff
-		//backend.pass(simulation.getPassValue(), (Turtle)o);
-		//System.out.println(simulation.getPassValue());
-		if (!TurtleMap.containsValue((Turtle) o)) {
-		TurtleMap.put(TurtleMap.size(), (Turtle) o);
-		}
 		TreeBuilder Builder = new TreeBuilder(variables, functions, TurtleMap);
 		CommandFactory factory = new CommandFactory(functions) {};
 		TreeReader reader = new TreeReader();
@@ -79,19 +73,7 @@ public class Main extends Application implements Observer{
         simulation.setConsole(reader.evaluate(Head, variables, functions, TurtleMap));
         simulation.updateScreen();
 		updateVarView();
-//		updateState();
-//		updatePalette();
 	}
-	
-//  private void buildStateMap(){
-//	states.put("Turtle ID", String.valueOf(turtle.getId()));
-//	states.put("Turtle Heading", String.valueOf(turtle.getHeading()));
-//	states.put("Turtle Position", String.valueOf(turtle.getLocation()));
-//	states.put("Pen Thickness", String.valueOf(turtle.thickness));
-//	states.put("Pen Size", String.valueOf(turtle.penSize));
-//	states.put("Pen Up", String.valueOf(turtle.isPenUp()));
-////	return states;
-//}
 	
     public static void openWebPage(String url) {
 	    try {
@@ -107,19 +89,6 @@ public class Main extends Application implements Observer{
 	public void updateVarView(){
 	    simulation.updateVarView(variables);
     }
-//	public void updateState(){
-//		simulation.update();
-//	}
-	/*
-	public ArrayList<Turtle> getActive(Map<Integer, Turtle> iliketurtles) {
-		ArrayList<Turtle> turtles = new ArrayList<Turtle>();
-		for (Map.Entry<Integer, Turtle> entry : TurtleMap.entrySet()) {
-			if (entry.getValue().isActive())
-			turtles.add(entry.getValue());
-		}
-		return turtles;
-	}
-	*/
 }
 
 

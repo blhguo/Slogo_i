@@ -26,12 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 public class SlogoView implements Observer, Observable{
-
-	/*
-	 * Make all constants public and static
-	 * no need to prevent state manipulation
-	 */
-	
 	/*
 	 * Constants relating to the characteristics of the main window as a whole
 	 */
@@ -81,24 +75,24 @@ public class SlogoView implements Observer, Observable{
 	public static final double STATEWIDTH = 1.7 / 7 * WINDOWWIDTH;
 	public static final double STATEHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
 	/*
-	 * Constants relating to the Palette Prompt section of the main window
+	 * Constants relating to the Palette section of the main window
 	 */
 	public static final double PALETTEX = CMDHISTORYWIDTH + TURTLEVIEWWIDTH;
 	public static final double PALETTEY = 1.0 / 10 * WINDOWHEIGHT + STATEHEIGHT;
 	public static final double PALETTEWIDTH = 1.7 / 7 * WINDOWWIDTH;
 	public static final double PALETTEHEIGHT = 4.5 / 10 * WINDOWHEIGHT;
-
-
+    /*
+     * Initial Turtle Location
+     */
+    public static final Point2D originalLoc = new Point2D(TURTLEVIEWX + TURTLEVIEWWIDTH / 2 - Turtle.TURTLESIZE / 2,
+    TURTLEVIEWY + TURTLEVIEWHEIGHT / 2 - Turtle.TURTLESIZE / 2);
 
 
 	/*
 	 * Local variables governing JavaFX objects in the main window
 	 */
 	private Group myRoot;
-	private Stage myStage;
 	private Scene myScene;
-
-
 	/*
 	 * Local SceneElement variables
 	 */
@@ -117,48 +111,36 @@ public class SlogoView implements Observer, Observable{
 	private List<SceneElement> sceneElements;
 	private List<Observer> observers;
 
-	public SlogoView(){
-		//constructor
-	}
-	/**
-     * Start the program.
-     */
-	public Scene initializeStartScene(Map<Integer, Turtle> TurtleMap) {
-	    turtles = TurtleMap;
+	public SlogoView(Map<Integer, Turtle> TurtleMap){
+		turtles = TurtleMap;
 		initializeDataStructures();
 		initializeSceneElements();
 		initializeObservers();
 		observers = new ArrayList<>();
-		Scene myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
+		myScene = initializeWindow(WINDOWHEIGHT, WINDOWWIDTH, BACKGROUND);
 		myScene.setOnKeyPressed(e -> quit(e.getCode()));
-		//addEventHandler for hovering over turtle
+	}
+	/**
+     * Get the starting scene, containing all SceneElements
+     */
+	public Scene getMyScene() {
 		return myScene;
 	}
-
 	private void quit(KeyCode code) {
 		if (code == KeyCode.Q){
 			System.exit(0);
 		}
 	}
-	
-
 	public String[] getPassValue() {
 		return myConsole.getPassValue();
 	}
 	private void initializeDataStructures() {
-//        turtles.add(new Turtle());
-        for (int i = 0; i<7; i++) {
-            turtles.put(i, new Turtle(new Point2D((i-3) * 40 + 575, new Turtle().getOriginalLocation().getY()), 5));
-        }
+        turtles.put(0, new Turtle(originalLoc, 5));
 		myCurrentState = new CurrentState(turtles);
         for (int i : turtles.keySet()){
         	turtles.get(i).setState(myCurrentState);
 		}
 	}
-
-
-
-
 	private void initializeObservers() {
     	for (SceneElement element: sceneElements){
     	    element.addObserver(this);
@@ -167,10 +149,15 @@ public class SlogoView implements Observer, Observable{
             myToolbar.addObserver(turtles.get(0));
     	}
 	}
-    public void setConsole(Double d){
+	/*
+	Sets the return value field of the Console to the
+	double value returned fro the back end in Main
+	 */
+	public void setConsole(Double d){
 	    myConsole.setLittleField(d.toString());
     }
-	private void initializeSceneElements() {
+
+    private void initializeSceneElements() {
         sceneElements = new ArrayList<>();
         myConsole = new Console(turtles);
         sceneElements.add(myConsole);
@@ -192,11 +179,10 @@ public class SlogoView implements Observer, Observable{
 		sceneElements.add(myCurrentState);
 		myPalette = new Palettes();
 		sceneElements.add(myPalette);
-		for (int i : turtles.keySet()){
-		    turtles.get(i).setState(myCurrentState);
-        }
 	}
-
+    /*
+    jlskdjfl
+     */
 	private Scene initializeWindow(int height, int width, Color background) {
 		Group root = new Group();
 		myRoot = root;
@@ -211,7 +197,7 @@ public class SlogoView implements Observer, Observable{
 		return retgroup;
 	}
 	public void update(Object o) {
-		if (o.getClass().equals(new Rectangle().getClass())){
+		if (o instanceof Rectangle){
 			for (int i : turtles.keySet()){
 				if (turtles.get(i).isPenUp()){
 				    turtles.get(i).penDown();
@@ -222,17 +208,7 @@ public class SlogoView implements Observer, Observable{
 			}
 			return;
 		}
-        myRoot.getChildren().removeAll(myRoot.getChildren());
-        for (SceneElement element : sceneElements) {
-            myRoot.getChildren().add(element.getField());
-        }
-        for (Integer i : turtles.keySet()) {
-            myRoot.getChildren().addAll(turtles.get(i).getLines());
-        }
-//        if (o.getClass().getTypeName().equals("java.lang.String")){
-//            getHostServices().showDocument((String)o);
-//        }
-
+        updateScreen();
         updateObservers();
 	}
 	public void updateScreen(){
@@ -240,40 +216,21 @@ public class SlogoView implements Observer, Observable{
 		for (SceneElement element : sceneElements){
 			myRoot.getChildren().add(element.getField());
 		}
-		//for (int i= 0; i<turtles.size();i++) {
         for (Integer i : turtles.keySet()) {
             myRoot.getChildren().addAll(turtles.get(i).getLines());
         }
-		//}
 	}
-
-
     @Override
     public void updateObservers() {
         for (Observer o : observers){
-//        		for (int i = 0; i< turtles.size();i++) {
 			o.update(turtles.get(0));
-//        		}
         }
     }
-
 	@Override
 	public void addObserver(Observer o) {
 		observers.add(o);
 	}
-
 	public void updateVarView(Map<String, Double> variables) {
 		myVariableView.updateVarView(variables);
 	}
-
-//	public void updateState() {
-//		myCurrentState.updateState();
-//	}
-	public void updatePalette(Map<String, String> palettes) {
-		myPalette.updatePalette(palettes);
-	}
-//	public void update() {
-//		myCurrentState.reset();
-////		myCurrentState.updateState();		
-//	}
 }

@@ -329,20 +329,6 @@ public class Turtle implements Observable, Observer{
 		lineColor = (Color)o;
 	}
 
-
-	public double getShape() {
-		// TODO Auto-generated method stub
-		for (int n = 0; n < turtleShapeMap.size(); n++) {
-			if (turtleShapeMap.get(n).equals(turtleShape)) {
-				return (double) n;
-			}
-		}
-		return 0;
-	}
-	public String turtleShape(){
-		return turtleShape.toString();
-	}
-
     public String getWhichString() {
         return whichString;
     }
