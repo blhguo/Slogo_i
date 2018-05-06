@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.print.StreamPrintService;
 /**
 *
 * Turtle holds knowledge about themselves that can be
@@ -60,7 +62,9 @@ public class Turtle implements Observable, Observer{
     public static final String INACT = "INACTIVE";
 	private String currentActive = INACTIVE;
 	private String whichString = "INACTIVE";
+	private List<ImageView> stamps = new ArrayList<ImageView>();
 
+	
 	public String getCurrentActive() {
 		return currentActive;
 	}
@@ -345,5 +349,17 @@ public class Turtle implements Observable, Observer{
 
     public String getWhichString() {
         return whichString;
+    }
+    
+    public void stamp() {
+    	ImageView stamp = new ImageView(turtleview.getImage());
+    	stamp.setLayoutX(turtleview.getLayoutX());
+		stamp.setLayoutY(turtleview.getLayoutY());
+    	stamps.add(stamp);
+    	
+    }
+    
+    public List<ImageView> getStamps() {
+    	return stamps;
     }
 }
