@@ -1,18 +1,24 @@
 package turtle;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import views.Observer;
 import views.SceneElements.CurrentState;
 import views.SceneElements.Observable;
 import views.SlogoView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,15 +60,16 @@ public class Turtle implements Observable, Observer{
     public Map<Integer, Color> turtleColorMap = new HashMap<Integer, Color>();
     public Map<Integer, Shape> turtleShapeMap = new HashMap<Integer, Shape>();
     public int turtleId;
-    public static final String INACTIVE = "turtle.png";
-    public static final String ACTIVE = "activeturtle.png";
+    public static final double INACTIVE = .3;
+    public static final double ACTIVE = 1;
     public static final String ACT = "ACTIVE";
     public static final String INACT = "INACTIVE";
-	private String currentActive = INACTIVE;
+	private double currentActive = INACTIVE;
 	private String whichString = "INACTIVE";
+	private final String TURTLEIMAGE = "turtle.png";
 
 	public String getCurrentActive() {
-		return currentActive;
+		return Double.toString(currentActive);
 	}
 
 	public boolean isActive() {
@@ -96,24 +103,47 @@ public class Turtle implements Observable, Observer{
 	    observers = new ArrayList<>();
 		this.currentpos = currentpos;
 		this.speed = speed;
-		Image turtle = new Image(currentActive, TURTLESIZE,TURTLESIZE,true,true);
+		Image turtle = new Image(TURTLEIMAGE, TURTLESIZE,TURTLESIZE,true,true);
 		turtleview = new ImageView(turtle);
 		turtleview.setLayoutX(this.currentpos.getX());
 		turtleview.setLayoutY(this.currentpos.getY());
-		turtleview.setOnMouseClicked(e -> toggleActive());
 		line = new Line();
 		lines = new ArrayList<>();
 		myPenUp = false;
 		isShowing = true;
-		isActive = false;
+		isActive = true;
 		turtleId = turtleColorMap.size() + 1;
 		penSize = 2;
 		penColor = Color.BLACK;
 		turtleShape = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);
+		turtleview.setOnMouseClicked(e -> {
+			if (e.getButton() == MouseButton.SECONDARY){
+				changeImageView();
+			}
+			else {
+				toggleActive();
+			}
+		});
 
 	}
-    public void setState(CurrentState c){
+
+	private void changeImageView() {
+
+			FileChooser chooser = new FileChooser();
+			chooser.setTitle("Choose a new Turtle Image File");
+			chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+			chooser.setInitialDirectory(new File("./images"));
+			File selectedFile = chooser.showOpenDialog(new Stage());
+			if (selectedFile != null) {
+				double turtleviewFitWidth = turtleview.getFitWidth();
+				double turtleviewFitHeight = turtleview.getFitHeight();
+				turtleview.setImage(new Image(selectedFile.getName(), TURTLESIZE, TURTLESIZE, false, true));
+
+			}
+	}
+
+	public void setState(CurrentState c){
 	    myState = c;
     }
     private void toggleActive() {
@@ -130,15 +160,8 @@ public class Turtle implements Observable, Observer{
 	        currentActive = INACTIVE;
 	        whichString = "INACTIVE";
         }
-        Image turtle = new Image(currentActive, TURTLESIZE,TURTLESIZE,true,true);
-        //turtleview = new ImageView(turtle);
-        turtleview.setImage(turtle);
-//        turtleview.setLayoutX(this.currentpos.getX());
-//        turtleview.setLayoutY(this.currentpos.getY());
-//        turtleview.setOnMouseClicked(e -> toggleActive());
-        //updateObservers();
-        //if (myState != null)
-            myState.refresh();
+        turtleview.setOpacity(currentActive);
+        myState.refresh();
     }
 
     /**
