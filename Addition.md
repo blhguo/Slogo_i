@@ -1,2 +1,7 @@
 Estimated 2 hours to add "stamps" and "clearstamps", given that no current impleentation exists on the turtle side or the TurtleView side, and no infrastructure exists there. 
 Minimum of 4 files will be changed: Turtleview/SlogoView (one of the two, not sure which one handles displaying), Turtle, and two new command node classes, one per command.
+
+Took about one hour to add, a little bit more to learn all of the javafx implementation.
+5 classes were changed. Turtle needed to be changed to add new functionality and new instance variables. Turtle display was changed to print turtles to screen, and slogoview was edited for the same purpose. Lastly, two new classes were written to accomodate the new commands. I did not get it completely right on the first try, mainly because I did not know where to add accomodations within Javafx and within the front-end. 
+The project was relatively poorly documented when I needed to learn new functionality (ie, Slogoview and updates, there are a lot of messy update functions). Something that could be improved are guidelines as to where to add code should a new feature be implemented. In other words, hints as to "this function/method is responsible for X feature"
+It would have been somewhat more difficult, but I think it would still be manageable because the backend is still relatively well-organized and clean. Someone with an understanding of inheritance hierarchy's and the tree-structure would struggle a little but not excessively. 
