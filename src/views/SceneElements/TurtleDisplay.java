@@ -16,6 +16,7 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
     private Rectangle rectangle;
     private List<Observer> observers;
     private Map<Integer, Turtle> turtles;
+    private Group stamps;
     public TurtleDisplay(Map<Integer, Turtle> turtles){
         rectangle = new Rectangle(SlogoView.TURTLEVIEWX, SlogoView.TURTLEVIEWY, SlogoView.TURTLEVIEWWIDTH,
                 SlogoView.TURTLEVIEWHEIGHT);
@@ -27,7 +28,16 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
         //loop to add turtles to the display.
         for (int i = 0; i<turtles.size(); i++) {
         	 turtles.get(i).addObserver(this);
+//     		for (int k : turtles.keySet()) {
+//    			if (turtles.get(k).isActive()) {
+//    				stamps.getChildren().addAll(turtles.get(k).getStamps());
+//    			}
+//    		}
         }
+    }
+    
+    public Group getStamps() {
+    	return stamps;
     }
     @Override
     public Group getField(){
@@ -36,6 +46,7 @@ public class TurtleDisplay extends SceneElement implements Observable, Observer 
         rectangle.toBack();
         for (Integer i : turtles.keySet()) {
             retgroup.getChildren().add(turtles.get(i).getImage());
+            //retgroup.getChildren().addAll(turtles.get(i).getStamps());
         }
         return retgroup;
     }

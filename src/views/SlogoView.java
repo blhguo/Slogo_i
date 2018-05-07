@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -195,14 +196,17 @@ public class SlogoView implements Observer, Observable{
 		for (int i : turtles.keySet()){
 		    turtles.get(i).setState(myCurrentState);
         }
+
 	}
 
 	private Scene initializeWindow(int height, int width, Color background) {
 		Group root = new Group();
 		myRoot = root;
 		root.getChildren().addAll(getElements());
+
 		return new Scene(root, width, height, background);
 	}
+	
 	private Group getElements(){
 		Group retgroup = new Group();
 		for (SceneElement element : sceneElements){
@@ -229,6 +233,16 @@ public class SlogoView implements Observer, Observable{
         for (Integer i : turtles.keySet()) {
             myRoot.getChildren().addAll(turtles.get(i).getLines());
         }
+        
+//        for (Integer i : turtles.keySet()) {
+//            List<ImageView> stampImages = turtles.get(i).getStamps();
+//            for (ImageView image : stampImages) {
+//            		myRoot.getChildren().add(image);
+//            		System.out.println("stuff");
+//            }
+//        }
+
+
 //        if (o.getClass().getTypeName().equals("java.lang.String")){
 //            getHostServices().showDocument((String)o);
 //        }
@@ -244,6 +258,12 @@ public class SlogoView implements Observer, Observable{
         for (Integer i : turtles.keySet()) {
             myRoot.getChildren().addAll(turtles.get(i).getLines());
         }
+        for (int i : turtles.keySet()) {
+			if (turtles.get(i).isActive()) {
+				myRoot.getChildren().addAll(turtles.get(i).getStamps());
+				System.out.println("success" + turtles.get(i).getStamps().size());
+			}
+		}
 		//}
 	}
 

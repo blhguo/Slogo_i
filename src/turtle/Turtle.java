@@ -60,6 +60,7 @@ public class Turtle implements Observable, Observer{
     public static final String INACT = "INACTIVE";
 	private String currentActive = INACTIVE;
 	private String whichString = "INACTIVE";
+	private List<ImageView> stamps = new ArrayList<ImageView>();
 
 	public String getCurrentActive() {
 		return currentActive;
@@ -346,4 +347,27 @@ public class Turtle implements Observable, Observer{
     public String getWhichString() {
         return whichString;
     }
+    
+    public void addStamp() {
+    	ImageView edit = new ImageView("turtle.png");
+    	edit.setFitWidth(50);
+    	edit.setFitHeight(50);
+       	System.out.println(edit);
+    	edit.setLayoutX(this.getLocation().getX());
+    	edit.setLayoutY(this.getLocation().getY());
+    	stamps.add(edit);
+    }
+    
+    public int removeStamps() {
+    	int k = 0;
+    	if (stamps.size() != 0)
+    		k = 1;
+    	stamps.clear();
+    	return k;
+    }
+    
+    public List<ImageView> getStamps() {
+    	return stamps;
+    }
+    
 }
